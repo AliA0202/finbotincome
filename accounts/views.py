@@ -6,21 +6,10 @@ from .serializers import UserSerializer
 from accounts.models import User
 import logging
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
-logger = logging.getLogger(__name__)
 
-# class SignupView(generics.CreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-#     permission_classes = [permissions.AllowAny]
-
-# class LoginView(APIView):
-#     def post(self, request):
-#         serializer = LoginSerializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         user = serializer.validated_data['user']
-#         # You can return a token or user data here
-#         return Response({"message": "Login successful", "username": user.username}, status=status.HTTP_200_OK)
 @api_view(['POST'])
 def SignupView(request):
     if request.method == 'POST':
@@ -30,15 +19,15 @@ def SignupView(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-@api_view(['POST'])
-def LoginView(request):
-    if request.method == 'POST':
-        username = request.data.get('username')
-        password = request.data.get('password')
-
-        user = authenticate(username=username, password=password)
-        if user:
-            token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
-
-        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+class LogoutView(APIView):
+    print("LogoutView called")
+    permission_classes = [IsAuthenticated]
+    for i in permission_classes:
+        print(i)
+    def post(self, request):
+        try:
+            request.user.auth_token.delete()
+            return Response({'message': 'با موفقت خروج صروت گرفت'}, status=status.HTTP_200_OK)
+        except Token.DoesNotExist:
+            print(request.user)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
