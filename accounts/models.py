@@ -17,7 +17,7 @@ class User(AbstractUser):
         ('N', 'عادی'),
     )
 
-    phone = models.CharField(max_length=11, blank=True, null=True)
+    phone = models.CharField(max_length=11, blank=True, null=True, validators=[Phone_Validator])
     image = models.ImageField(upload_to=upload_to, blank=True, null=True)
     user_type = models.CharField(max_length=1, choices=USER_TYPE_CHOICES, default="N")
 
