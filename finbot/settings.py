@@ -75,7 +75,7 @@ DATABASES = {
         'NAME': os.environ.get('DATABASE-NAME', 'finbotincome'),
         'USER': os.environ.get('DATABASE-USER', 'postgres'),
         'PASSWORD': os.environ.get('DATABASE-PASSWORD', 'Reza2001'),
-        'HOST': os.environ.get('DATABASE-HOST', 'db'),
+        'HOST': os.environ.get('DATABASE-HOST', 'localhost'),
         'PORT': os.environ.get('DATABASE-PORT', '5432')
     }
 }
