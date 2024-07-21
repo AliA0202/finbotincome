@@ -20,10 +20,7 @@ def SignupView(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class LogoutView(APIView):
-    print("LogoutView called")
     permission_classes = [IsAuthenticated]
-    for i in permission_classes:
-        print(i)
     def post(self, request):
         try:
             request.user.auth_token.delete()
