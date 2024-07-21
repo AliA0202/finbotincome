@@ -7,6 +7,7 @@ services:
     volumes:
       - ./:/usr/src/app/
       - static:/usr/src/app/static
+      - Media:/usr/src/app/Media
     expose:
       - 8000
     depends_on:
@@ -28,8 +29,10 @@ services:
     depends_on:
       - web
     volumes:
-      - static:/static:ro
+      - static:/static
+      - Media:/Media
 
 volumes:
+  Media:
   static:
   postgres_data:

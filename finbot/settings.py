@@ -31,8 +31,10 @@ INSTALLED_APPS = [
     'main',
     'payment',
     'telegram',
+    'blog',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -40,11 +42,12 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'finbot.urls'
 
 TEMPLATES = [
@@ -75,13 +78,13 @@ DATABASES = {
         'NAME': os.environ.get('DATABASE-NAME', 'finbotincome'),
         'USER': os.environ.get('DATABASE-USER', 'postgres'),
         'PASSWORD': os.environ.get('DATABASE-PASSWORD', 'Reza2001'),
-        'HOST': os.environ.get('DATABASE-HOST', 'localhost'),
+        'HOST': os.environ.get('DATABASE-HOST', 'db'),
         'PORT': os.environ.get('DATABASE-PORT', '5432')
     }
 }
 
 CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ["https://finbotincome.com", "https://*.finbotincome.com", "https://*.finbotincome.com", "https://www.finbotincome.com", "https://127.0.0.1", "http://127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:1337"]
 
 
 # Password validation
@@ -118,8 +121,8 @@ STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static/')
 ]
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = 'Media/'
+MEDIA_ROOT = BASE_DIR / 'Media'
 
 
 
@@ -146,3 +149,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
 }
+
+
