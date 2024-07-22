@@ -3,6 +3,7 @@ import datetime
 from accounts.models import User
 from django.core.exceptions import ValidationError
 import string
+from django.utils.text import slugify
 
 class BlogCategory(models.Model):
     title = models.CharField(max_length=255, unique=True)
@@ -31,6 +32,7 @@ def contains_illegal(s):
     return False
 class BlogPost(models.Model):
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, blank=True, null=True, allow_unicode=True)
     image = models.ImageField(upload_to="blog/BlogPost/", blank=True, null=True)
     caption = models.CharField(max_length=5000)
     category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE)
@@ -41,6 +43,18 @@ class BlogPost(models.Model):
     class Meta:
         verbose_name = 'پُست'
         verbose_name_plural = 'پُست ها'
+    
+    def save(self, *args, **kwargs):
+        print(slugify(self.title))
+        if not self.slug:
+            self.slug = slugify(self.title, allow_unicode=True)
+            original_slug = self.slug
+            counter = 1
+            while BlogPost.objects.filter(slug=self.slug).exists():
+                self.slug = f"{original_slug}-{counter}"
+                counter += 1
+        super().save(*args, **kwargs)
+
 
 class BlogComments(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
