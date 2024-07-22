@@ -1,17 +1,17 @@
-from django.contrib.auth import authenticate
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
-from blog.serializers import CategorySerializer
 from rest_framework import generics
-from blog.models import BlogCategory, BlogPost, BlogComments
+from blog.models import BlogPost
 from blog.serializers import CategorySerializer, PostSerializer
-
+from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 class PostView(generics.RetrieveAPIView):
     queryset = BlogPost.objects.all()
     serializer_class = PostSerializer
     lookup_field = 'slug'
+
+class BlogPostListView(generics.ListAPIView):
+    queryset = BlogPost.objects.all()
+    serializer_class = PostSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['category']
+    search_fields = ['title']
