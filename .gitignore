@@ -12,4 +12,6 @@ main/__init__.py
 main/__pycache__
 finbot/__init__.py
 finbot/__pycache__
+blog/migrations
+accounts/migrations
 env/

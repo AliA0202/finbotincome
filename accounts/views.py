@@ -1,14 +1,12 @@
-from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UserSerializer
-from accounts.models import User
-import logging
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.generics import RetrieveUpdateAPIView
+from accounts.models import User
 
 @api_view(['POST'])
 def SignupView(request):
@@ -26,5 +24,11 @@ class LogoutView(APIView):
             request.user.auth_token.delete()
             return Response({'message': 'با موفقت خروج صروت گرفت'}, status=status.HTTP_200_OK)
         except Token.DoesNotExist:
-            print(request.user)
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class EditProfileView(RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
