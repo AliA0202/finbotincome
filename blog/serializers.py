@@ -10,7 +10,8 @@ class CategorySerializer(serializers.ModelSerializer):
 class BlogPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
-        fields = ('id', 'title', 'slug', 'caption', 'content','category', 'published_at','is_promoted', 'is_free', 'tag')
+        fields = ('id', 'title', 'slug', "banner", 'caption', 'content',
+                  'category', 'published_at','is_promoted', 'is_free', 'tag')
 
 class PostImagesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,4 +37,4 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         fields = ('id', 'title', 'slug', 'caption', 'content','category', 'published_at',
-                  'is_promoted', 'is_free', 'tag', 'videos','images', 'comments')
+                  "banner", 'is_promoted', 'is_free', 'tag', 'videos','images', 'comments')

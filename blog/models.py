@@ -41,6 +41,7 @@ class BlogPost(models.Model):
     is_promoted = models.BooleanField(default=False)
     is_free = models.BooleanField(default=False)
     content = models.TextField(blank=True)
+    banner = models.ImageField(upload_to="blog/postBanner/")
 
     class Meta:
         verbose_name = 'پُست'
