@@ -15,3 +15,4 @@ finbot/__pycache__
 blog/migrations
 accounts/migrations
 env/
+.env

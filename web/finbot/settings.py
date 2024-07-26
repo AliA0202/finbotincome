@@ -9,12 +9,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1=we)6d8*=vc0*lim=5o=+yv!pnx+ru#whn2hk#e*zme#)+^z='
+#SECRET_KEY = 'django-insecure-1=we)6d8*=vc0*lim=5o=+yv!pnx+ru#whn2hk#e*zme#)+^z='
+
+try:
+    SECRET_KEY = os.environ["SECRET_KEY"]
+except KeyError as e:
+    raise RuntimeError("Could not find a SECRET_KEY in environment") from e
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -72,15 +77,16 @@ WSGI_APPLICATION = 'finbot.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DATABASE-NAME', 'finbotincome'),
-        'USER': os.environ.get('DATABASE-USER', 'postgres'),
-        'PASSWORD': os.environ.get('DATABASE-PASSWORD', 'Reza2001'),
-        'HOST': os.environ.get('DATABASE-HOST', 'db'),
-        'PORT': os.environ.get('DATABASE-PORT', '5432')
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE"),
+        "NAME": os.environ.get("SQL_DATABASE"),
+        "USER": os.environ.get("SQL_USER"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD"),
+        "HOST": os.environ.get("SQL_HOST"),
+        "PORT": os.environ.get("SQL_PORT"),
     }
 }
+
 
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:1337"]
@@ -121,7 +127,7 @@ STATICFILES_DIR = [
 ]
 
 MEDIA_URL = 'Media/'
-MEDIA_ROOT = BASE_DIR / 'Media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'Media/')
 
 
 
