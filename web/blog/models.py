@@ -32,16 +32,16 @@ def validate_tags(value):
             raise ValidationError("تگ ها باید بدون فاصله وارد شده و با استفاده از ـ جدا شوند")
         
 class BlogPost(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, verbose_name="عنوان")
     slug = models.SlugField(max_length=255, blank=True, null=True, allow_unicode=True)
-    caption = models.CharField(max_length=5000)
-    category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE)
-    published_at = models.DateTimeField(auto_now_add=True)
-    tag = models.CharField(max_length=500, null=True, validators=[validate_tags])
-    is_promoted = models.BooleanField(default=False)
-    is_free = models.BooleanField(default=False)
-    content = models.TextField(blank=True)
-    banner = models.ImageField(upload_to="blog/postBanner/")
+    caption = models.CharField(max_length=5000, verbose_name="توضیحات کوتاه")
+    category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE, verbose_name="دسته بندی")
+    published_at = models.DateTimeField(auto_now_add=True, verbose_name="منتشر شده در")
+    tag = models.CharField(max_length=500, null=True, validators=[validate_tags], verbose_name="تگ (با '_' جدا می شوند)")
+    is_promoted = models.BooleanField(default=False, verbose_name="انتشار در صفحه اصلی")
+    is_free = models.BooleanField(default=False, verbose_name="پست ویژه")
+    content = models.TextField(blank=True, verbose_name="توضیحات")
+    banner = models.ImageField(upload_to="blog/postBanner/", verbose_name="بنر پست")
 
     class Meta:
         verbose_name = 'پُست'
@@ -73,17 +73,27 @@ class BlogComments(models.Model):
         verbose_name_plural = 'نظرات'
 
 class PostVideos(models.Model):
-    post = models.ForeignKey(BlogPost, related_name="videos", on_delete=models.CASCADE)
-    video = models.FileField(upload_to="blog/PostContent/video/")
+    post = models.ForeignKey(BlogPost, related_name="videos", on_delete=models.CASCADE, verbose_name="پست")
+    video = models.FileField(upload_to="blog/PostContent/video/", verbose_name="فایل")
 
     def __str__(self):
         return self.video
 
+
+    class Meta:
+        verbose_name = 'فایل ها'
+        verbose_name_plural = 'فایل ها'
+
+
 class PostImages(models.Model):
-    post = models.ForeignKey(BlogPost, related_name="images", on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="blog/PostContent/video/")
+    post = models.ForeignKey(BlogPost, related_name="images", on_delete=models.CASCADE, verbose_name="پست")
+    image = models.ImageField(upload_to="blog/PostContent/video/", verbose_name="تصویر")
 
     def __str__(self):
         return self.image
+    
+    class Meta:
+        verbose_name = 'تصاویر'
+        verbose_name_plural = 'تصاویر'
     
 

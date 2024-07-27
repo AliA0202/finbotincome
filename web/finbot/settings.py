@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'accounts',
     'main',
     'blog',
+    'payment',
+    'telegram',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
