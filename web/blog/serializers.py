@@ -1,6 +1,7 @@
 from blog.models import BlogCategory, BlogPost, BlogComments, PostImages, PostVideos
 from rest_framework import serializers
 from django.contrib.auth import authenticate
+from rest_framework.reverse import reverse
     
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,10 +9,13 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('title', 'image')
 
 class BlogPostSerializer(serializers.ModelSerializer):
+    absolute_url = serializers.SerializerMethodField()
     class Meta:
         model = BlogPost
         fields = ('id', 'title', 'slug', "banner", 'caption', 'content',
                   'category', 'published_at','is_promoted', 'is_free', 'tag')
+    def get_absolute_url(self, obj):
+        return reverse('blog/posts/',args=(obj.slug,))
 
 class PostImagesSerializer(serializers.ModelSerializer):
     class Meta:
