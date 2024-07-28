@@ -13,9 +13,9 @@ class BlogPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         fields = ('id', 'title', 'slug', "banner", 'caption', 'content',
-                  'category', 'published_at','is_promoted', 'is_free', 'tag')
+                  'category', 'published_at','is_promoted', 'is_free', 'tag', 'absolute_url')
     def get_absolute_url(self, obj):
-        return reverse('blog/posts/',args=(obj.slug,))
+        return reverse('BlogPost',args=(obj.slug,))
 
 class PostImagesSerializer(serializers.ModelSerializer):
     class Meta:
