@@ -17,23 +17,23 @@ web/accounts/migrations
 env/
 .env
 
-/front_finbotincome/node_modules
-/front_finbotincome/.pnp
-/front_finbotincome/.pnp.js
+/front/node_modules
+/front/.pnp
+/front/.pnp.js
 
 # testing
-/front_finbotincome/coverage
+/front/coverage
 
 # production
-/front_finbotincome/build
+/front/build
 
 # misc
-/front_finbotincome/.DS_Store
-/front_finbotincome/.env.local
-/front_finbotincome/.env.development.local
-/front_finbotincome/.env.test.local
-/front_finbotincome/.env.production.local
+/front/.DS_Store
+/front/.env.local
+/front/.env.development.local
+/front/.env.test.local
+/front/.env.production.local
 
-/front_finbotincome/npm-debug.log*
-/front_finbotincome/yarn-debug.log*
-/front_finbotincome/yarn-error.log*
+/front/npm-debug.log*
+/front/yarn-debug.log*
+/front/yarn-error.log*
