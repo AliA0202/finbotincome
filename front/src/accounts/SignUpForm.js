@@ -1,9 +1,9 @@
 import React from "react";
 import PasswordStr from "./PasswordStr";
 import "./style.css";
+import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = ({
-    history,
     onSubmit,
     onChange,
     errors,
@@ -14,6 +14,7 @@ const SignUpForm = ({
     pwMask,
     onPwChange
 }) => {
+    const navigate = useNavigate();
     return (
         <div className="loginBox">
             <h1>Sign Up</h1>
@@ -73,7 +74,7 @@ const SignUpForm = ({
             </form>
             <p>
                 Aleady have an account? <br />
-                <a href="/">Log in here</a>
+                <a href={navigate("/login")}>Log in here</a>
             </p>
         </div>
     );

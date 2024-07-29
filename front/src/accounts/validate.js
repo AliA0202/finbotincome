@@ -58,7 +58,6 @@ const validateSignUpForm = payload => {
 };
 
 const validateLoginForm = payload => {
-  const errors = {};
   let message = "";
   let isFormValid = true;
 
@@ -68,7 +67,7 @@ const validateLoginForm = payload => {
     payload.username.trim().length === 0
   ) {
     isFormValid = false;
-    errors.username = "Please provide your user name.";
+    message += "لطفا نام کاربری را وارد کنید";
   }
 
   if (
@@ -77,17 +76,14 @@ const validateLoginForm = payload => {
     payload.password.trim().length === 0
   ) {
     isFormValid = false;
-    errors.password = "Please provide your password.";
+    message += "لطفا رمز عبور را وارد کنید";
   }
 
-  if (!isFormValid) {
-    message = "Check the form for errors.";
-  }
+
 
   return {
     success: isFormValid,
     message,
-    errors
   };
 };
 

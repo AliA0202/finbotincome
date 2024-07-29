@@ -5,6 +5,7 @@ const FormValidators = require("./validate.js");
 const validateSignUpForm = FormValidators.validateSignUpForm;
 const zxcvbn = require("zxcvbn");
 
+
 class SignUpContainer extends Component {
   constructor(props) {
     super(props);
@@ -73,7 +74,7 @@ class SignUpContainer extends Component {
         if (res.data.success === true) {
           localStorage.token = res.data.token;
           localStorage.isAuthenticated = true;
-          window.location.reload();
+          this.props.history.push("/");
         } else {
           this.setState({
             errors: { message: res.data.message }
