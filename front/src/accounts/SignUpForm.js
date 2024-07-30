@@ -1,46 +1,49 @@
 import React from "react";
 import PasswordStr from "./PasswordStr";
 import "./style.css";
-import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = ({
     onSubmit,
-    onChange,
-    errors,
-    user,
+    username,
+    password,
+    email,
+    phone,
+    pwconfirm,
     score,
     btnTxt,
     type,
     pwMask,
-    onPwChange
+    onPwChange,
+    onPhoneChange,
+    onUsrChange,
+    onEmailChange,
+    passBtn
 }) => {
-    const navigate = useNavigate();
     return (
         <div className="loginBox">
             <h1>Sign Up</h1>
-            {errors.message && <p style={{ color: "red" }}>{errors.message}</p>}
             <form onSubmit={onSubmit}>
                 <label>
                     username:
-                    <input type="text" name="username" value={user.username} onChange={onChange} />
+                    <input type="text" name="username" value={username} onChange={onUsrChange} />
                 </label>
                 <br/>
                 <br/>
                 <label>
                     phone number:
-                    <input type="text" name="phone" value={user.phone} onChange={onChange} />
+                    <input type="text" name="phone" value={phone} onChange={onPhoneChange} />
                 </label>
                <br/>
                <br/>
                 <label>
                     email:
-                    <input type="email" name="email" value={user.email} onChange={onChange} />
+                    <input type="email" name="email" value={email} onChange={onEmailChange} />
                 </label>
                 <br/>
                 <br/>
                 <label>
                     password:
-                    <input type={type} name="password" value={user.password} onChange={onPwChange} />
+                    <input type={passBtn.type} name="password" value={password} onChange={onPwChange} />
                 </label>
                 <br/>
                 <br/>
@@ -52,7 +55,7 @@ const SignUpForm = ({
                                 className="pwShowHideBtn"
                                 onClick={pwMask}
                                 style={{ position: 'relative', left: '50%', transform: 'translateX(-50%)' }}>
-                                {btnTxt}
+                                {passBtn.btnTxt}
                             </button>
                         </div>
                     )}
@@ -61,7 +64,7 @@ const SignUpForm = ({
                 <br/>
                 <label>
                     password:
-                    <input type={type} name="pwconfirm" value={user.pwconfirm} onChange={onPwChange} />
+                    <input type={type} name="pwconfirm" value={pwconfirm} onChange={onPwChange} />
                 </label>
 
                 <br />
@@ -74,7 +77,7 @@ const SignUpForm = ({
             </form>
             <p>
                 Aleady have an account? <br />
-                <a href={navigate("/login")}>Log in here</a>
+                <a href="http://127.0.0.1:3000/login">Log in here</a>
             </p>
         </div>
     );

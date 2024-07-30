@@ -1,56 +1,51 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from 'axios';
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import LoginForm from "./LoginForm.js";
 const FormValidators = require("./validate.js");
 const validateLoginForm = FormValidators.validateLoginForm;
 
 const Login = () => {
-    const navigate =useNavigate();
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    function handleNameChange(event){
+    function handleNameChange(event) {
         setUsername(event.target.value);
     };
-    function handlePassChange(event){
+    function handlePassChange(event) {
         setPassword(event.target.value);
     }
 
-    function submitLogin(){
-        let params = {username: username, password: password}
+    function submitLogin() {
+        let params = { username: username, password: password }
         axios
             .post("http://127.0.0.1:1337/accounts/login/", params)
             .then(res => {
-                if (res.status === 200){
-                    localStorage.token = res.data.token;
-                    localStorage.isAuthenticated = true;
-                    navigate("/");
-                }
-                else{
-                    window.alert(res.data)
-                }
+                localStorage.token = res.data.token;
+                localStorage.isAuthenticated = true;
+                navigate("/");
             })
-            .catch(error =>{
+            .catch(error => {
                 if (error.response) {
-                    alert(error.response.data.non_field_errors); 
-                  } else if (error.request) {
+                    alert(error.response.data.non_field_errors);
+                } else if (error.request) {
                     console.log(error.request);
-                  } else {
+                } else {
                     console.log('Error', error.message);
-                  }
+                }
             }
             )
     }
 
     function validateForm(event) {
-        
+
         event.preventDefault();
-        let payload = validateLoginForm({username, password});
-        if(payload.success){
+        let payload = validateLoginForm({ username, password });
+        if (payload.success) {
             submitLogin();
         }
-        else{
+        else {
             let error = payload.message;
             window.alert(error);
         }
@@ -59,14 +54,14 @@ const Login = () => {
     return (
         <div>
             <LoginForm
-            onSubmit={validateForm}
-            onUNChange={handleNameChange}
-            onPWChange={handlePassChange}
-            username={username}
-            password={password}
+                onSubmit={validateForm}
+                onUNChange={handleNameChange}
+                onPWChange={handlePassChange}
+                username={username}
+                password={password}
             />
         </div>
     )
-}   
+}
 
 export default Login;

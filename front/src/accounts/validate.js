@@ -1,7 +1,6 @@
 const validator = require("validator");
 
 const validateSignUpForm = payload => {
-  const errors = {};
   let message = "";
   let isFormValid = true;
 
@@ -11,7 +10,7 @@ const validateSignUpForm = payload => {
     payload.username.trim().length === 0
   ) {
     isFormValid = false;
-    errors.username = "Please provide a user name.";
+    message = "Please provide a user name.";
   }
 
   if (
@@ -20,7 +19,7 @@ const validateSignUpForm = payload => {
     !isValidPhoneNumber(payload.phone)
   ) {
     isFormValid = false;
-    errors.phone = "Please provide a valid Iranian phone number.";
+    message= "Please provide a valid Iranian phone number.";
   }  
 
   if (
@@ -29,7 +28,7 @@ const validateSignUpForm = payload => {
     !validator.isEmail(payload.email)
   ) {
     isFormValid = false;
-    errors.email = "Please provide a correct email address.";
+    message = "Please provide a correct email address.";
   }
 
   if (
@@ -38,22 +37,17 @@ const validateSignUpForm = payload => {
     payload.password.trim().length < 8
   ) {
     isFormValid = false;
-    errors.password = "Password must have at least 8 characters.";
+    message = "Password must have at least 8 characters.";
   }
 
   if (!payload || payload.pwconfirm !== payload.password) {
     isFormValid = false;
-    errors.pwconfirm = "Password confirmation doesn't match.";
-  }
-
-  if (!isFormValid) {
-    message = "Check the form for errors.";
+    message = "Password confirmation doesn't match.";
   }
 
   return {
     success: isFormValid,
-    message,
-    errors
+    message
   };
 };
 

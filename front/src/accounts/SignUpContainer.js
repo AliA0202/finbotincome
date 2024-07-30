@@ -1,140 +1,110 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import SignUpForm from "./SignUpForm.js";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom"
 const FormValidators = require("./validate.js");
 const validateSignUpForm = FormValidators.validateSignUpForm;
 const zxcvbn = require("zxcvbn");
 
 
-class SignUpContainer extends Component {
-  constructor(props) {
-    super(props);
+function SignUpContainer() {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [pwconfirm, setPwconfirm] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [score, setScore] = useState("0");
+  const [passBtn, setPassBtn] = useState({btnTxt: "show", type: "password"});
 
-    this.state = {
-      errors: {},
-      user: {
-        phone: "",
-        username: "",
-        email: "",
-        password: "",
-        pwconfirm: ""
-      },
-      btnTxt: "show",
-      type: "password",
-      score: "0"
-    };
 
-    this.pwMask = this.pwMask.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.submitSignup = this.submitSignup.bind(this);
-    this.validateForm = this.validateForm.bind(this);
-    this.pwHandleChange = this.pwHandleChange.bind(this);
+
+  function handleNameChange(event) {
+    setUsername(event.target.value);
+    setPwconfirm()
+  }
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+  }
+  function handlePhoneChange(event) {
+    setPhone(event.target.value);
   }
 
-  handleChange(event) {
-    const field = event.target.name;
-    const user = this.state.user;
-    user[field] = event.target.value;
-
-    this.setState({
-      user
-    });
-  }
-
-  pwHandleChange(event) {
-    const field = event.target.name;
-    const user = this.state.user;
-    user[field] = event.target.value;
-
-    this.setState({
-      user
-    });
-
+  function pwHandleChange(event) {
+    if(event.target.name === "pwconfirm") {
+      setPwconfirm(event.target.value);
+    }
+    else {
+      setPassword(event.target.value);
+    }
     if (event.target.value === "") {
-      this.setState(state =>
-        Object.assign({}, state, {
-          score: "null"
-        })
-      );
+      setScore(null);
     } else {
-      var pw = zxcvbn(event.target.value);
-      this.setState(state =>
-        Object.assign({}, state, {
-          score: pw.score + 1
-        })
-      );
+      let pw = zxcvbn(event.target.value);
+      setScore(pw.score + 1);
     }
   }
 
-  submitSignup(user) {
-    var params = { username: user.usr, password: user.pw, email: user.email, phone: user.phone };
+  function submitSignup() {
+    var params = { username: username, password: password, email: email, phone: phone };
     axios
       .post("http://127.0.0.1:1337/accounts/signup/", params)
       .then(res => {
-        if (res.data.success === true) {
-          localStorage.token = res.data.token;
-          localStorage.isAuthenticated = true;
-          this.props.history.push("/");
-        } else {
-          this.setState({
-            errors: { message: res.data.message }
-          });
-        }
+        localStorage.token = res.data.token;
+        localStorage.isAuthenticated = true;
+        navigate("/");
       })
-      .catch(err => {
-        console.log("Sign up data submit error: ", err);
+      .catch(error => {
+        if (error.response) {
+            alert(error.response.data.non_field_errors);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
       });
   }
 
-  validateForm(event) {
+  function validateForm(event) {
     event.preventDefault();
-    var payload = validateSignUpForm(this.state.user);
+    let payload = validateSignUpForm({ username, password, email, phone , pwconfirm });
     if (payload.success) {
-      this.setState({
-        errors: {}
-      });
-      var user = {
-        usr: this.state.user.username,
-        pw: this.state.user.password,
-        email: this.state.user.email,
-        phone: this.state.user.phone
-      };
-      this.submitSignup(user);
-    } else {
-      const errors = payload.errors;
-      this.setState({
-        errors
-      });
+        submitSignup();
+    } 
+    else {
+      let error = payload.message;
+      window.alert(error);
     }
   }
 
-  pwMask(event) {
+  function pwMask(event) {
     event.preventDefault();
-    this.setState(state =>
-      Object.assign({}, state, {
-        type: this.state.type === "password" ? "input" : "password",
-        btnTxt: this.state.btnTxt === "show" ? "hide" : "show"
-      })
+    setPassBtn(
+        passBtn.type= passBtn.type === "password" ? "input" : "password",
+        passBtn.btnTxt= passBtn.btnTxt === "show" ? "hide" : "show"
     );
   }
 
-  render() {
-    return (
-      <div>
-        <SignUpForm
-          onSubmit={this.validateForm}
-          onChange={this.handleChange}
-          onPwChange={this.pwHandleChange}
-          errors={this.state.errors}
-          user={this.state.user}
-          score={this.state.score}
-          btnTxt={this.state.btnTxt}
-          type={this.state.type}
-          pwMask={this.pwMask}
-        />
-      </div>
-    );
-  }
+
+  return (
+    <div>
+      <SignUpForm
+        onSubmit={validateForm}
+        onUsrChange={handleNameChange}
+        onEmailChange={handleEmailChange}
+        onPhoneChange={handlePhoneChange}
+        onPwChange={pwHandleChange}
+        score={score}
+        pwMask={pwMask}
+        pwconfirm={pwconfirm}
+        username={username}
+        password={password}
+        email={email}
+        phone={phone}
+        passBtn={passBtn}
+      />
+    </div>
+  );
 }
 
 export default SignUpContainer;
