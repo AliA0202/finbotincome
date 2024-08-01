@@ -48,7 +48,7 @@ function SignUpContainer() {
   function submitSignup() {
     var params = { username: username, password: password, email: email, phone: phone };
     axios
-      .post("http://127.0.0.1:1337/accounts/signup/", params)
+      .post("http://127.0.0.1:1337/api/accounts/signup/", params)
       .then(res => {
         localStorage.token = res.data.token;
         localStorage.isAuthenticated = true;

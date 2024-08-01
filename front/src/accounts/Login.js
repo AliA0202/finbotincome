@@ -20,7 +20,7 @@ const Login = () => {
     function submitLogin() {
         let params = { username: username, password: password }
         axios
-            .post("http://127.0.0.1:1337/accounts/login/", params)
+            .post("http://127.0.0.1:1337/api/accounts/login/", params)
             .then(res => {
                 localStorage.token = res.data.token;
                 localStorage.isAuthenticated = true;
