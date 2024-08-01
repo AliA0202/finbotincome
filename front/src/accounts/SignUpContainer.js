@@ -12,6 +12,8 @@ function SignUpContainer() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [pwconfirm, setPwconfirm] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [score, setScore] = useState("0");
@@ -28,6 +30,12 @@ function SignUpContainer() {
   }
   function handlePhoneChange(event) {
     setPhone(event.target.value);
+  }
+  function handleFirstNameChange(event){
+    setFirstName(event.target.value)
+  }
+  function handleLastNameChange(event){
+    setLastName(event.target.value)
   }
 
   function pwHandleChange(event) {
@@ -46,7 +54,7 @@ function SignUpContainer() {
   }
 
   function submitSignup() {
-    var params = { username: username, password: password, email: email, phone: phone };
+    var params = { username: username, password: password, email: email, phone: phone , last_name: lastName, first_name: firstName};
     axios
       .post("http://127.0.0.1:1337/api/accounts/signup/", params)
       .then(res => {
@@ -102,6 +110,10 @@ function SignUpContainer() {
         email={email}
         phone={phone}
         passBtn={passBtn}
+        firstName={firstName}
+        lastName={lastName}
+        onLNchange = {handleLastNameChange}
+        onFNchange = {handleFirstNameChange}
       />
     </div>
   );

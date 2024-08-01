@@ -17,7 +17,11 @@ const SignUpForm = ({
     onPhoneChange,
     onUsrChange,
     onEmailChange,
-    passBtn
+    passBtn,
+    firstName,
+    lastName,
+    onLNchange,
+    onFNchange
 }) => {
     return (
         <div className="loginBox">
@@ -38,6 +42,18 @@ const SignUpForm = ({
                 <label>
                     email:
                     <input type="email" name="email" value={email} onChange={onEmailChange} />
+                </label>
+                <br/>
+                <br/>
+                <label>
+                    نام:
+                    <input type="text" name="first_name" value={firstName} onChange={onFNchange} />
+                </label>
+                <br/>
+                <br/>
+                <label>
+                    نام‌خانوادگی:
+                    <input type="text" name="last_name" value={lastName} onChange={onLNchange} />
                 </label>
                 <br/>
                 <br/>
