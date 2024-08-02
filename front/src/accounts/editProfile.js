@@ -8,19 +8,22 @@ const EditProfile = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [image, setImage] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://127.0.0.1:1337/api/accounts/edit-profile/", {
+                const response = await axios.get("http://127.0.0.1/api/accounts/edit-profile/", {
                     headers: {
-                        'Authorization': `Token ${token}`
+                        'Authorization': `Token ${localStorage.getItem('token')}`
                     }
                 });
                 setFirstName(response.data.first_name);
                 setLastName(response.data.last_name);
-                setImage(response.data.image)
+                if (response.data.image) {
+                    setImageUrl(response.data.image)
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -38,17 +41,24 @@ const EditProfile = () => {
         setLastName(event.target.value)
     }
     function handleImageChange(event) {
-        const file = event.target.files[0];
-        setImage(URL.createObjectURL(file));
+        if (event.target.files.length ) {
+            const file = event.target.files[0];
+            const url = URL.createObjectURL(file);
+            setImage(file);
+            setImageUrl(url);
+        }
     };
 
-    function submitProfile() {
+    function submitProfile(event) {
+        event.preventDefault();
         var params = { last_name: lastName, first_name: firstName, image: image };
         axios
-            .patch("http://127.0.0.1:1337/api/accounts/edit-profile/", params)
+            .patch("http://127.0.0.1/api/accounts/edit-profile/", params, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }})
             .then(res => {
-                localStorage.token = res.data.token;
-                localStorage.isAuthenticated = true;
                 navigate("/");
             })
             .catch(error => {
@@ -71,6 +81,7 @@ const EditProfile = () => {
             firstName={firstName}
             lastName={lastName}
             image={image}
+            imageUrl={imageUrl}
             onFNchange={handleFirstNameChange}
             onLNchange={handleLastNameChange}
             onImageChange={handleImageChange}

@@ -93,7 +93,7 @@ const SignUpForm = ({
             </form>
             <p>
                 Aleady have an account? <br />
-                <a href="http://127.0.0.1:1337/login">Log in here</a>
+                <a href="http://127.0.0.1/login">Log in here</a>
             </p>
         </div>
     );

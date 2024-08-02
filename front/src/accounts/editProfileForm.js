@@ -4,19 +4,22 @@ const EditForm = ({
     firstName,
     lastName,
     image,
+    imageUrl,
     onFNchange,
     onLNchange,
     onImageChange,
     onSubmit
 }) => {
     return (
-        
+
         <div className="loginBox">
             <h1>ویرایش پروفایل</h1>
             <br />
             <br />
             <br />
-            <img src={image}></img>
+            <div>
+            <img src={imageUrl} alt="Profile" />
+            </div>
             <form onSubmit={onSubmit}>
                 <label>
                     نام:
@@ -30,10 +33,14 @@ const EditForm = ({
                 </label>
                 <br />
                 <br />
+
                 <label>
                     عکس پروفایل:
-                    <input type="file" accept="image/*" name="image" value={image} onChange={onImageChange} />
+                    <input type="file" accept="image/*" name="image" onChange={onImageChange} />
                 </label>
+
+
+
                 <br />
                 <br />
                 <br />

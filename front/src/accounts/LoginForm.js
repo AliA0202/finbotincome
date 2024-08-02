@@ -32,7 +32,7 @@ const LoginForm = ({
                 >submit</button>
                 <p>
                     ثبت نام نکرده اید؟ <br />
-                    <a href={"http://127.0.0.1:1337/signup"}>برای ایجاد حساب کاربری کلیک کنید</a>
+                    <a href={"http://127.0.0.1/signup"}>برای ایجاد حساب کاربری کلیک کنید</a>
                 </p>
             </form>
         </div>
