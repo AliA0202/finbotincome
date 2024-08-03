@@ -30,7 +30,7 @@ class PostView(generics.RetrieveAPIView):
 
 
 class BlogPostListView(generics.ListAPIView):
-    queryset = BlogPost.objects.all()
+    queryset = BlogPost.objects.all().order_by('published_at')
     serializer_class = BlogPostSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['category']
@@ -38,6 +38,9 @@ class BlogPostListView(generics.ListAPIView):
 
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
-        for item in response.data:
-            item.pop('content', None)
+        print(response.data)
+        if (response.data):
+            for item in response.data["results"]:
+                print(item)
+                item.pop('content', None)
         return Response(response.data)

@@ -24,7 +24,7 @@ services:
     build: ./nginx
     command: ["sh", "-c", "cp -r /front/static/* /static/ && nginx -g 'daemon off;'"]
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
       - web
     volumes:
