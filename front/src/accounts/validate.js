@@ -81,6 +81,36 @@ const validateLoginForm = payload => {
   };
 };
 
+const ValidateProfile = payload => {
+  let message = "";
+  let isFormValid = true;
+
+  if (
+    !payload ||
+    typeof payload.email !== "string" ||
+    !validator.isEmail(payload.email)
+  ) {
+    isFormValid = false;
+    message = "یک ایمیل معتبر وارد کنید";
+  }
+
+  if (
+    !payload ||
+    typeof payload.phone !== "string" ||
+    !isValidPhoneNumber(payload.phone)
+  ) {
+    isFormValid = false;
+    message= "یک شماره معتبر وارد کنید";
+  }  
+
+
+
+  return {
+    success: isFormValid,
+    message,
+  };
+};
+
 function isValidPhoneNumber(phone) {
     const phoneRegex = /^(0|0098|\+98)9(0[1-5]|[1 3]\d|2[0-2]|9[0-4]|98)\d{7}$/;
     return phoneRegex.test(phone);
@@ -88,5 +118,6 @@ function isValidPhoneNumber(phone) {
 
 module.exports = {
   validateLoginForm: validateLoginForm,
-  validateSignUpForm: validateSignUpForm
+  validateSignUpForm: validateSignUpForm,
+  ValidateProfile: ValidateProfile
 };

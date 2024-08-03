@@ -3,11 +3,15 @@ import "./style.css";
 const EditForm = ({
     firstName,
     lastName,
+    email,
+    phone,
     image,
     imageUrl,
     onFNchange,
     onLNchange,
     onImageChange,
+    onEmailchange,
+    onPhonechange,
     onSubmit
 }) => {
     return (
@@ -33,7 +37,18 @@ const EditForm = ({
                 </label>
                 <br />
                 <br />
-
+                <label>
+                    شماره تماس:
+                    <input type="text" name="phone" value={phone} onChange={onPhonechange} />
+                </label>
+                <br />
+                <br />
+                <label>
+                    ایمیل:
+                    <input type="email" name="email" value={email} onChange={onEmailchange} />
+                </label>
+                <br />
+                <br />
                 <label>
                     عکس پروفایل:
                     <input type="file" accept="image/*" name="image" onChange={onImageChange} />
