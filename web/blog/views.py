@@ -38,9 +38,7 @@ class BlogPostListView(generics.ListAPIView):
 
     def list(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
-        print(response.data)
         if (response.data):
             for item in response.data["results"]:
-                print(item)
                 item.pop('content', None)
         return Response(response.data)
