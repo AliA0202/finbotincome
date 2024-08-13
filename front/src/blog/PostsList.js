@@ -39,7 +39,7 @@ function PostsList() {
             <h1>Posts</h1>
             {posts.map(post => (
                 <div>
-                <PostInList post={post} key={post.id} />
+                <PostInList post={post} key={post.slug} />
                 <br />
                 </div>
             ))}

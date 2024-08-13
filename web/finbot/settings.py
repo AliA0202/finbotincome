@@ -26,6 +26,9 @@ AUTH_USER_MODEL = "accounts.User"
 # Application definition
 
 INSTALLED_APPS = [
+    'filebrowser',
+    'grappelli',
+    'tinymce',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'django_filters',
+    
 ]
 
 MIDDLEWARE = [
@@ -131,9 +135,8 @@ STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static/')
 ]
 
-MEDIA_URL = 'Media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'Media/')
-
+MEDIA_URL = '/Media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'Media')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -166,3 +169,41 @@ ALLOW_UNICODE_SLUGS = True
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100 MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100 MB
+FILEBROWSER_MAX_UPLOAD_SIZE = 104857600  # 100 MB
+
+TINYMCE_JS_URL = '/static/tinymce/tinymce.min.js'
+TINYMCE_COMPRESSOR = False
+TINYMCE_FILEBROWSER = True
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 360,
+    'width': 800,
+    'cleanup_on_startup': True,
+    'relative_urls': False,
+    'directionality' : 'rtl',
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'plugins': '''
+        save link image media preview codesample
+        table code lists fullscreen  insertdatetime  nonbreaking
+        directionality searchreplace wordcount visualblocks
+        visualchars code fullscreen autolink lists  charmap
+        anchor pagebreak
+    ''',
+    'toolbar1': '''
+        fullscreen preview bold italic underline | fontselect,
+        fontsizeselect  | forecolor backcolor | alignleft alignright |
+        aligncenter alignjustify | indent outdent | bullist numlist table |
+        | link image media | codesample |
+    ''',
+    'toolbar2': '''
+        visualblocks visualchars |
+        charmap hr pagebreak nonbreaking anchor |  code |
+    ''',
+    'menubar': True,
+    'statusbar': True,
+    'file_browser_callback': 'mce_filebrowser',
+}
+FILEBROWSER_DIRECTORY = 'blog/'
+
+X_FRAME_OPTIONS = "SAMEORIGIN"

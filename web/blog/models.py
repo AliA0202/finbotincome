@@ -4,6 +4,7 @@ from accounts.models import User
 from django.core.exceptions import ValidationError
 import string
 from django.utils.text import slugify
+from tinymce.models import HTMLField
 
 class BlogCategory(models.Model):
     title = models.CharField(max_length=255, unique=True)
@@ -40,7 +41,7 @@ class BlogPost(models.Model):
     tag = models.CharField(max_length=500, null=True, validators=[validate_tags], verbose_name="تگ (با '_' جدا می شوند)")
     is_promoted = models.BooleanField(default=False, verbose_name="انتشار در صفحه اصلی")
     is_free = models.BooleanField(default=False, verbose_name="پست ویژه")
-    content = models.TextField(blank=True, verbose_name="توضیحات")
+    content = HTMLField(blank=True, verbose_name="توضیحات")
     banner = models.ImageField(upload_to="blog/postBanner/", verbose_name="بنر پست")
 
     class Meta:
@@ -71,29 +72,3 @@ class BlogComments(models.Model):
     class Meta:
         verbose_name = 'نظر'
         verbose_name_plural = 'نظرات'
-
-class PostVideos(models.Model):
-    post = models.ForeignKey(BlogPost, related_name="videos", on_delete=models.CASCADE, verbose_name="پست")
-    video = models.FileField(upload_to="blog/PostContent/video/", verbose_name="فایل")
-
-    def __str__(self):
-        return self.video
-
-
-    class Meta:
-        verbose_name = 'فایل ها'
-        verbose_name_plural = 'فایل ها'
-
-
-class PostImages(models.Model):
-    post = models.ForeignKey(BlogPost, related_name="images", on_delete=models.CASCADE, verbose_name="پست")
-    image = models.ImageField(upload_to="blog/PostContent/video/", verbose_name="تصویر")
-
-    def __str__(self):
-        return self.image
-    
-    class Meta:
-        verbose_name = 'تصاویر'
-        verbose_name_plural = 'تصاویر'
-    
-
