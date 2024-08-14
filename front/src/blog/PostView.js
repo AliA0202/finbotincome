@@ -19,13 +19,27 @@ function PostView() {
 
     const fetchPosts = async (page = 1) => {
         try {
-            const response = await axios.get(`http://127.0.0.1/api/blog/${postSlug}`);
-            setPost(response.data);
-            setLoading(false);
-        } catch (err) {
+            if (localStorage.getItem('token') === null) {
+
+                const response = await axios.get(`http://127.0.0.1/api/blog/${postSlug}`);
+                setPost(response.data);
+                setLoading(false);
+            }
+            else {
+                const response = await axios.get(`http://127.0.0.1/api/blog/${postSlug}`, {
+                    headers: {
+                        'Authorization': `Token ${localStorage.getItem('token')}`
+                    }
+                });
+                setPost(response.data);
+                setLoading(false);
+            }
+        }
+        catch (err) {
             setError(err);
             setLoading(false);
         }
+
     };
 
     if (loading) return <div>Loading...</div>;
@@ -39,7 +53,7 @@ function PostView() {
                 <p>{post.caption}</p>
             </div>
 
-            <div  style={{direction : 'rtl'}} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }} />
+            <div style={{ direction: 'rtl' }} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }} />
         </>)
 }
 
