@@ -23,8 +23,9 @@ class PostView(generics.RetrieveAPIView):
         if(not permission.has_permission(request, PostView)):
             print("not vip")
             instance = self.get_object()
-            if instance.is_free == False:
+            if instance.is_vip == True:
                 response = BlogPostSerializer(instance)
+                print(response)
 
         return Response(response.data)            
 

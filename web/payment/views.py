@@ -146,7 +146,7 @@ class GetAuthority(APIView):
             "merchant_id" : "03418ead-550f-43e3-ae3a-37f4d9d85a2a",
             "amount" : amount,
             "description" : description,
-            "callback_url" : 'http://127.0.0.1:1337/payment/verify/',
+            "callback_url" : 'http://127.0.0.1/payment/verify/',
             "metadata" : {
                 "mobile" : mobile,
                 "email" : email,

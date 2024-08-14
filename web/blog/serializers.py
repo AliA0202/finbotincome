@@ -12,8 +12,8 @@ class BlogPostSerializer(serializers.ModelSerializer):
     absolute_url = serializers.SerializerMethodField()
     class Meta:
         model = BlogPost
-        fields = ('id', 'title', 'slug', "banner", 'caption', 'content',
-                  'category', 'published_at','is_promoted', 'is_free', 'tag', 'absolute_url')
+        fields = ('id', 'title', 'slug', "banner", 'caption',
+                  'category', 'published_at','is_promoted', 'is_vip', 'tag', 'absolute_url')
     def get_absolute_url(self, obj):
         return reverse('BlogPost',args=(obj.slug,))
 
@@ -30,4 +30,4 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
         fields = ('id', 'title', 'slug', 'caption', 'content','category', 'published_at',
-                  "banner", 'is_promoted', 'is_free', 'tag', 'comments')
+                  "banner", 'is_promoted', 'is_vip', 'tag', 'comments')

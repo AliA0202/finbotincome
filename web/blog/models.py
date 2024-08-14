@@ -40,7 +40,7 @@ class BlogPost(models.Model):
     published_at = models.DateTimeField(auto_now_add=True, verbose_name="منتشر شده در")
     tag = models.CharField(max_length=500, null=True, validators=[validate_tags], verbose_name="تگ (با '_' جدا می شوند)")
     is_promoted = models.BooleanField(default=False, verbose_name="انتشار در صفحه اصلی")
-    is_free = models.BooleanField(default=False, verbose_name="پست ویژه")
+    is_vip = models.BooleanField(default=False, verbose_name="پست ویژه")
     content = HTMLField(blank=True, verbose_name="توضیحات")
     banner = models.ImageField(upload_to="blog/postBanner/", verbose_name="بنر پست")
 
