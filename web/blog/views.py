@@ -19,6 +19,7 @@ class PostView(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         response = super().retrieve(request, *args, **kwargs)
+        print("here")
         permission = IsActiveAndVIP()
         if(not permission.has_permission(request, PostView)):
             print("not vip")
