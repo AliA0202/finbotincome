@@ -72,3 +72,15 @@ class BlogComments(models.Model):
     class Meta:
         verbose_name = 'نظر'
         verbose_name_plural = 'نظرات'
+
+class SavedPosts(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'پست ذخیره شده'
+        verbose_name_plural = 'پست های ذخیره شده'
+        unique_together = ('user', 'post')
+    
+    def __str__(self):
+        return f"{self.user.username} saved {self.post.title}"

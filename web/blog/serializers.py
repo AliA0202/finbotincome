@@ -1,4 +1,4 @@
-from blog.models import BlogCategory, BlogPost, BlogComments
+from blog.models import BlogCategory, BlogPost, BlogComments, SavedPosts
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework.reverse import reverse
@@ -31,3 +31,19 @@ class PostSerializer(serializers.ModelSerializer):
         model = BlogPost
         fields = ('id', 'title', 'slug', 'caption', 'content','category', 'published_at',
                   "banner", 'is_promoted', 'is_vip', 'tag', 'comments')
+
+class CommonPostSerializer(serializers.ModelSerializer):
+    comments = BlogCommentsSerializer(many=True)
+
+    class Meta:
+        model = BlogPost
+        fields = ('id', 'title', 'slug', "banner", 'caption',
+                  'category', 'published_at','is_promoted', 'is_vip', 'tag', 'comments')
+
+class SavedPostsSerializer(serializers.ModelSerializer):
+    post = BlogPostSerializer()
+
+    class Meta:
+        model = SavedPosts
+        fields = ('post',)
+        

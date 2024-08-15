@@ -4,6 +4,7 @@ import EditProfile from "./accounts/editProfile";
 import PostsList from "./blog/PostsList"
 import PostView from "./blog/PostView"
 import PaymentList from "./payments/PaymentList";
+import SavedPosts from "./blog/SavedPosts";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<PostsList />} />
         <Route path="/post/:slug" element={<PostView />} />
         <Route path="/Payments" element={<PaymentList />} />
+        <Route path="/saved-posts" element={<SavedPosts />} />
       </Routes>
     </Router>
 
