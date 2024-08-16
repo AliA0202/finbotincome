@@ -46,4 +46,10 @@ class SavedPostsSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavedPosts
         fields = ('post',)
+
+class CreateDeleteSavedPostsSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = SavedPosts
+        fields = ['user', 'post']
         
