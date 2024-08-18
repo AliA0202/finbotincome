@@ -1,6 +1,6 @@
 from rest_framework import generics
-from blog.models import BlogPost, SavedPosts, BlogComments
-from blog.serializers import PostSerializer, BlogPostSerializer, SavedPostsSerializer, CommonPostSerializer, CreateDeleteSavedPostsSerializer, BlogCommentsSerializer
+from blog.models import BlogPost, SavedPosts, BlogComments, BlogCategory
+from blog.serializers import PostSerializer, BlogPostSerializer, CategorySerializer, SavedPostsSerializer, CommonPostSerializer, CreateDeleteSavedPostsSerializer, BlogCommentsSerializer
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
@@ -84,3 +84,7 @@ class CommentsList(generics.ListAPIView):
     
     def post(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+    
+class CategoryList(generics.ListAPIView):
+    serializer_class = CategorySerializer
+    queryset = BlogCategory.objects.all()
