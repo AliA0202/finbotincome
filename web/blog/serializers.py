@@ -54,3 +54,7 @@ class CreateDeleteSavedPostsSerializer(serializers.ModelSerializer):
         model = SavedPosts
         fields = ['user', 'post']
         
+class CreateCommentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogComments
+        fields = ('user', 'caption', 'written_at', 'post')

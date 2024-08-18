@@ -64,7 +64,7 @@ class BlogPost(models.Model):
 
 
 class BlogComments(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     caption = models.CharField(max_length=555)
     written_at = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(BlogPost, related_name="comments",on_delete=models.CASCADE)
@@ -72,6 +72,7 @@ class BlogComments(models.Model):
     class Meta:
         verbose_name = 'نظر'
         verbose_name_plural = 'نظرات'
+        unique_together = ('user', 'post')
 
 class SavedPosts(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

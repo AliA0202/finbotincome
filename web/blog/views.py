@@ -1,6 +1,6 @@
 from rest_framework import generics
 from blog.models import BlogPost, SavedPosts, BlogComments, BlogCategory
-from blog.serializers import PostSerializer, BlogPostSerializer, CategorySerializer, SavedPostsSerializer, CommonPostSerializer, CreateDeleteSavedPostsSerializer, BlogCommentsSerializer
+from blog.serializers import PostSerializer, BlogPostSerializer, CategorySerializer, SavedPostsSerializer, CommonPostSerializer, BlogCommentsSerializer, CreateDeleteSavedPostsSerializer, CreateCommentsSerializer
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
@@ -88,3 +88,13 @@ class CommentsList(generics.ListAPIView):
 class CategoryList(generics.ListAPIView):
     serializer_class = CategorySerializer
     queryset = BlogCategory.objects.all()
+
+class CreateComment(generics.CreateAPIView):
+    serializer_class = CreateCommentsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def create(self, request, *args, **kwargs):
+        request.data['user'] = request.user.id
+        request.data['post'] = BlogPost.objects.get(slug = request.data['post']).id
+        print(request.data)
+        return super().create(request, *args, **kwargs)
