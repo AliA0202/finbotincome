@@ -1,6 +1,6 @@
 from rest_framework import generics
 from blog.models import BlogPost, SavedPosts, BlogComments
-from blog.serializers import PostSerializer, BlogPostSerializer, SavedPostsSerializer, CommonPostSerializer, CreateDeleteSavedPostsSerializer
+from blog.serializers import PostSerializer, BlogPostSerializer, SavedPostsSerializer, CommonPostSerializer, CreateDeleteSavedPostsSerializer, BlogCommentsSerializer
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
@@ -74,3 +74,13 @@ class DeleteSavedPost(APIView):
             return Response(status=204)
         except SavedPosts.DoesNotExist:
             return Response(status=404)
+        
+class CommentsList(generics.ListAPIView):
+    serializer_class = BlogCommentsSerializer
+
+    def get_queryset(self):
+        post = BlogPost.objects.get(slug = self.request.data['slug'])
+        return BlogComments.objects.filter(post = post)
+    
+    def post(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)

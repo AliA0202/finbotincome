@@ -13,6 +13,7 @@ function PostsList() {
 
     useEffect(() => {
         fetchPosts();
+        
     }, []);
 
     const fetchPosts = async (page = 1) => {
@@ -22,10 +23,11 @@ function PostsList() {
             setTotalCount(response.data.count);
             setLoading(false);
         } catch (err) {
-            setError(err);
             setLoading(false);
+            setError(err);
         }
     };
+
 
     const handlePageClick = (event) => {
         fetchPosts(event.selected + 1);
@@ -39,8 +41,8 @@ function PostsList() {
             <h1>Posts</h1>
             {posts.map(post => (
                 <div>
-                <PostInList post={post} key={post.slug} />
-                <br />
+                    <PostInList post={post} key={post.slug} />
+                    <br />
                 </div>
             ))}
             <ReactPaginate

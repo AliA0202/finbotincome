@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Comments from './Comments.js'
 import DOMPurify from 'dompurify';
+
 import "./style.css";
 
 
@@ -54,6 +56,7 @@ function PostView() {
             </div>
 
             <div style={{ direction: 'rtl' }} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }} />
+            <Comments slug={post.slug} />
         </>)
 }
 

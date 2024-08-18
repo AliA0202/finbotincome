@@ -13,7 +13,7 @@ class User(AbstractUser):
     )
 
     phone = models.CharField(max_length=11, blank=True, null=True, validators=[Phone_Validator])
-    image = models.ImageField(upload_to="accounts/UserProfile/", blank=True, null=True)
+    image = models.ImageField(upload_to="accounts/UserProfile/", blank=True, null=True, default="accounts/UserProfile/user-vector-id1138452882-1314286458.jpeg")
     user_type = models.CharField(max_length=1, choices=USER_TYPE_CHOICES, default="N")
     email = models.EmailField(blank=True, null=True)
 

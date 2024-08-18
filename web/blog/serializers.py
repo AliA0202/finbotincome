@@ -2,6 +2,7 @@ from blog.models import BlogCategory, BlogPost, BlogComments, SavedPosts
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework.reverse import reverse
+from accounts.serializers import UserCommentSerializer
     
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,6 +20,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
 
 
 class BlogCommentsSerializer(serializers.ModelSerializer):
+    user = UserCommentSerializer()
     class Meta:
         model = BlogComments
         fields = ('user', 'caption', 'written_at', 'post')
@@ -48,7 +50,6 @@ class SavedPostsSerializer(serializers.ModelSerializer):
         fields = ('post',)
 
 class CreateDeleteSavedPostsSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = SavedPosts
         fields = ['user', 'post']
