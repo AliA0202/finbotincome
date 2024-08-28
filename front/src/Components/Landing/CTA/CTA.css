@@ -1,0 +1,34 @@
+.cta{
+    margin-top: 100px;
+}
+.cta-txt-box{
+    border-radius: 0 25px 25px 0; border: 3px solid #e0720a; padding: 10px 15px 10px 15px; min-width: 355px; direction: ltr;
+    font-weight: bold; font-size: 16px; color: #282f3f;  box-shadow: inset 2px 2px 8px 1px #999999;
+}
+.cta-txt-box:focus{
+    box-shadow: 2px 2px 12px 1px #c2c2c2;
+}
+.cta-img{
+    max-width: 800px; filter: drop-shadow(2px 2px 15px #7ca2b1);
+}
+.cta-text{
+    max-width: 500px; text-align: justify;
+}
+
+@media screen and (max-width: 550px) {
+    .img-responsive{
+        max-width: 400px;
+    }
+    .mobile-center{
+        text-align: center;
+    }
+    .txt-18{
+        font-size: 18px !important;
+    }
+    .mobile-inline{
+        display: flex; flex-direction: row;
+    }
+    .cta-txt-box{
+        min-width: 250px;
+    }
+}

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom"
 import LoginForm from "./LoginForm.js";
+import Footer from "../Components/Footer/Footer.jsx";
+import Header from "../Components/Header/Header.jsx";
 const FormValidators = require("./validate.js");
 const validateLoginForm = FormValidators.validateLoginForm;
 
@@ -52,7 +54,10 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <>
+            <Header></Header>
+
+            <div className="flex align-center justify-content-center height-100vh">
             <LoginForm
                 onSubmit={validateForm}
                 onUNChange={handleNameChange}
@@ -60,7 +65,9 @@ const Login = () => {
                 username={username}
                 password={password}
             />
-        </div>
+            </div>
+            <Footer></Footer>
+        </>
     )
 }
 

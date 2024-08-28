@@ -2,67 +2,36 @@ import React from "react";
 import PasswordStr from "./PasswordStr";
 import "./style.css";
 
+
 const SignUpForm = ({
     onSubmit,
     username,
     password,
-    email,
-    phone,
     pwconfirm,
     score,
-    btnTxt,
     type,
     pwMask,
     onPwChange,
-    onPhoneChange,
     onUsrChange,
-    onEmailChange,
     passBtn,
-    firstName,
-    lastName,
-    onLNchange,
-    onFNchange
 }) => {
     return (
-        <div className="loginBox">
-            <h1>Sign Up</h1>
+        <div className="flex justity-content-center flex-column align-center form-box">
+            <img src={process.env.PUBLIC_URL + "/static/images/icon/user.png"} alt="user logo" width="200"></img>
+            <h1 className="color-dark-blue">عضویت</h1>
+            
             <form onSubmit={onSubmit}>
-                <label>
-                    username:
-                    <input type="text" name="username" value={username} onChange={onUsrChange} />
+                
+                <label className="label" htmlFor="pwconfirm">
+                    نام کاربری
                 </label>
-                <br/>
-                <br/>
-                <label>
-                    phone number:
-                    <input type="text" name="phone" value={phone} onChange={onPhoneChange} />
+                <input type="text" name="username" value={username} onChange={onUsrChange} className="txt-input"/>
+                
+                <label className="label" htmlFor="pwconfirm">
+                    گذرواژه
                 </label>
-               <br/>
-               <br/>
-                <label>
-                    email:
-                    <input type="email" name="email" value={email} onChange={onEmailChange} />
-                </label>
-                <br/>
-                <br/>
-                <label>
-                    نام:
-                    <input type="text" name="first_name" value={firstName} onChange={onFNchange} />
-                </label>
-                <br/>
-                <br/>
-                <label>
-                    نام‌خانوادگی:
-                    <input type="text" name="last_name" value={lastName} onChange={onLNchange} />
-                </label>
-                <br/>
-                <br/>
-                <label>
-                    password:
-                    <input type={passBtn.type} name="password" value={password} onChange={onPwChange} />
-                </label>
-                <br/>
-                <br/>
+                <input type={passBtn.type} name="password" value={password} onChange={onPwChange}  className="txt-input"/>
+
                 <div className="pwStrRow">
                     {score >= 1 && (
                         <div>
@@ -76,24 +45,24 @@ const SignUpForm = ({
                         </div>
                     )}
                 </div>
-                <br/>
-                <br/>
-                <label>
-                    password:
-                    <input type={type} name="pwconfirm" value={pwconfirm} onChange={onPwChange} />
-                </label>
 
-                <br />
+
+                <label className="label" htmlFor="pwconfirm">
+                    تکرار گذرواژه
+                </label>
+                <input type={type} name="pwconfirm" id="pwconfirm" value={pwconfirm} onChange={onPwChange}  className="txt-input"/>
+
                 <button
                     className="signUpSubmit"
                     color="primary"
                     type="submit"
-                >submit
+                >عضویت
                 </button>
             </form>
-            <p>
-                Aleady have an account? <br />
-                <a href="http://127.0.0.1/login">Log in here</a>
+
+            <p className="flex justify-content-center">
+                آیا از قبل حساب دارید؟ <br />
+                <a href="http://127.0.0.1/login" className="flex align-center"><span class="material-symbols-outlined">login</span>&nbsp;وارد آن شوید</a>
             </p>
         </div>
     );

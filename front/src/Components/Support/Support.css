@@ -1,0 +1,22 @@
+
+.btn-footer{
+    border: 3px solid #fff; padding: 10px 25px 10px 25px; border-radius: 25px; transition: 0.3s; display: flex; justify-content: flex-start; font-weight: bold;
+    margin: 15px; color: #fff;
+}
+.btn-footer:hover{
+    background-color: #fff; transition: 0.3s; color: #000;
+}
+.support-capsule{
+    border-radius: 25px; padding: 25px; color: #343b52; min-width: 400px; border: 1px solid #b6b6b6;
+    background-image: linear-gradient(to bottom, #e7e7e7, #c7c7c7); box-shadow: 2px 2px 16px 1px #cacaca;
+}
+
+
+@media screen and (max-width: 550px) {
+    .support-capsule{
+        width: 80%; margin: 25px; min-width: auto;
+    }
+    .support-capsule-box{
+        flex-direction: column; align-items: center; justify-content: center; padding: 0;
+    }
+}

@@ -1,0 +1,53 @@
+nav{
+    padding: 15px; background-color: #000000;
+    position: fixed; width: 100%; z-index: 9999;
+}
+.nav-link, .nav-link-popup{
+    text-decoration: none; color: #ffffff; font-weight: bold; margin: 15px 25px 15px 25px; transition: 0.3s; padding: 10px 15px 10px 15px;
+    min-width: 120px; text-align: center; display: flex; align-items: center; justify-content: center; border-radius: 0;
+}
+.nav-link:hover{
+    transition: 0.3s; color: #967b4a;
+}
+.nav-link-popup:hover{
+    transition: 0.3s; color: #967b4a;
+}
+.nav-logo{
+    text-decoration: none; color: #ffffff; font-weight: bold; display: flex; align-items: center; justify-content: space-between; min-width: 120px;
+    border-radius: 8px; padding: 8px 15px 8px 15px;
+}
+.nav-logo:hover .logo-text{
+    color: #967b4a; transition: 0.3s;
+}
+
+.logo-img{
+    width: 70px; height: 70px; box-shadow: 1px 1px 6px 2pxrgb(113, 119, 58)f;
+}
+.logo-text{
+    margin: 0; padding: 0; margin-right: 10px;
+    font-family: "Staatliches", serif;
+    color: #ffffff;
+}
+.btn-menu, .popupMenu{
+    display: none;
+}
+
+
+@media screen and (max-width: 550px) {
+    .nav-link{
+        display: none;
+    }
+    .btn-menu{
+        display: block; background-color: transparent; border: none; cursor: pointer;
+    }
+    .btn-menu:hover{
+        filter: drop-shadow(2px 2px 10px #967b4a);
+    }
+    .navbar{
+        justify-content: space-between; width: 100%; padding: 0 0 0 35px;
+    }
+    .popupMenu{
+        position: absolute; top: 0; left: 0; background-color: #000000e1;
+        width: 100%; height: auto; padding: 25px;
+    }
+  }

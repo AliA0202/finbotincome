@@ -1,0 +1,93 @@
+.slider-box{
+    height: 100vh;
+}
+.banner-img{
+    max-width: 700px; filter: drop-shadow(0 0 12px #e49607);
+    animation-name: banner; position: relative;
+    animation-duration: 4s; animation-iteration-count: infinite;
+}
+.social-box{
+    position: absolute; left: 25px; top: 65%;
+}
+.social-icon{
+    width: 40px; height: 40px; transition: 0.3s;margin:7.5px 0 7.5px 0; filter: drop-shadow(1px 1px 4px #dac379) grayscale(1);
+}
+.social-icon:hover{
+    filter: grayscale(0); transition: 0.3s;
+}
+.social-icon::after{
+    animation-name: social; animation-duration: 1s;
+}
+
+.header-text-banner{
+    font-size: 60px; margin: 0; color: #282f3f;
+}
+.text-banner{
+    font-size: 24px; max-width: 500px; text-align: justify; color: #595e68;
+}
+.btn-banner-active{
+    background-image: linear-gradient(to right, #ac7000, #e09c1d, #ac7000); border: none; padding: 10px 25px 10px 25px; border-radius: 25px; text-decoration: none; color: #f8f8f8; margin: 15px;
+    font-weight: bold; font-size: 18px; transition: 0.3s;
+}
+.btn-banner{
+    border-radius: 25px; text-decoration: none; color: #ac7000; margin: 15px; font-size: 18px; font-weight: bold; padding: 10px 25px 10px 25px;transition: 0.3s;
+}
+
+
+.gold-line{
+    background-image: linear-gradient(to bottom, #ac7000, #e09c1d, #ac7000); width: 5px; height: 90px; border-radius: 20px; margin-bottom: 10px;
+}
+
+
+.btn-banner:hover{
+    background-image: linear-gradient(to right, #ac7000, #e09c1d, #ac7000); color: #f8f8f8;transition: 0.3s;
+}
+.btn-banner-active:hover{
+    box-shadow: 2px 2px 12px 2px #beaa85; transition: 0.3s;
+}
+
+
+@keyframes banner {
+    0%   {left:0; top: 0;}
+    25%  {left:0; top: 50px;}
+    50%  {left:0; top:0;}
+    75%  {left:0; top:50px;}
+    100% {left:0; top:0;}
+  }
+
+
+@media screen and (max-width: 550px) {
+    .img-responsive{
+        max-width: 400px;
+    }
+    .slider-box{
+        flex-direction: column;
+    }
+    .banner-img{
+        margin-top: 150px;
+    }
+    h1{
+        font-size: 40px !important;
+    }
+    h4{
+        font-size: 22px;
+    }
+    .text-justify-mobile{
+        text-align: justify; display: flex; justify-content: center;
+    }
+    .text-center-mobile{
+        text-align: center;
+    }
+    .padding-25-mobile{
+        padding: 25px;
+    }
+    .mobile-control{
+        flex-wrap: wrap; justify-content: center;
+    }
+    .gold-line{
+        height: 30px;
+    }
+    .social-box{
+        left: 0; top: 75%;
+    }
+}

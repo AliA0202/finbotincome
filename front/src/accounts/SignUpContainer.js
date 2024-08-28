@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import SignUpForm from "./SignUpForm.js";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom"
+import Header from "../Components/Header/Header.jsx";
+import Footer from "../Components/Footer/Footer.jsx";
+
+
+
 const FormValidators = require("./validate.js");
 const validateSignUpForm = FormValidators.validateSignUpForm;
 const zxcvbn = require("zxcvbn");
@@ -12,12 +17,8 @@ function SignUpContainer() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [pwconfirm, setPwconfirm] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [score, setScore] = useState("0");
-  const [passBtn, setPassBtn] = useState({btnTxt: "show", type: "password"});
+  const [passBtn, setPassBtn] = useState({btnTxt: "نمایش", type: "password"});
 
 
 
@@ -25,19 +26,6 @@ function SignUpContainer() {
     setUsername(event.target.value);
     setPwconfirm()
   }
-  function handleEmailChange(event) {
-    setEmail(event.target.value);
-  }
-  function handlePhoneChange(event) {
-    setPhone(event.target.value);
-  }
-  function handleFirstNameChange(event){
-    setFirstName(event.target.value)
-  }
-  function handleLastNameChange(event){
-    setLastName(event.target.value)
-  }
-
   function pwHandleChange(event) {
     if(event.target.name === "pwconfirm") {
       setPwconfirm(event.target.value);
@@ -54,7 +42,7 @@ function SignUpContainer() {
   }
 
   function submitSignup() {
-    var params = { username: username, password: password, email: email, phone: phone , last_name: lastName, first_name: firstName};
+    var params = { username: username, password: password};
     axios
       .post("http://127.0.0.1/api/accounts/signup/", params)
       .then(res => {
@@ -75,7 +63,7 @@ function SignUpContainer() {
 
   function validateForm(event) {
     event.preventDefault();
-    let payload = validateSignUpForm({ username, password, email, phone , pwconfirm });
+    let payload = validateSignUpForm({ username, password, pwconfirm });
     if (payload.success) {
         submitSignup();
     } 
@@ -95,27 +83,24 @@ function SignUpContainer() {
 
 
   return (
-    <div>
+    <>
+    <Header></Header>
+    <div className="flex align-center justify-content-center height-100vh">
       <SignUpForm
         onSubmit={validateForm}
         onUsrChange={handleNameChange}
-        onEmailChange={handleEmailChange}
-        onPhoneChange={handlePhoneChange}
         onPwChange={pwHandleChange}
         score={score}
         pwMask={pwMask}
         pwconfirm={pwconfirm}
         username={username}
         password={password}
-        email={email}
-        phone={phone}
         passBtn={passBtn}
-        firstName={firstName}
-        lastName={lastName}
-        onLNchange = {handleLastNameChange}
-        onFNchange = {handleFirstNameChange}
       />
     </div>
+
+    <Footer></Footer>
+    </>
   );
 }
 

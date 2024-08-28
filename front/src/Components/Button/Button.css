@@ -1,0 +1,12 @@
+.btn{
+    border: none; padding: 15px 35px 14px 35px;
+}
+.btn-cta{
+    background-color: #e0720a; color: #ffffff; font-weight: bold; border-radius: 25px 0 0 25px; font-size: 14px; transition: 0.3s;
+}
+.btn:hover{
+    cursor: pointer;
+}
+.btn-cta:hover{
+    background-color: #e03c0a; transition: 0.3s;
+}

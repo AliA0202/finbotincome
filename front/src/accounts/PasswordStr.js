@@ -32,8 +32,8 @@ const PasswordStr = props => {
 
   return (
   <div>
-    <p className="pwStrWeak">weak</p>
-    <p className="pwStrStrong">strong</p>
+    <p className="pwStrWeak">قوی</p>
+    <p className="pwStrStrong">ضعیف</p>
     <div style={style} />
   </div> 
   );

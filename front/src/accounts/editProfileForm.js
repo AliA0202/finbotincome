@@ -16,52 +16,41 @@ const EditForm = ({
 }) => {
     return (
 
-        <div className="loginBox">
-            <h1>ویرایش پروفایل</h1>
-            <br />
-            <br />
-            <br />
+        <div className="flex justity-content-center flex-column align-center form-box">
+            <h1 className="color-dark-blue">ویرایش پروفایل</h1>
             <div>
-            <img src={imageUrl} alt="Profile" />
+                <img src={imageUrl} alt="Profile" />
             </div>
             <form onSubmit={onSubmit}>
-                <label>
+                <label className="label" htmlFor="first_name">
                     نام:
-                    <input type="text" name="first_name" value={firstName} onChange={onFNchange} />
                 </label>
-                <br />
-                <br />
-                <label>
+                <input type="text" name="first_name" id="first_name" className="txt-input" value={firstName} onChange={onFNchange} />
+                
+                <label className="label" htmlFor="last_name">
                     نام‌خانوادگی:
-                    <input type="text" name="last_name" value={lastName} onChange={onLNchange} />
                 </label>
-                <br />
-                <br />
-                <label>
+                <input type="text" name="last_name" id="last_name" className="txt-input" value={lastName} onChange={onLNchange} />
+                
+                <label className="label" htmlFor="phone">
                     شماره تماس:
-                    <input type="text" name="phone" value={phone} onChange={onPhonechange} />
                 </label>
-                <br />
-                <br />
-                <label>
+                <input type="text" name="phone" id="phone" className="txt-input" value={phone} onChange={onPhonechange} />
+                
+                <label className="label" htmlFor="email">
                     ایمیل:
-                    <input type="email" name="email" value={email} onChange={onEmailchange} />
                 </label>
-                <br />
-                <br />
-                <label>
-                    عکس پروفایل:
-                    <input type="file" accept="image/*" name="image" onChange={onImageChange} />
+                <input type="email" name="email" id="email" className="txt-input" value={email} onChange={onEmailchange} />
+                
+                <label className="label" htmlFor="image">
+                    تصویر پروفایل:
                 </label>
+                <input type="file" accept="image/*" name="image" id="image" className="txt-input" onChange={onImageChange} />
 
-
-
-                <br />
-                <br />
-                <br />
                 <button
+                    className="signUpSubmit"
                     type="submit"
-                >submit</button>
+                >ویرایش</button>
             </form>
         </div>
 
