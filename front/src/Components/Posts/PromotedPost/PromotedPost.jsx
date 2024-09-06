@@ -5,17 +5,15 @@ import axios from 'axios';
 import { useEffect, useState } from "react";
 
 function PromotedPost({post, key, counter}){
+
     const [savedPosts, setSavePost] = useState([]);
     const [error, setError] = useState(null);
 
-    
-    useEffect(() => {
-        savePost();
-    }, []);
 
     const savePost = async (key) => {
         try {
-            const params = {post_id : key};
+            const params = {post : key};
+            console.log(params);
             const response = await axios.get(`http://127.0.0.1/api/blog/saved-posts/create/`, params, {
                 headers : {
                     'Authorization' : `Token ${localStorage.getItem('token')}`
@@ -42,7 +40,7 @@ function PromotedPost({post, key, counter}){
 
                         <div className="flex space-between">
                             <h5 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">timer</span>&nbsp;{post.published_at}</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button className="btn padding-less-important" onClick={saveClickHandle(key)}><span className="material-symbols-outlined">bookmark</span></button>
+                            <button className="btn padding-less-important" onClick={saveClickHandle(post)}><span className="material-symbols-outlined">bookmark</span></button>
                         </div>
                     </div>
 
