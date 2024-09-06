@@ -113,7 +113,9 @@ scrollbar-width: none;  /* Firefox */
 .post-horizontal .post-content-box{
     padding: 25px;
 }
-
+.padding-less-important{
+    padding: none !important;
+}
 
 @keyframes postimage{
     0% {transform: rotate(1deg);}
@@ -137,6 +139,9 @@ scrollbar-width: none;  /* Firefox */
     }
     .post-vertical .post-img{
         border-radius: 25px 25px 8px 8px;
+    }
+    .post-vertical{
+        flex-direction: row !important;
     }
     .post-vertical .post-img-box{
         border-radius: 25px 25px 0 0;

@@ -11,6 +11,21 @@ class BlogPostAdmin(admin.ModelAdmin):
     model = BlogPost
     list_display = ['title', 'caption', 'category', 'tag', 'is_promoted']
 
+    fieldsets = (
+        ("معرفی پست" , {
+            "fields" : ['banner', 'title', 'caption']
+        }),
+        ("دسته و برچسب", {
+            "fields" : ['category', 'tag']
+        }),
+        ("پیکربندی", {
+            "fields" : ['is_promoted', 'is_vip']
+        }),
+        ("محتوای اصلی", {
+            "fields" : ['content']
+        })
+    )
+
 
 class BlogCommentsAdmin(admin.ModelAdmin):
     model = BlogComments

@@ -1,8 +1,34 @@
 import React from "react";
 import "./PromotedPost.css";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect, useState } from "react";
 
 function PromotedPost({post, key, counter}){
+    const [savedPosts, setSavePost] = useState([]);
+    const [error, setError] = useState(null);
+
+    
+    useEffect(() => {
+        savePost();
+    }, []);
+
+    const savePost = async (key) => {
+        try {
+            const params = {post_id : key};
+            const response = await axios.get(`http://127.0.0.1/api/blog/saved-posts/create/`, params, {
+                headers : {
+                    'Authorization' : `Token ${localStorage.getItem('token')}`
+                }
+            });
+            console.log(response);
+        } catch (err) {
+            setError(err);
+        }
+    };
+
+    if (error) return <div>Error: {error.message}</div>;
+
     return (
         <>
             <div className={`flex padding-25 margin-top-25 ${counter <= 1 && "post-horizontal"} ${counter > 1 && "post-vertical"} space-between mobile-control`}>
@@ -16,7 +42,7 @@ function PromotedPost({post, key, counter}){
 
                         <div className="flex space-between">
                             <h5 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">timer</span>&nbsp;{post.published_at}</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <h5 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">video_file</span>&nbsp;0</h5>
+                            <button className="btn padding-less-important" onClick={saveClickHandle(key)}><span className="material-symbols-outlined">bookmark</span></button>
                         </div>
                     </div>
 
@@ -26,6 +52,11 @@ function PromotedPost({post, key, counter}){
             </div>
         </>
     );
+
+    function saveClickHandle(key){
+        console.log(key);
+        savePost(key);
+    }
 }
 
 export default PromotedPost;
