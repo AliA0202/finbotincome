@@ -4,7 +4,7 @@ import Category from "./Category/Category";
 
 
 function BlankPaper({Header, categoryList}){
-    console.log(categoryList);
+
     return (
         
         <>

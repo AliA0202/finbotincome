@@ -9,7 +9,7 @@ class BlogCategoryAdmin(admin.ModelAdmin):
 
 class BlogPostAdmin(admin.ModelAdmin):
     model = BlogPost
-    list_display = ['title', 'caption', 'category', 'tag', 'is_promoted']
+    list_display = ['id', 'title', 'caption', 'category', 'tag', 'is_promoted']
 
     fieldsets = (
         ("معرفی پست" , {

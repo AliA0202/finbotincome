@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from accounts.permissions import IsActiveAndVIP
 from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
 
 
 # class MyModelViewSet(viewsets.ModelViewSet):
@@ -57,8 +58,13 @@ class SavedPostsLitView(generics.ListAPIView):
 class CreateSavedPost(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
-        request.data['user'] = request.user.id
-        serializer = CreateDeleteSavedPostsSerializer(data=request.data)
+        user = Token.objects.get(key=request.auth.key).user
+        data = {
+            "user" : user.id,
+            "post" : request.data['post']
+        }
+        serializer = CreateDeleteSavedPostsSerializer(data=data)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)

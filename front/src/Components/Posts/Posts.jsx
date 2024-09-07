@@ -29,7 +29,6 @@ function Posts({postList, boxTitle}){
 
     function postHandle(post){
         if (post.is_promoted === true){
-            console.log("counter: ", counter);
             counter += 1;
             return <PromotedPost post={post} key={post.slug} counter={counter}></PromotedPost>
         }

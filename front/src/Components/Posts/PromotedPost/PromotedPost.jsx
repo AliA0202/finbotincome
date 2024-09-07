@@ -13,13 +13,14 @@ function PromotedPost({post, key, counter}){
     const savePost = async (key) => {
         try {
             const params = {post : key};
-            console.log(params);
-            const response = await axios.get(`http://127.0.0.1/api/blog/saved-posts/create/`, params, {
+            console.log("Token", localStorage.getItem('token'));
+            const response = await axios.post(`http://127.0.0.1/api/blog/saved-posts/create/`, params, {
                 headers : {
-                    'Authorization' : `Token ${localStorage.getItem('token')}`
+                    'Authorization': `Token ${localStorage.getItem('token')}`
                 }
-            });
-            console.log(response);
+            }).then(response => response.status)
+            .catch(err => console.warn(err));
+            console.log("Response: ", response);
         } catch (err) {
             setError(err);
         }
@@ -40,7 +41,7 @@ function PromotedPost({post, key, counter}){
 
                         <div className="flex space-between">
                             <h5 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">timer</span>&nbsp;{post.published_at}</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button className="btn padding-less-important" onClick={saveClickHandle(post)}><span className="material-symbols-outlined">bookmark</span></button>
+                            <button className="btn padding-less-important" onClick={saveClickHandle(post.id)}><span className="material-symbols-outlined">bookmark</span></button>
                         </div>
                     </div>
 
@@ -52,7 +53,6 @@ function PromotedPost({post, key, counter}){
     );
 
     function saveClickHandle(key){
-        console.log(key);
         savePost(key);
     }
 }
