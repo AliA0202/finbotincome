@@ -41,7 +41,7 @@ function PromotedPost({post, key, counter}){
 
                         <div className="flex space-between">
                             <h5 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">timer</span>&nbsp;{post.published_at}</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button className="btn padding-less-important" onClick={saveClickHandle(post.id)}><span className="material-symbols-outlined">bookmark</span></button>
+                            <button className="btn padding-less-important" onClick={() => saveClickHandle(post.id)}><span className="material-symbols-outlined">bookmark</span></button>
                         </div>
                     </div>
 
