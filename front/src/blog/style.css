@@ -42,9 +42,29 @@ form {
     margin: 0;
     color: gray;
   }
+  .post-content{
+    max-width: 800px !important;
+  }
+  .post-content img{
+    max-width: 800px !important; height: auto !important;
+    border-radius: 22px;
+  }
+  .post-content p{
+    text-align: justify;
+  }
+  .img-radius{
+    border-radius: 22px;
+  }
+  .textarea{
+    padding: 10px 15px 10px 15px; font-weight: bold; border: 3px solid #947510; border-radius: 25px;
+    min-height: 600px; min-width: 600px;
+  }
   
   @media screen and (max-width: 550px) {
-    .loginBox {
-      width: 85%;
+    .post-content img{
+      max-width: 300px !important; height: auto !important;
+    }
+    .textarea{
+      min-width: 300px;
     }
   }
