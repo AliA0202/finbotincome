@@ -61,16 +61,21 @@ function PostView() {
                         <h1 className="color-dark-blue">{post.title}</h1>
                         <p className="text-justify color-light-gray">{post.caption}</p>
                     </div>
-                    
-                    <div style={{ direction: 'rtl'}} className="post-content" id="post-content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }} />
-
-                    <form method="post">
+                    {post.content === undefined ? (
+                        <h4 className="error-content flex align-center flex-column justify-content-center"><h1 className="font-bold margin-less"><span class="material-symbols-outlined">
+                        lock
+                        </span></h1><p>جهت مشاهده کامل پست و یا همچنین افزودن نظر، باید عضویت ویژه تهیه نمایید! میتوانید از پنل کاربری حساب خود را به عضویت ویژه تبدیل کنید</p></h4>
+                    ) : <>
+                        <div style={{ direction: 'rtl'}} className="post-content mobile-control justify-content-center flex flex-column" id="post-content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }} />                    
+                        <form method="post">
                         <h2 className="color-dark-blue">افزودن نظر</h2>
                         <textarea className="textarea" placeholder="توضیحات خود را اضافه کنید تا پس از بررسی منتشر گردد..."></textarea>
                         <input type="submit" value="ثبت نظر" className="signUpSubmit"></input>
-                    </form>
+                        </form>
+                    </>}
 
-                    <div className="flex flex-row justify-content-center">
+                    <div className="flex flex-column margin-top-75 align-center bg-white rounded padding-25">
+                        <h2 className="color-dark-blue">نظرات کاربران</h2>
                         <Comments slug={post.slug} />
                     </div>
                 </div>

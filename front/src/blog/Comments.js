@@ -27,16 +27,28 @@ const Comments = (slug) => {
             dataLength={comments.length}
             next={() => setPage((prevPage) => prevPage + 1)}
             hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
-            endMessage={<p>No more comments</p>}
+            loader={<h4>در حال بارگذاری</h4>}
+            endMessage={<p>نظر بیشتری برای نمایش وجود ندارد...</p>}
         >
             {comments.map((comment) => (
-                <div className="loginBox" key={comment.user.username}>
-                    <span>
-                        <img src={comment.user.image} alt={comment.user.username} />
-                        <p>{`${comment.user.first_name} ${comment.user.last_name}`}</p>
-                    </span>
-                    <p>{comment.caption}</p>
+                <div className="flex comment-card flex-column align-center justify-content-center padding-25" key={comment.user.username}>
+                    <div className='flex flex-row align-center flex-start comment-title'>
+                        <div>
+                            {comment.user.image === null ? (
+                                <img src={process.env.PUBLIC_URL + '/static/images/icon/user.png'} alt={comment.user.username} className='img-comment'></img>
+                            ): (
+                                <img src={comment.user.image} alt={comment.user.username} className='img-comment'></img>
+                            )}
+                        </div>
+                        
+                        <div>
+                            <p className='font-bold margin-right-15'>{`${comment.user.first_name} ${comment.user.last_name}`}</p>
+                        </div>
+                    </div>
+                    <hr></hr>
+                    <div className='flex flex-row align-center flex-start'>
+                        <p className='text-justify'>{comment.caption}</p>
+                    </div>
                 </div>
             ))}
         </InfiniteScroll>
