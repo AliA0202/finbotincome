@@ -72,8 +72,7 @@ class BlogComments(models.Model):
     class Meta:
         verbose_name = 'نظر'
         verbose_name_plural = 'نظرات'
-        unique_together = ('user', 'post')
-
+        
 class SavedPosts(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
