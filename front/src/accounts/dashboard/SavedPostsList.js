@@ -25,6 +25,19 @@ const SavedPostsList = () => {
             setHasMore(false);
         }
     };
+    const removeSavedPost = async (key) => {
+        const params = {post : key};
+        console.log("Token", localStorage.getItem('token'));
+        const response = await axios.post(`http://127.0.0.1/api/blog/saved-posts/delete/`, params, {
+            headers : {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        }).then(response => response.status)
+
+        if (response === 200 || response === 204) {
+            setPosts(prevPosts => prevPosts.filter(posts => posts.post.id !== key));
+          }
+    };
 
     return (
         <div className="content-bar flex flex-column space-between">
@@ -39,13 +52,14 @@ const SavedPostsList = () => {
                 endMessage={""}
                 >
                     {posts.map((posts)=>(
-                        <Link to={`/post/${posts.post.slug}`} className="flex flex-row saved-post-card" id={posts.post.id}>
+                        <Link to={`/post/${posts.post.slug}`} className="flex flex-row saved-post-card" key={posts.post.id}>
                             <div className="margin-less padding-less height-100">
                                 <img src={posts.post.banner} className="saved-post-img"></img>
                             </div>
                             <div className="flex space-between margin-right-15 width-full">
                                 <h4 className="color-dark-blue margin-less">{posts.post.title}</h4>
-                                <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">bookmark_check</span></a>
+                                <button className="btn padding-less-important" onClick={(event) => {event.preventDefault();
+                                removeSavedPost(posts.post.id)}}><span class="material-symbols-outlined">bookmark_check</span></button>
                             </div>
                         </Link>   
                     ))}
