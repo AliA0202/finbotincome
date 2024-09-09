@@ -7,6 +7,7 @@ import Header from "../Components/Header/Header.jsx";
 import Footer from "../Components/Footer/Footer.jsx";
 import TicketForm from "./TicketForm.js";
 import SavedPostsList from "./dashboard/SavedPostsList.js";
+import PaymentsList from "./dashboard/PaymentsList.js";
 
 
 const EditProfile = () => {
@@ -203,57 +204,7 @@ const EditProfile = () => {
 
                         <SavedPostsList/>
 
-                        <div className="content-bar flex flex-column space-between">
-                            <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">paid</span>&nbsp;پرداخت های شما</h3>
-                            <div className="line-horizontal-gold"></div>
-                            <div className="control-height">
-                                <a href="#" className="flex flex-row saved-post-card success-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">پرداخت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">check_circle</span></a>
-                                    </div>
-                                </a>
-                                <a href="#" className="flex flex-row saved-post-card success-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">پرداخت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">check_circle</span></a>
-                                    </div>
-                                </a><a href="#" className="flex flex-row saved-post-card danger-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">پرداخت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">close</span></a>
-                                    </div>
-                                </a>
-                                <a href="#" className="flex flex-row saved-post-card danger-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">پرداخت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">close</span></a>
-                                    </div>
-                                </a>
-                                <a href="#" className="flex flex-row saved-post-card success-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">پرداخت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">check_circle</span></a>
-                                    </div>
-                                </a>
-                            </div>
-                            
-                        </div>
+                        <PaymentsList/>
 
 
                         <div className="content-bar flex flex-column space-between">

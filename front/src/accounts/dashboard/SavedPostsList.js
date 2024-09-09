@@ -52,7 +52,7 @@ const SavedPostsList = () => {
                 endMessage={""}
                 >
                     {posts.map((posts)=>(
-                        <Link to={`/post/${posts.post.slug}`} className="flex flex-row saved-post-card" key={posts.post.id}>
+                        <Link to={`/post/${posts.post.slug}`} className="flex flex-row saved-post-card">
                             <div className="margin-less padding-less height-100">
                                 <img src={posts.post.banner} className="saved-post-img"></img>
                             </div>
