@@ -57,7 +57,7 @@ form {
   }
   .textarea{
     padding: 10px 15px 10px 15px; font-weight: bold; border: 3px solid #947510; border-radius: 25px;
-    min-height: 300px; min-width: 800px;
+    min-height: 300px; min-width: 80%; max-width: 80%;
   }
   .error-content{
     padding: 25px; border-radius: 22px; border: 1px solid #93a3c4; color: #282f3f; background-color: #dadce0;
@@ -85,6 +85,12 @@ form {
       max-width: 400px !important; height: auto !important;
     }
     .textarea{
-      min-width: 400px; min-height: 250px;
+      min-width: 80%; min-height: 250px; max-width: 80%;
+    }
+    .infinite-scroll-component{
+      padding: 25px;
+    }
+    .comment-card{
+      min-width: 275px; max-width: 275px;
     }
   }

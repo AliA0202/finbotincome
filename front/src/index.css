@@ -72,6 +72,9 @@ a:hover{
 .rtl{
   direction: rtl;
 }
+.border-dark-blue{
+  border: 1px solid #acb4c9;
+}
 
 
 .btn{
@@ -187,6 +190,9 @@ a:hover{
 }
 .margin-top-150{
   margin-top: 150px;
+}
+.margin-top-75{
+  margin-top: 75px;
 }
 .margin-25{
   margin: 25px;
