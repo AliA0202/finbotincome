@@ -9,12 +9,6 @@ from accounts.permissions import IsActiveAndVIP
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 
-
-# class MyModelViewSet(viewsets.ModelViewSet):
-#     queryset = MyModel.objects.all()
-#     serializer_class = MyModelSerializer
-#     permission_classes = [IsAuthenticated, IsActiveAndVIP]
-
 class PostView(generics.RetrieveAPIView):
     queryset = BlogPost.objects.all()
     serializer_class = PostSerializer

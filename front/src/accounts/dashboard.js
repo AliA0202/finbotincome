@@ -6,6 +6,7 @@ import { ValidateProfile } from "./validate.js";
 import Header from "../Components/Header/Header.jsx";
 import Footer from "../Components/Footer/Footer.jsx";
 import TicketForm from "./TicketForm.js";
+import SavedPostsList from "./dashboard/SavedPostsList.js";
 
 
 const EditProfile = () => {
@@ -19,6 +20,8 @@ const EditProfile = () => {
     const [loading, setLoading] = useState(true);
     const [title, setTitle] = useState("");
     const [caption, setCaption] = useState("");
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -198,40 +201,7 @@ const EditProfile = () => {
                        
                     <div className="flex flex-row flex-wrap margin-top-25 space-between">
 
-                        <div className="content-bar flex flex-column space-between">
-                            <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">bookmark</span>&nbsp;پست های ذخیره شده</h3>
-                            <div className="line-horizontal-gold"></div>
-                            <div className="control-height">
-                                <a href="#" className="flex flex-row saved-post-card">
-                                    <div className="margin-less padding-less height-100">
-                                        <img src={process.env.PUBLIC_URL + '/static/images/postOne.jpg'} className="saved-post-img"></img>
-                                    </div>
-                                    <div className="flex space-between margin-right-15 width-full">
-                                        <h4 className="color-dark-blue margin-less">عنوان پست اول</h4>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">bookmark_check</span></a>
-                                    </div>
-                                </a>
-                                <a href="#" className="flex flex-row saved-post-card">
-                                    <div className="margin-less padding-less height-100">
-                                        <img src={process.env.PUBLIC_URL + '/static/images/postFour.jpg'} className="saved-post-img"></img>
-                                    </div>
-                                    <div className="flex space-between margin-right-15 width-full">
-                                        <h4 className="color-dark-blue margin-less">عنوان پست دوم</h4>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">bookmark_check</span></a>
-                                    </div>
-                                </a>
-                                <a href="#" className="flex flex-row saved-post-card">
-                                    <div className="margin-less padding-less height-100">
-                                        <img src={process.env.PUBLIC_URL + '/static/images/postTree.jpg'} className="saved-post-img"></img>
-                                    </div>
-                                    <div className="flex space-between margin-right-15 width-full">
-                                        <h4 className="color-dark-blue margin-less">عنوان پست سوم</h4>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">bookmark_check</span></a>
-                                    </div>
-                                </a>
-                            </div>
-                            
-                        </div>
+                        <SavedPostsList/>
 
                         <div className="content-bar flex flex-column space-between">
                             <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">paid</span>&nbsp;پرداخت های شما</h3>
