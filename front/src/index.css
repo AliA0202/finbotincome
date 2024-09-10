@@ -65,6 +65,9 @@ a:hover{
 .bg-white{
   background-color: #fff;
 }
+.bg-gray{
+  background-color: #dddddd;
+}
 .font-bold{
   font-weight: bold;
 }
@@ -83,6 +86,9 @@ a:hover{
 
 .shadow{
   filter: drop-shadow(2px 2px 4px #c2c2c2);
+}
+.rounded-xs{
+  border-radius: 12px;
 }
 
 
@@ -166,6 +172,9 @@ a:hover{
 }
 .padding-less{
   padding: 0 !important;
+}
+.padding-side{
+  padding: 1px 5px 1px 5px;
 }
 .margin-top-25{
   margin-top: 25px;

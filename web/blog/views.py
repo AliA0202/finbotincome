@@ -104,8 +104,9 @@ class CreateComment(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        request.data["user"] = request.user.id
-        request.data["post"] = BlogPost.objects.get(slug=request.data["post"]).id
+        request.data._mutable = True
+        request.data['user'] = request.user.id
+        request.data['post'] = BlogPost.objects.get(slug = request.data['post']).id
         request.data._mutable = False
         print(request.data)
         return super().create(request, *args, **kwargs)

@@ -231,32 +231,6 @@ const EditProfile = () => {
                                         </div>
                                         <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">drafts</span></a>
                                     </div>
-                                </a><a href="#" className="flex flex-row saved-post-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">تیکت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">drafts</span></a>
-                                    </div>
-                                </a>
-                                <a href="#" className="flex flex-row saved-post-card info-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">تیکت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">mark_email_read</span></a>
-                                    </div>
-                                </a>
-                                <a href="#" className="flex flex-row saved-post-card info-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">تیکت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">mark_email_read</span></a>
-                                    </div>
                                 </a>
                             </div>
                             
@@ -278,18 +252,6 @@ const EditProfile = () => {
                                                 <h4 className="color-dark-blue margin-less margin-right-5">علیرضا پارسه</h4>
                                             </div>
                                             <h6 className="margin-less color-light-gray flex align-center margin-top-5"><span class="material-symbols-outlined color-gold">trophy</span>&nbsp;25</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined color-red">close</span></a>
-                                    </div>
-                                </div>
-                                <div className="flex flex-row saved-post-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <div className="flex flex-row align-center">
-                                                <img src={process.env.PUBLIC_URL + "/static/images/p2.jpg"} className="img-friend"></img>
-                                                <h4 className="color-dark-blue margin-less margin-right-5">ندا سلیمانی</h4>
-                                            </div>
-                                            <h6 className="margin-less color-light-gray flex align-center margin-top-5"><span class="material-symbols-outlined color-gold">trophy</span>&nbsp;18</h6>
                                         </div>
                                         <a href="#" className="color-dark-blue"><span class="material-symbols-outlined color-red">close</span></a>
                                     </div>

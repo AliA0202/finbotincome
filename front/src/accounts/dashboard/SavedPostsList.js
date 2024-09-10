@@ -25,9 +25,10 @@ const SavedPostsList = () => {
             setHasMore(false);
         }
     };
+
     const removeSavedPost = async (key) => {
         const params = {post : key};
-        console.log("Token", localStorage.getItem('token'));
+
         const response = await axios.post(`http://127.0.0.1/api/blog/saved-posts/delete/`, params, {
             headers : {
                 'Authorization': `Token ${localStorage.getItem('token')}`
@@ -63,8 +64,7 @@ const SavedPostsList = () => {
                             </div>
                         </Link>   
                     ))}
-                </InfiniteScroll>
-                                     
+                </InfiniteScroll>                    
             </div>
         </div>
     );
