@@ -55,12 +55,12 @@ function PostList({query, boxTitle}){
                 {
                     console.log(posts)}{
                     posts.map((post) => (
-                        <Post post={post} key={post.id}></Post>
+                        filterPosts(post)
                     ))
                 } 
                 </div>
             </div>
-
+                
             <ReactPaginate
                 nextLabel="بعدی >"
                 onPageChange={handlePageClick}
@@ -82,6 +82,11 @@ function PostList({query, boxTitle}){
             />
         </>
     );
+    function filterPosts(post){
+        if(post.is_promoted !== true){
+            return <Post post={post} key={post.slug} ></Post>
+        }
+    }
 }
 
 export default PostList;
