@@ -1,11 +1,35 @@
 import React from "react";
 import "./Posts.css";
 import PromotedPost from "./PromotedPost/PromotedPost";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 
 
-function Posts({postList, boxTitle}){
-    var counter = 0;
+
+function Posts({boxTitle}){
+    const [promotedPosts, setPromotedPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    let count = 0;
+
+    useEffect(() => {
+        fetchPromoted();
+    }, []);
+
+
+    const fetchPromoted = async (page = 1) => {
+        try {
+            const response = await axios.get(`http://127.0.0.1/api/blog/promoted/`);
+            setPromotedPosts(response.data.results);
+            setLoading(false);
+        } catch (err) {
+            setLoading(false);
+            setError(err);
+        }
+    };
+
+    
     
     return (
         <>  
@@ -18,8 +42,8 @@ function Posts({postList, boxTitle}){
 
                 <div className="flex flex-row mobile-control flex-wrap">
                 {
-                    postList.map((post) => (
-                        postHandle(post)
+                    promotedPosts.map((post) => (
+                        <PromotedPost post={post} key={post.slug} counter={count=count+1}></PromotedPost>
                     ))
                 }
                 </div>
@@ -27,12 +51,6 @@ function Posts({postList, boxTitle}){
         </>
     );
 
-    function postHandle(post){
-        if (post.is_promoted === true){
-            counter += 1;
-            return <PromotedPost post={post} key={post.slug} counter={counter}></PromotedPost>
-        }
-    }
 }
 
 export default Posts;

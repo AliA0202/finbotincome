@@ -2,23 +2,24 @@ import React from "react";
 import "./Posts.css";
 import Post from "./Post/Post";
 import ReactPaginate from 'react-paginate';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback} from "react";
 import axios from 'axios';
 
 
-function PostList({posts, boxTitle}){
+function PostList({query, boxTitle}){
+    const [posts, setPosts] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
-    const [postsAPI, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        fetchPosts();
-    }, []);
-
-    const fetchPosts = async (page = 1) => {
+    const fetchPosts = useCallback(async (page = 1) => {
         try {
-            const response = await axios.get(`http://127.0.0.1/api/blog/posts/?page=${page}`);
+            let url = `http://127.0.0.1/api/blog/posts/?page=${page}`
+            if(query !== null){
+                url = `http://127.0.0.1/api/blog/posts/?search=${query}&page=${page}`;
+            }
+
+            const response = await axios.get(url);
             setPosts(response.data.results);
             setTotalCount(response.data.count);
             setLoading(false);
@@ -26,7 +27,12 @@ function PostList({posts, boxTitle}){
             setLoading(false);
             setError(err);
         }
-    };
+    }, [query]);
+
+    useEffect(() => {
+        fetchPosts();
+    }, [fetchPosts]);
+
 
     const handlePageClick = (event) => {
         fetchPosts(event.selected + 1);
@@ -45,11 +51,11 @@ function PostList({posts, boxTitle}){
                 {boxTitle && 
                 <h1 className="color-dark-blue flex justify-content-center align-center text-control"><span class="material-symbols-outlined color-gold">fiber_new</span>&nbsp;{boxTitle}</h1>
                 }
-
                 <div className="flex flex-row mobile-control flex-wrap">
                 {
+                    console.log(posts)}{
                     posts.map((post) => (
-                        postHandle(post)
+                        <Post post={post} key={post.id}></Post>
                     ))
                 } 
                 </div>
@@ -76,12 +82,6 @@ function PostList({posts, boxTitle}){
             />
         </>
     );
-
-    function postHandle(post){
-        if (post.is_promoted === false){
-            return <Post post={post} key={post.slug}></Post>
-        }
-    }
 }
 
 export default PostList;
