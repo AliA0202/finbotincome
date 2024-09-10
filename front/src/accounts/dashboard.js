@@ -173,7 +173,7 @@ const EditProfile = () => {
                             <div className="flex flex-row align-center">
                                 <img src={process.env.PUBLIC_URL + "/static/images/logo.png"} className="user-profile-img"></img>
                                 <div className="flex align-center flex-column">
-                                    <h2 className="color-dark-blue margin-right-15 margin-bottom-5 margin-top-5">رضا عابدینی</h2>
+                                    <h2 className="color-dark-blue margin-right-15 margin-bottom-5 margin-top-5">{firstName} {lastName}</h2>
                                     <button type="button" className="flex align-center btn color-light-blue" onClick={editProfileButton}><span class="material-symbols-outlined">edit</span>&nbsp;ویرایش پروفایل</button>
                                 </div>
                             </div>
