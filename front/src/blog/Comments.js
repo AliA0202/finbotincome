@@ -32,22 +32,27 @@ const Comments = (slug) => {
         >
             {comments.map((comment) => (
                 <div className="flex comment-card flex-column align-center justify-content-center padding-25" key={comment.user.username}>
-                    <div className='flex flex-row align-center flex-start comment-title'>
-                        <div>
-                            {comment.user.image === null ? (
-                                <img src={process.env.PUBLIC_URL + '/static/images/icon/user.png'} alt={comment.user.username} className='img-comment'></img>
-                            ): (
-                                <img src={comment.user.image} alt={comment.user.username} className='img-comment'></img>
-                            )}
+                    <div className='flex flex-row align-center comment-title'>
+
+                        <div className='flex flex-row align-center flex-between width-full'>
+                            <div className='flex align-center flex-row'>
+                                {comment.user.image === null ? (
+                                    <img src={process.env.PUBLIC_URL + '/static/images/icon/user.png'} alt={comment.user.username} className='img-comment'></img>
+                                ): (
+                                    <img src={comment.user.image} alt={comment.user.username} className='img-comment'></img>
+                                )}
+                                <p className='font-bold margin-right-15'>{`${comment.user.first_name} ${comment.user.last_name}`}</p>    
+                            </div>
+                            
+                            <div className='flex width-full flex-end'>
+                                <small className='font-bold bg-dark-blue color-white rounded padding-side'>{comment.written_at}</small>
+                            </div>
                         </div>
-                        
-                        <div>
-                            <p className='font-bold margin-right-15'>{`${comment.user.first_name} ${comment.user.last_name}`}</p>
-                        </div>
+        
                     </div>
                     <hr></hr>
-                    <div className='flex flex-row align-center flex-start'>
-                        <p className='text-justify'>{comment.caption}</p>
+                    <div className='flex flex-row width-full bg-gray rounded-xs align-center flex-start padding-15'>
+                        <p className='text-justify flex flex-start width-full'>{comment.caption}</p>
                     </div>
                 </div>
             ))}
