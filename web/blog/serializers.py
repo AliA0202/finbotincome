@@ -23,7 +23,7 @@ class BlogCommentsSerializer(serializers.ModelSerializer):
     user = UserCommentSerializer()
     class Meta:
         model = BlogComments
-        fields = ('user', 'caption', 'written_at', 'post')
+        fields = ('id', 'user', 'caption', 'written_at', 'post')
 
 
 class PostSerializer(serializers.ModelSerializer):

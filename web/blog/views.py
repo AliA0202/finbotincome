@@ -103,13 +103,17 @@ class CreateComment(generics.CreateAPIView):
     serializer_class = CreateCommentsSerializer
     permission_classes = [IsAuthenticated]
 
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        response_serializer = BlogCommentsSerializer(instance)
+        self.response_data = response_serializer.data
+
     def create(self, request, *args, **kwargs):
-        request.data._mutable = True
         request.data['user'] = request.user.id
         request.data['post'] = BlogPost.objects.get(slug = request.data['post']).id
-        request.data._mutable = False
-        print(request.data)
-        return super().create(request, *args, **kwargs)
+        response = super().create(request, *args, **kwargs)
+        response.data = self.response_data
+        return response
     
 class PromotedListView(generics.ListAPIView):
     queryset = BlogPost.objects.filter(is_promoted=True).order_by("published_at")
