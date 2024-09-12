@@ -8,7 +8,7 @@ import Footer from "../Components/Footer/Footer.jsx";
 import TicketForm from "./TicketForm.js";
 import SavedPostsList from "./dashboard/SavedPostsList.js";
 import PaymentsList from "./dashboard/PaymentsList.js";
-
+import { Navigate } from "react-router-dom";
 
 const EditProfile = () => {
     const navigate = useNavigate();
@@ -16,6 +16,7 @@ const EditProfile = () => {
     const [lastName, setLastName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
+    const [userType, setUserType] = useState("");
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -25,6 +26,10 @@ const EditProfile = () => {
 
 
     useEffect(() => {
+        if (localStorage.getItem('token') === null){
+            return <Navigate to='/login'></Navigate>
+        }
+
         const fetchData = async () => {
             try {
                 const response = await axios.get("http://127.0.0.1/api/accounts/edit-profile/", {
@@ -32,10 +37,12 @@ const EditProfile = () => {
                         'Authorization': `Token ${localStorage.getItem('token')}`
                     }
                 });
+                
                 setFirstName(response.data.first_name);
                 setLastName(response.data.last_name);
                 setPhone(response.data.phone);
                 setEmail(response.data.email);
+                setUserType(response.data.user_type);
                 if (response.data.image) {
                     setImageUrl(response.data.image)
                 }
@@ -126,6 +133,23 @@ const EditProfile = () => {
                 });
     }
 
+    const logoutButton = async () => {
+        try{
+            console.log(localStorage.getItem('token'));
+            await axios.post("http://127.0.0.1/api/accounts/logout/",{
+                headers : {
+                    "Authorization" : `Token ${localStorage.getItem('token')}`
+                }
+            });
+            
+            localStorage.removeItem('token');
+
+            return <Navigate to="/blog"></Navigate>
+        } catch(error){
+            return error;
+        }
+    }
+
     if (loading) {
         return <h4>loading...</h4>
     }
@@ -174,7 +198,10 @@ const EditProfile = () => {
                                 <img src={process.env.PUBLIC_URL + "/static/images/logo.png"} className="user-profile-img"></img>
                                 <div className="flex align-center flex-column">
                                     <h2 className="color-dark-blue margin-right-15 margin-bottom-5 margin-top-5">{firstName} {lastName}</h2>
-                                    <button type="button" className="flex align-center btn color-light-blue" onClick={editProfileButton}><span class="material-symbols-outlined">edit</span>&nbsp;ویرایش پروفایل</button>
+                                    <div className="flex flex-row mobile-control">
+                                        <button type="button" className="flex align-center btn color-light-blue" onClick={editProfileButton}><span class="material-symbols-outlined">edit</span>&nbsp;ویرایش پروفایل</button>
+                                        <button className="flex align-center btn margin-right-15 color-red" onClick={logoutButton}><span class="material-symbols-outlined">logout</span>&nbsp;خروج از حساب</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -182,17 +209,30 @@ const EditProfile = () => {
 
                             <div className="flex align-center mobile-end">
                                 <div className="flex flex-column">
-                                    <div className="flex flex-row align-center padding-right-25">
-                                        <img src={process.env.PUBLIC_URL + "/static/images/icon/basic.png"} className="user-type-img"></img> &nbsp;
-                                        <h4 className="color-dark-blue">عضویت عادی</h4>
-                                    </div>
+                                    {userType === "N" ? (
+                                        <>
+                                            <div className="flex flex-row align-center padding-right-25">
+                                                <img src={process.env.PUBLIC_URL + "/static/images/icon/basic.png"} className="user-type-img"></img> &nbsp;
+                                                <h4 className="color-dark-blue txt-control">عضویت عادی</h4>
+                                            </div>
 
-                                    <div className="flex flex-row">
-                                        <a href="#" className="btn btn-buy flex align-center">
-                                            <img src={process.env.PUBLIC_URL + "/static/images/icon/vip.png"} className="user-type-img"></img> &nbsp;
-                                            خرید عضویت ویژه
-                                        </a>
-                                    </div>
+                                            <div className="flex flex-row">
+                                                <a href="#" className="btn btn-buy flex align-center">
+                                                    <img src={process.env.PUBLIC_URL + "/static/images/icon/vip.png"} className="user-type-img"></img> &nbsp;
+                                                    خرید عضویت ویژه
+                                                </a>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="flex flex-row margin-top-15-mobile">
+                                                <div className="btn btn-buy flex align-center">
+                                                    <img src={process.env.PUBLIC_URL + "/static/images/icon/vip.png"} className="user-type-img"></img> &nbsp;
+                                                    عضویت ویژه
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>

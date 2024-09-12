@@ -53,7 +53,6 @@ function PostList({query, boxTitle}){
                 }
                 <div className="flex flex-row mobile-control flex-wrap">
                 {
-                    console.log(posts)}{
                     posts.map((post) => (
                         filterPosts(post)
                     ))
