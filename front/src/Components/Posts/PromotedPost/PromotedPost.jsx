@@ -13,14 +13,12 @@ function PromotedPost({post, key, counter}){
     const savePost = async (key) => {
         try {
             const params = {post : key};
-            console.log("Token", localStorage.getItem('token'));
             const response = await axios.post(`http://127.0.0.1/api/blog/saved-posts/create/`, params, {
                 headers : {
                     'Authorization': `Token ${localStorage.getItem('token')}`
                 }
             }).then(response => response.status)
             .catch(err => console.warn(err));
-            console.log("Response: ", response);
         } catch (err) {
             setError(err);
         }

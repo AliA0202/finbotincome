@@ -5,7 +5,7 @@ import "./Slider.css";
 function Slider(){
     return(
         <>
-            <div className="flex flex-row slider-box align-center space-around">
+            <div className="flex flex-row slider-box align-center space-around just-slider">
                 <div className="flex padding-15">
                     <img src={process.env.PUBLIC_URL + "/static/images/banner.png"} alt="Banner" className="banner-img img-responsive"></img>
                 </div>

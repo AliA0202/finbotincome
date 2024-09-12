@@ -1,7 +1,37 @@
-import React from "react";
+import React, {useEffect,useState} from "react";
 import './Header.css';
+import axios from "axios";
 
 function Header(){
+    const [profile, setProfile] = useState("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://127.0.0.1/api/accounts/edit-profile/", {
+                    headers: {
+                        'Authorization': `Token ${localStorage.getItem('token')}`
+                    }
+                });
+                setProfile(`${response.data.first_name} ${response.data.last_name}`);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    
+    function fetchAccount(){
+        const response = axios.get("localhost/api/accounts/edit-profile/", {
+            headers : {
+                "Authorization" : `Token ${localStorage.getItem('token')}`
+            }
+        });
+        console.log(response.data);
+        setProfile(response.data['first_name'] + response.data['last_name']);
+    }
+
     return (
         <>
             <nav className="flex space-between">
@@ -13,7 +43,23 @@ function Header(){
                 </div>
 
                 <div className="flex space-around">
-                    <a href="http://127.0.0.1/login" className="nav-link"><span className="material-symbols-outlined">account_circle</span>&nbsp;حساب کاربری</a>
+                    {console.log("token: ", localStorage.getItem('token'))}
+                    { (localStorage.getItem('token') === null) ? (
+                        <>
+                            <a href="http://127.0.0.1/login/" className="nav-link"><span className="material-symbols-outlined">account_circle</span>&nbsp;
+                                <span>حساب کاربری</span> 
+                            </a>
+                        </>
+                    ) : (
+                        <>
+                            <a href="http://127.0.0.1/dashboard/" className="nav-link"><span className="material-symbols-outlined">account_circle</span>&nbsp;
+                                <span>
+                                {profile}
+                                </span>
+                            </a>
+                        </>
+                    )
+                    }
                     <a href="#" className="nav-link"><span className="material-symbols-outlined">support_agent</span>&nbsp;پشتیبانی</a>
                 </div>
 
