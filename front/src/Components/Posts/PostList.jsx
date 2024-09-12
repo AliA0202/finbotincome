@@ -6,7 +6,7 @@ import { useEffect, useState, useCallback} from "react";
 import axios from 'axios';
 
 
-function PostList({query, boxTitle}){
+function PostList({queryString, boxTitle}){
     const [posts, setPosts] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -15,8 +15,8 @@ function PostList({query, boxTitle}){
     const fetchPosts = useCallback(async (page = 1) => {
         try {
             let url = `http://127.0.0.1/api/blog/posts/?page=${page}`
-            if(query !== null){
-                url = `http://127.0.0.1/api/blog/posts/?search=${query}&page=${page}`;
+            if(queryString !== ""){
+                url = `http://127.0.0.1/api/blog/posts/?${queryString}&page=${page}`;
             }
 
             const response = await axios.get(url);
@@ -27,7 +27,7 @@ function PostList({query, boxTitle}){
             setLoading(false);
             setError(err);
         }
-    }, [query]);
+    }, [queryString]);
 
     useEffect(() => {
         fetchPosts();
@@ -53,7 +53,6 @@ function PostList({query, boxTitle}){
                 }
                 <div className="flex flex-row mobile-control flex-wrap">
                 {
-                    console.log(posts)}{
                     posts.map((post) => (
                         filterPosts(post)
                     ))
