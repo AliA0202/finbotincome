@@ -21,13 +21,29 @@ const EditProfile = () => {
     const [loading, setLoading] = useState(true);
     const [title, setTitle] = useState("");
     const [caption, setCaption] = useState("");
+    const [redirectTo, setRedirectTo] = useState("");
 
 
-
-    useEffect(() => {
+    useEffect(() =>{
+        switch (redirectTo) {
+            case "logout":
+                localStorage.removeItem('token');
+                localStorage.removeItem('isAuthenticated');
+                navigate('/blog');
+                break;
+            case "dashboard":
+                window.location.reload();
+                break;
+            default:
+                navigate(redirectTo);
+                break;
+        }
         if (localStorage.getItem('token') === null){
             return navigate('/login');
         }
+    }, [redirectTo, navigate]);
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get("http://127.0.0.1/api/accounts/edit-profile/", {
@@ -52,7 +68,7 @@ const EditProfile = () => {
         };
 
         fetchData();
-    }, [navigate]);
+    }, []);
 
     function handleFirstNameChange(event) {
         setFirstName(event.target.value)
@@ -88,8 +104,7 @@ const EditProfile = () => {
                     }
                 })
                 .then(res => {
-                    console.log(res);
-                    navigate("/dashboard");
+                    setRedirectTo("dashboard");
                 })
                 .catch(error => {
                     if (error.response) {
@@ -119,7 +134,7 @@ const EditProfile = () => {
                     }
                 })
                 .then(res => {
-                    navigate("/");
+                    setRedirectTo("dashboard");
                 })
                 .catch(error => {
                     if (error.response) {
@@ -140,7 +155,7 @@ const EditProfile = () => {
                 }
             });
             localStorage.removeItem('token');
-            navigate('/');
+            setRedirectTo("logout")
         } catch(error){
             return error;
         }
@@ -156,8 +171,7 @@ const EditProfile = () => {
                 console.log(res);
                 if (res.status == 200){
                     let url = res.data['url'];
-                    console.log(url);
-                    navigate( <Link to={url} />);
+                    setRedirectTo( <Link to={url} />);
                 }
             });
 
