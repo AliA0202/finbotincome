@@ -36,9 +36,9 @@ class TelegramTicketAnswerInline(admin.TabularInline):
 
 @admin.register(TelegramTicket)
 class TelegramTicketAdmin(admin.ModelAdmin):
-    list_display = ['telegram_account', 'title', 'status']
+    list_display = ['id', 'user', 'telegram_account', 'title', 'status']
     ordered = ['-created']
-    fields = ['telegram_account', 'text', 'status']
+    fields = ['telegram_account', 'user', 'title', 'text', 'status']
 
     inlines = [
         TelegramTicketAnswerInline,

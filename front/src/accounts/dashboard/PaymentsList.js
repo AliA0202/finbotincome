@@ -33,7 +33,7 @@ const PaymentsList = () => {
     };
     return (
         <div className="content-bar flex flex-column space-between">
-            <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">bookmark</span>&nbsp;پست های ذخیره شده</h3>
+            <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">bookmark</span>&nbsp;پرداخت ها</h3>
             <div className="line-horizontal-gold"></div>
             <div className="control-height">
                 <InfiniteScroll
@@ -44,7 +44,7 @@ const PaymentsList = () => {
                 endMessage={""}
                 >
                     {payments.map((payment)=>(
-                        <div className="flex flex-row saved-post-card success-card">
+                        <div className={`flex flex-row saved-post-card ${ payment.status === "Active" && 'info-card'} ${ payment.status === "Paid" && 'success-card' } ${ ((payment.status === "Expired") || (payment.status === "Failed")) && 'danger-card' }`}>
                                     <div className="flex space-between margin-right-15 width-full align-center">
                                         <div>
                                             <h4 className="color-dark-blue margin-less">{`${payment.amount} ریال`}</h4>
@@ -52,7 +52,18 @@ const PaymentsList = () => {
                                             <h6 className="color-dark-blue margin-less">{statusOf[payment.status]}</h6>
                                             <h6 className="margin-less color-light-gray">{payment.created_at}</h6>
                                         </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">check_circle</span></a>
+                                        <div className="color-dark-blue">{payment.status === "Paid" ? (
+                                            <span class="material-symbols-outlined">order_approve</span>
+                                        ) : 
+                                            <>
+                                                { payment.status === "Active" ? (
+                                                    <span class="material-symbols-outlined">order_play</span>
+                                                ) : (
+                                                    <span class="material-symbols-outlined">contract_delete</span>  
+                                                )}
+                                            </>
+                                        }
+                                        </div>
                                     </div>
                         </div> 
                     ))}

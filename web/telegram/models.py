@@ -1,6 +1,6 @@
 from django.db import models
 import requests, json
-
+from accounts.models import User
 
 class TelegramProfile(models.Model):
     ACCESS_LEVEL = (
@@ -30,7 +30,8 @@ class TelegramTicket(models.Model):
         ("Open", "Open"),
     )
 
-    telegram_account = models.ForeignKey(TelegramProfile, on_delete=models.CASCADE)
+    telegram_account = models.ForeignKey(TelegramProfile, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=55, blank=True, null=True)
     text = models.CharField(max_length=1024)
     status = models.CharField(max_length=6, default="Open", choices=TELEGRAM_TICKET_STATUS)
@@ -53,22 +54,25 @@ class TelegramTicketAnswer(models.Model):
         return f"{self.ticket.title}"
     
     def save(self, *args, **kwargs) :
-        url = f"https://api.telegram.org/bot7111711383:AAH5xL-FunByrIZvV_HyWr2y7d5e1UqKELo/sendMessage"
+        try:
+            url = f"https://api.telegram.org/bot7111711383:AAH5xL-FunByrIZvV_HyWr2y7d5e1UqKELo/sendMessage"
 
-        headers = {
-            "Content-Type" : "application/json"
-        }
+            headers = {
+                "Content-Type" : "application/json"
+            }
 
-        text = f"پشتیبانی:\n\nتیکت شما:\n{self.ticket.text}\n\nپاسخ آن:\n{self.text}"
-        data = {
-            "chat_id" : self.ticket.telegram_account.telegram_id,
-            "text" : text
-        }
+            text = f"پشتیبانی:\n\nتیکت شما:\n{self.ticket.text}\n\nپاسخ آن:\n{self.text}"
+            data = {
+                "chat_id" : self.ticket.telegram_account.telegram_id,
+                "text" : text
+            }
 
-        data = json.dumps(data)
-        result = requests.post(url=url, data=data, headers=headers)
-        print(result)
-        return super().save(*args, **kwargs)
+            data = json.dumps(data)
+            requests.post(url=url, data=data, headers=headers)
+        except:
+            pass
+        finally:
+            return super().save(*args, **kwargs)
 
 
     class Meta:

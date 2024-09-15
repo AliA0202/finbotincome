@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom"
+import { useNavigate , Navigate} from "react-router-dom"
 import LoginForm from "./LoginForm.js";
 import Footer from "../Components/Footer/Footer.jsx";
 import Header from "../Components/Header/Header.jsx";
+
 const FormValidators = require("./validate.js");
 const validateLoginForm = FormValidators.validateLoginForm;
 
@@ -53,11 +54,11 @@ const Login = () => {
         }
     }
 
+    if (localStorage.getItem('token')){
+        return <Navigate to='/dashboard' />
+    }
+
     return (
-        <>
-            { localStorage.getItem('token') === null ? (
-                navigate("/dashboard")
-            ) : (
                 <>
                     <Header></Header>
 
@@ -72,9 +73,7 @@ const Login = () => {
                     </div>
                     <Footer></Footer>
                 </>
-            )}
             
-        </>
     )
 }
 
