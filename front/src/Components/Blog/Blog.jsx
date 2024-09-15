@@ -15,6 +15,8 @@ function Blog(){
     const [error, setError] = useState(null);
     const [categories, setCategories] = useState([])
     const [query, setQuery] = useState(null);
+    const [listTitle, setListTitle] = useState("آخرین مطالب")
+    const [filter, setFilter] = useState(null)
 
     useEffect(() => {
         fetchCategories();
@@ -35,18 +37,43 @@ function Blog(){
     if (error) return <div>Error: {error.message}</div>;
 
     function handleQueryChange(event){
-        if (query !== null && !query.trim().length){
-            setQuery(null);
+        setQuery(event.target.value);
+        const newValue= event.target.value;
+        if (!newValue.trim().length && !filter){
+            setListTitle(`آخرین مطالب`)
             return;
         }
-        setQuery(event.target.value);
+        if (!newValue.trim().length && filter){
+            setListTitle(`نتایج جست‌وجو در دسته‌بندی ${filter}`)
+            return;
+        }
+        if(listTitle != "آخرین مطالب" && listTitle != "نتایج جست‌وجو"){
+            setListTitle(`نتایج جست‌وجو در دسته‌بندی ${filter}`)
+        }
+        else{setListTitle("نتایج جست‌وجو")}
+    }
+
+    function categoryChange(category){
+            if(category == -1){
+                setListTitle(`آخرین مطالب`)
+                if(listTitle == `نتایج جست‌وجو در دسته‌بندی ${filter}`){
+                    setListTitle(`نتایج جست‌وجو`)
+                }
+                setFilter(null);
+                return
+            }
+            setFilter(`${category}`)
+            setListTitle(`دسته‌بندی ${category}`)
+            if(listTitle == "نتایج جست‌وجو"){
+                setListTitle(`نتایج جست‌وجو در دسته‌بندی ${category}`)
+            }
     }
     return (
         <>
             <Header></Header>
             <div className="height-200"></div>
 
-            <Categories Header="بر اساس دسته بندی" categoryList={categories} >
+            <Categories Header="بر اساس دسته بندی" categoryList={categories} onFilter={categoryChange} >
             </Categories>
             
             <div className="flex padding-25 flex-end">
@@ -60,8 +87,11 @@ function Blog(){
                 </form>
             </div>
             
-            <Posts></Posts>
-            <PostList query={query} boxTitle="آخرین مطالب"></PostList>
+            {query || filter ? <PostList queryString={`${query? `search=${query}&` : ""}${filter? `filter=${filter}&` : ""} `}
+            boxTitle={listTitle}></PostList> :
+            <div><Posts></Posts> <PostList queryString={query} boxTitle="آخرین مطالب"></PostList></div>} 
+            
+            
             <Footer></Footer>
         </>
     );
