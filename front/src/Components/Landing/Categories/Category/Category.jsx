@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Category({category, onTouched}){
     return (
         <>
-            <div className="card" onClick={() => onTouched(category.title)}>
+            <div className="card" onClick={() => onTouched(category.title, category.id)}>
                     <div className="card-link">
                         <img src={category.image} alt={category.title} className="cat-img"></img>
                         <div className="cat-overlay"></div>

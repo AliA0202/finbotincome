@@ -7,7 +7,7 @@ from accounts.serializers import UserCommentSerializer
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogCategory
-        fields = ('title', 'image')
+        fields = ('id', 'title', 'image')
 
 class BlogPostSerializer(serializers.ModelSerializer):
     absolute_url = serializers.SerializerMethodField()

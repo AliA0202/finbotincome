@@ -53,7 +53,7 @@ function Blog(){
         else{setListTitle("نتایج جست‌وجو")}
     }
 
-    function categoryChange(category){
+    function categoryChange(category, categoryId){
             if(category == -1){
                 setListTitle(`آخرین مطالب`)
                 if(listTitle == `نتایج جست‌وجو در دسته‌بندی ${filter}`){
@@ -62,7 +62,7 @@ function Blog(){
                 setFilter(null);
                 return
             }
-            setFilter(`${category}`)
+            setFilter(`${categoryId}`)
             setListTitle(`دسته‌بندی ${category}`)
             if(listTitle == "نتایج جست‌وجو"){
                 setListTitle(`نتایج جست‌وجو در دسته‌بندی ${category}`)
@@ -87,7 +87,7 @@ function Blog(){
                 </form>
             </div>
             
-            {query || filter ? <PostList queryString={`${query? `search=${query}&` : ""}${filter? `filter=${filter}&` : ""} `}
+            {query || filter ? <PostList queryString={`${query?`search=${query}&`:""}${filter?`category=${filter}&`:""}`}
             boxTitle={listTitle}></PostList> :
             <div><Posts></Posts> <PostList queryString={query} boxTitle="آخرین مطالب"></PostList></div>} 
             

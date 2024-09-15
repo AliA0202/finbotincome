@@ -16,7 +16,7 @@ function PostList({queryString, boxTitle}){
         try {
             let url = `http://127.0.0.1/api/blog/posts/?page=${page}`
             if(queryString !== ""){
-                url = `http://127.0.0.1/api/blog/posts/?${queryString}&page=${page}`;
+                url = `http://127.0.0.1/api/blog/posts/?${queryString}page=${page}`;
             }
 
             const response = await axios.get(url);
