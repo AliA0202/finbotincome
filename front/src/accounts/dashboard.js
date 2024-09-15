@@ -51,7 +51,10 @@ const EditProfile = () => {
                         'Authorization': `Token ${localStorage.getItem('token')}`
                     }
                 });
-                
+                if(response.status === 401) {
+                    setRedirectTo("logout");
+                    return; 
+                }
                 setFirstName(response.data.first_name);
                 setLastName(response.data.last_name);
                 setPhone(response.data.phone);
@@ -169,7 +172,7 @@ const EditProfile = () => {
                 }
             }).then(res => {
                 console.log(res);
-                if (res.status == 200){
+                if (res.status === 200){
                     let url = res.data['url'];
                     setRedirectTo( <Link to={url} />);
                 }
