@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import EditForm from "./editProfileForm.js";
 import { ValidateProfile } from "./validate.js";
 import Header from "../Components/Header/Header.jsx";
@@ -8,7 +8,6 @@ import Footer from "../Components/Footer/Footer.jsx";
 import TicketForm from "./TicketForm.js";
 import SavedPostsList from "./dashboard/SavedPostsList.js";
 import PaymentsList from "./dashboard/PaymentsList.js";
-import { Navigate } from "react-router-dom";
 
 const EditProfile = () => {
     const navigate = useNavigate();
@@ -26,8 +25,9 @@ const EditProfile = () => {
 
 
     useEffect(() => {
+        console.log('first at all: ', localStorage.getItem('token'));
         if (localStorage.getItem('token') === null){
-            return <Navigate to='/login'></Navigate>
+            return navigate('/');
         }
 
         const fetchData = async () => {
@@ -90,7 +90,8 @@ const EditProfile = () => {
                     }
                 })
                 .then(res => {
-                    navigate("/");
+                    console.log(res);
+                    navigate("/dashboard");
                 })
                 .catch(error => {
                     if (error.response) {
@@ -135,18 +136,35 @@ const EditProfile = () => {
 
     const logoutButton = async () => {
         try{
-            console.log(localStorage.getItem('token'));
-            await axios.post("http://127.0.0.1/api/accounts/logout/",{
+            await axios.post("http://127.0.0.1/api/accounts/logout/", {}, {
                 headers : {
                     "Authorization" : `Token ${localStorage.getItem('token')}`
                 }
             });
-            
             localStorage.removeItem('token');
-
-            return <Navigate to="/blog"></Navigate>
+            navigate('/');
         } catch(error){
             return error;
+        }
+    }
+
+    const buyVipAccount = async () => {
+        try{
+            await axios.get("http://127.0.0.1/api/payment/authority/", {
+                headers : {
+                    "Authorization" : `Token ${localStorage.getItem('token')}`
+                }
+            }).then(res => {
+                console.log(res);
+                if (res.status == 200){
+                    let url = res.data['url'];
+                    console.log(url);
+                    navigate( <Link to={url} />);
+                }
+            });
+
+        } catch(error) {
+            console.log(error);
         }
     }
 
@@ -194,13 +212,17 @@ const EditProfile = () => {
 
                     <div className="flex flex-wrap flex-row space-between">
                         <div className="content-bar flex flex-row user-info-box">
-                            <div className="flex flex-row align-center">
-                                <img src={process.env.PUBLIC_URL + "/static/images/logo.png"} className="user-profile-img"></img>
-                                <div className="flex align-center flex-column">
-                                    <h2 className="color-dark-blue margin-right-15 margin-bottom-5 margin-top-5">{firstName} {lastName}</h2>
+                            <div className="flex flex-row align-center space-between-mobile">
+                                { imageUrl === null ? (
+                                    <img src={process.env.PUBLIC_URL + "/static/images/icon/user.png"} className="user-profile-img"></img>
+                                ) : (
+                                    <img src={imageUrl} className="user-profile-img"></img>
+                                )}
+                                <div className="flex flex-column margin-right-15">
+                                    <h2 className="color-dark-blue margin-bottom-5 margin-top-5">{firstName} {lastName}</h2>
                                     <div className="flex flex-row mobile-control">
                                         <button type="button" className="flex align-center btn color-light-blue" onClick={editProfileButton}><span class="material-symbols-outlined">edit</span>&nbsp;ویرایش پروفایل</button>
-                                        <button className="flex align-center btn margin-right-15 color-red" onClick={logoutButton}><span class="material-symbols-outlined">logout</span>&nbsp;خروج از حساب</button>
+                                        <button className="flex align-center btn color-red" onClick={logoutButton}><span class="material-symbols-outlined">logout</span>&nbsp;خروج از حساب</button>
                                     </div>
                                 </div>
                             </div>
@@ -217,16 +239,16 @@ const EditProfile = () => {
                                             </div>
 
                                             <div className="flex flex-row">
-                                                <a href="#" className="btn btn-buy flex align-center">
+                                                <button onClick={buyVipAccount} className="btn btn-buy flex align-center">
                                                     <img src={process.env.PUBLIC_URL + "/static/images/icon/vip.png"} className="user-type-img"></img> &nbsp;
                                                     خرید عضویت ویژه
-                                                </a>
+                                                </button>
                                             </div>
                                         </>
                                     ) : (
                                         <>
                                             <div className="flex flex-row margin-top-15-mobile">
-                                                <div className="btn btn-buy flex align-center">
+                                                <div className="btn btn-buy flex align-center cursor-less">
                                                     <img src={process.env.PUBLIC_URL + "/static/images/icon/vip.png"} className="user-type-img"></img> &nbsp;
                                                     عضویت ویژه
                                                 </div>
@@ -304,7 +326,7 @@ const EditProfile = () => {
 
 
 
-                        <div className="content-bar flex flex-column space-between bg-dark-blue">
+                        <div className="content-bar flex flex-column space-between bg-green">
                             <h3 className="flex align-center color-white margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">link</span>&nbsp;دعوت از دوستان</h3>
                             <div className="control-height">
                                 <h4 className="color-white text-justify">با دعوت از هر دوست خود، 5 امتیاز کسب کنید. با بالا رفتن امتیاز شما هدایای ارزشمندی تقدیم شما خواهد شد</h4>

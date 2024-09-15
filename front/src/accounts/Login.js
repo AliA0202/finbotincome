@@ -26,7 +26,7 @@ const Login = () => {
             .then(res => {
                 localStorage.token = res.data.token;
                 localStorage.isAuthenticated = true;
-                navigate("/");
+                navigate("/dashboard");
             })
             .catch(error => {
                 if (error.response) {
@@ -55,18 +55,25 @@ const Login = () => {
 
     return (
         <>
-            <Header></Header>
+            { localStorage.getItem('token') === null ? (
+                navigate("/dashboard")
+            ) : (
+                <>
+                    <Header></Header>
 
-            <div className="flex align-center justify-content-center height-100vh">
-            <LoginForm
-                onSubmit={validateForm}
-                onUNChange={handleNameChange}
-                onPWChange={handlePassChange}
-                username={username}
-                password={password}
-            />
-            </div>
-            <Footer></Footer>
+                    <div className="flex align-center justify-content-center height-100vh">
+                    <LoginForm
+                        onSubmit={validateForm}
+                        onUNChange={handleNameChange}
+                        onPWChange={handlePassChange}
+                        username={username}
+                        password={password}
+                    />
+                    </div>
+                    <Footer></Footer>
+                </>
+            )}
+            
         </>
     )
 }

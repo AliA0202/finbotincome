@@ -73,6 +73,9 @@
   background-color: transparent; display: flex; border-radius: 15px; background-color: #fff; box-shadow: 3px 3px 8px 2px rgb(199, 199, 199);
   filter: blur(1); border: 1px solid #a1a1a1; padding: 25px; margin: 25px;
 }
+.bg-green{
+  background-color: #41B06E;
+}
 .control-height{
   max-height: 400px; overflow-y: scroll; min-height: 400px;
 }
@@ -109,7 +112,7 @@
   box-shadow: none; transition: 0.3s;
 }
 .overlay{
-  width: 100%; height: 100vh; display: none; background-color: #3a525a; overflow: hidden; align-items: center; justify-content: center; flex-direction: column;
+  width: 100%;min-height: 100vh; height: auto; display: none; background-color: #3a525a; overflow: hidden; align-items: center; justify-content: center; flex-direction: column;
 }
 .overlay .form-box{
   margin-top: 0 !important;
@@ -157,6 +160,9 @@
 .user-info-box{
   width: 100%; justify-content: space-between;
 }
+.cursor-less{
+  cursor: none !important;
+}
 
 @media screen and (max-width: 550px) {
   .main-content{
@@ -197,5 +203,8 @@
   }
   .margin-top-15-mobile{
     margin-top: 15px;
+  }
+  .space-between-mobile{
+    justify-content: space-between !important;
   }
 }

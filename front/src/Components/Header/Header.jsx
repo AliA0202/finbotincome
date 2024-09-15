@@ -1,9 +1,11 @@
 import React, {useEffect,useState} from "react";
 import './Header.css';
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom"
 
 function Header(){
     const [profile, setProfile] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,21 +18,19 @@ function Header(){
                 setProfile(`${response.data.first_name} ${response.data.last_name}`);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                console.log("Header Token before remove: ", localStorage.getItem('token'));
+                if (localStorage.getItem('token') != null){
+                    localStorage.removeItem('token');
+                    console.log("Header Token when reomved: ", localStorage.getItem('token'));
+                    console.log("Href: ", window.location.href);
+                    navigate(window.location.href);
+                }
             }
         };
 
         fetchData();
     }, []);
     
-    function fetchAccount(){
-        const response = axios.get("localhost/api/accounts/edit-profile/", {
-            headers : {
-                "Authorization" : `Token ${localStorage.getItem('token')}`
-            }
-        });
-        console.log(response.data);
-        setProfile(response.data['first_name'] + response.data['last_name']);
-    }
 
     return (
         <>
@@ -43,7 +43,7 @@ function Header(){
                 </div>
 
                 <div className="flex space-around">
-                    {console.log("token: ", localStorage.getItem('token'))}
+                    {console.log('token in header: ', localStorage.getItem('token'))}
                     { (localStorage.getItem('token') === null) ? (
                         <>
                             <a href="http://127.0.0.1/login/" className="nav-link"><span className="material-symbols-outlined">account_circle</span>&nbsp;

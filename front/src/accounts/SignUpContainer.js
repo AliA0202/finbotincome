@@ -48,7 +48,7 @@ function SignUpContainer() {
       .then(res => {
         localStorage.token = res.data.token;
         localStorage.isAuthenticated = true;
-        navigate("/");
+        navigate("/dashboard");
       })
       .catch(error => {
         if (error.response) {

@@ -16,11 +16,16 @@ const EditForm = ({
 }) => {
     return (
 
-        <div className="flex justity-content-center flex-column align-center form-box">
+        <div className="flex justity-content-center flex-column align-center form-box margin-bottom-25px">
             <h1 className="color-dark-blue">ویرایش پروفایل</h1>
-            <div>
-                <img src={imageUrl} alt="Profile" />
-            </div>
+            { imageUrl ? (
+                <div>
+                <img src={imageUrl} alt="Profile" className="img-responsive rounded" />
+                </div>
+            ) : (
+                <span></span>
+            )}
+
             <form onSubmit={onSubmit}>
                 <label className="label" htmlFor="first_name">
                     نام:
@@ -45,7 +50,7 @@ const EditForm = ({
                 <label className="label" htmlFor="image">
                     تصویر پروفایل:
                 </label>
-                <input type="file" accept="image/*" name="image" id="image" className="txt-input" onChange={onImageChange} />
+                <input type="file" accept="image/*" name="image" id="image" className="txt-input" onChange={onImageChange}/>
 
                 <button
                     className="signUpSubmit"
