@@ -25,11 +25,9 @@ const EditProfile = () => {
 
 
     useEffect(() => {
-        console.log('first at all: ', localStorage.getItem('token'));
         if (localStorage.getItem('token') === null){
-            return navigate('/');
+            return navigate('/login');
         }
-
         const fetchData = async () => {
             try {
                 const response = await axios.get("http://127.0.0.1/api/accounts/edit-profile/", {
@@ -54,7 +52,7 @@ const EditProfile = () => {
         };
 
         fetchData();
-    }, []);
+    }, [navigate]);
 
     function handleFirstNameChange(event) {
         setFirstName(event.target.value)

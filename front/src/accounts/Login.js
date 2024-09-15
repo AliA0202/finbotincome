@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom"
 import LoginForm from "./LoginForm.js";
@@ -11,6 +11,13 @@ const Login = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('token') !== null || isLoggedIn == true) {
+            return navigate('/blog');
+        }
+    }, [isLoggedIn]);
 
     function handleNameChange(event) {
         setUsername(event.target.value);
@@ -26,7 +33,7 @@ const Login = () => {
             .then(res => {
                 localStorage.token = res.data.token;
                 localStorage.isAuthenticated = true;
-                navigate("/dashboard");
+                setIsLoggedIn(true);
             })
             .catch(error => {
                 if (error.response) {
@@ -55,25 +62,19 @@ const Login = () => {
 
     return (
         <>
-            { localStorage.getItem('token') === null ? (
-                navigate("/dashboard")
-            ) : (
-                <>
-                    <Header></Header>
+            <Header></Header>
 
-                    <div className="flex align-center justify-content-center height-100vh">
-                    <LoginForm
-                        onSubmit={validateForm}
-                        onUNChange={handleNameChange}
-                        onPWChange={handlePassChange}
-                        username={username}
-                        password={password}
-                    />
-                    </div>
-                    <Footer></Footer>
-                </>
-            )}
-            
+            <div className="flex align-center justify-content-center height-100vh">
+                <LoginForm
+                    onSubmit={validateForm}
+                    onUNChange={handleNameChange}
+                    onPWChange={handlePassChange}
+                    username={username}
+                    password={password}
+                />
+            </div>
+            <Footer></Footer>
+
         </>
     )
 }
