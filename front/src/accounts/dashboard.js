@@ -21,39 +21,73 @@ const EditProfile = () => {
     const [loading, setLoading] = useState(true);
     const [title, setTitle] = useState("");
     const [caption, setCaption] = useState("");
+    const [redirectTo, setRedirectTo] = useState("");
+    const [tickets, setTickets] = useState([]);
 
 
+    useEffect(() =>{
+        switch (redirectTo) {
+            case "logout":
+                localStorage.removeItem('token');
+                localStorage.removeItem('isAuthenticated');
+                navigate('/blog');
+                break;
+            case "dashboard":
+                window.location.reload();
+                break;
+            default:
+                navigate(redirectTo);
+                break;
+        }
+        if (localStorage.getItem('token') === null){
+            return navigate('/login');
+        }
+    }, [redirectTo, navigate]);
+
+    const ticketsList = async () => {
+        try {
+            const response = await axios.get("http://127.0.0.1/api/telegram/tickets-list/", {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            });
+            if(response.status === 200 || response.status === 201) {
+                setTickets(response.data.results);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("http://127.0.0.1/api/accounts/edit-profile/", {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            });
+            if(response.status === 401) {
+                setRedirectTo("logout");
+                return; 
+            }
+            setFirstName(response.data.first_name);
+            setLastName(response.data.last_name);
+            setPhone(response.data.phone);
+            setEmail(response.data.email);
+            setUserType(response.data.user_type);
+            if (response.data.image) {
+                setImageUrl(response.data.image)
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        console.log('first at all: ', localStorage.getItem('token'));
-        if (localStorage.getItem('token') === null){
-            return navigate('/');
-        }
-
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("http://127.0.0.1/api/accounts/edit-profile/", {
-                    headers: {
-                        'Authorization': `Token ${localStorage.getItem('token')}`
-                    }
-                });
-                
-                setFirstName(response.data.first_name);
-                setLastName(response.data.last_name);
-                setPhone(response.data.phone);
-                setEmail(response.data.email);
-                setUserType(response.data.user_type);
-                if (response.data.image) {
-                    setImageUrl(response.data.image)
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchData();
+        ticketsList();
     }, []);
 
     function handleFirstNameChange(event) {
@@ -68,6 +102,17 @@ const EditProfile = () => {
     function handlePhoneChange(event) {
         setPhone(event.target.value)
     }
+
+    function handleCaptionChange(event) {
+        setCaption(event.target.value)
+    }
+
+    function handleTitleChange(event) {
+        setTitle(event.target.value)
+    }
+
+
+
     function handleImageChange(event) {
         if (event.target.files.length) {
             const file = event.target.files[0];
@@ -90,8 +135,7 @@ const EditProfile = () => {
                     }
                 })
                 .then(res => {
-                    console.log(res);
-                    navigate("/dashboard");
+                    setRedirectTo("dashboard");
                 })
                 .catch(error => {
                     if (error.response) {
@@ -112,16 +156,16 @@ const EditProfile = () => {
 
     function submitTicket(event){
         event.preventDefault();
-        var params = { title: title, caption: caption};
+        var params = { title: title, text: caption};
             axios
-                .patch("http://127.0.0.1/api/accounts/ticket/", params, {
+                .post("http://127.0.0.1/api/telegram/create-ticket/", params, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': `Token ${localStorage.getItem('token')}`
                     }
                 })
                 .then(res => {
-                    navigate("/");
+                    setRedirectTo("dashboard");
                 })
                 .catch(error => {
                     if (error.response) {
@@ -142,7 +186,7 @@ const EditProfile = () => {
                 }
             });
             localStorage.removeItem('token');
-            navigate('/');
+            setRedirectTo("logout")
         } catch(error){
             return error;
         }
@@ -156,10 +200,9 @@ const EditProfile = () => {
                 }
             }).then(res => {
                 console.log(res);
-                if (res.status == 200){
+                if (res.status === 200){
                     let url = res.data['url'];
-                    console.log(url);
-                    navigate( <Link to={url} />);
+                    setRedirectTo( <Link to={url} />);
                 }
             });
 
@@ -201,6 +244,8 @@ const EditProfile = () => {
                 <TicketForm
                     title={title}
                     caption={caption}
+                    captionChange={handleCaptionChange}
+                    titleChange={handleTitleChange}
                     onSubmit={submitTicket}
                 />
             </div>
@@ -276,24 +321,17 @@ const EditProfile = () => {
                             </div>
                             <div className="line-horizontal-gold"></div>
                             <div className="control-height">
-                                <a href="#" className="flex flex-row saved-post-card info-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">تیکت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
+                                { tickets.map(ticket => (
+                                    <div className="flex flex-row saved-post-card info-card">
+                                        <div className="flex space-between margin-right-15 width-full align-center">
+                                            <div>
+                                                <h4 className="color-dark-blue margin-less">تیکت&nbsp;{ticket.id}</h4>
+                                                <h6 className="margin-less color-light-gray">{ticket.created}</h6>
+                                            </div>
+                                            <button className="color-dark-blue btn"><span class="material-symbols-outlined">mark_email_read</span></button>
                                         </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">mark_email_read</span></a>
                                     </div>
-                                </a>
-                                <a href="#" className="flex flex-row saved-post-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <h4 className="color-dark-blue margin-less">تیکت 2643217</h4>
-                                            <h6 className="margin-less color-light-gray">1403/02/06</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined">drafts</span></a>
-                                    </div>
-                                </a>
+                                ))}
                             </div>
                             
                         </div>

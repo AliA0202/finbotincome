@@ -5,7 +5,7 @@ from .models import TelegramTicket, TelegramTicketAnswer
 class TicketsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TelegramTicket
-        fields = ['title', 'text', 'created', 'user']
+        fields = ['id', 'title', 'text', 'created', 'user', 'status']
 
 
 class TicketAnswersSerializer(serializers.ModelSerializer):

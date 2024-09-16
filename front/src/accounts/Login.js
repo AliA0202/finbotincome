@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useNavigate , Navigate} from "react-router-dom"
 import LoginForm from "./LoginForm.js";
@@ -12,6 +12,13 @@ const Login = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('token') !== null || isLoggedIn == true) {
+            return navigate('/blog');
+        }
+    }, [isLoggedIn]);
 
     function handleNameChange(event) {
         setUsername(event.target.value);
@@ -27,7 +34,7 @@ const Login = () => {
             .then(res => {
                 localStorage.token = res.data.token;
                 localStorage.isAuthenticated = true;
-                navigate("/dashboard");
+                setIsLoggedIn(true);
             })
             .catch(error => {
                 if (error.response) {
