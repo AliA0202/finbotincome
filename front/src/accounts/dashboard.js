@@ -77,9 +77,11 @@ const EditProfile = () => {
             });
             console.log(response);
             if(response.status === 200 || response.status === 201) {
-                setTicketAnswer({text: response.data.results[0].text, created: response.data.results[0].created});
-                setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
-                setTicketPopUp(true);
+                if(response.data.results.length > 0) {
+                    setTicketAnswer({text: response.data.results[0].text, created: response.data.results[0].created});
+                    setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
+                    setTicketPopUp(true);
+                }
             }
         } catch (error) {
             console.error('Error fetching data:', error);
