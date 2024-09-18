@@ -14,10 +14,10 @@ function App() {
     
     <Router>
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/signup" element={<SignUpContainer />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<Landing />} />
         <Route path="/post/:slug" element={<PostView />} />
         <Route path="/blog" element={<BLog />} />
         <Route path="/aboutus" element={<AboutUs />} />

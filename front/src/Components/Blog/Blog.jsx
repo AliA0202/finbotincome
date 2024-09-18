@@ -8,6 +8,7 @@ import PostList from "../Posts/PostList";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Posts from "../Posts/Posts";
+import { useLocation } from "react-router-dom";
 
 
 function Blog(){
@@ -17,9 +18,15 @@ function Blog(){
     const [query, setQuery] = useState(null);
     const [listTitle, setListTitle] = useState("آخرین مطالب")
     const [filter, setFilter] = useState(null)
+    const location = useLocation();
+    const { cat, catID } = location.state || {};
 
     useEffect(() => {
         fetchCategories();
+        if (cat && catID){
+            setFilter(cat);
+            categoryChange(cat, catID)
+        }
     }, []);
 
     const fetchCategories = async (page = 1) => {
@@ -54,7 +61,7 @@ function Blog(){
     }
 
     function categoryChange(category, categoryId){
-            if(category == -1){
+            if(category == -1){ //there is all category that has the value of -1
                 setListTitle(`آخرین مطالب`)
                 if(listTitle == `نتایج جست‌وجو در دسته‌بندی ${filter}`){
                     setListTitle(`نتایج جست‌وجو`)
