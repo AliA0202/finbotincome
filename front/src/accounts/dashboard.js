@@ -8,6 +8,9 @@ import Footer from "../Components/Footer/Footer.jsx";
 import TicketForm from "./TicketForm.js";
 import SavedPostsList from "./dashboard/SavedPostsList.js";
 import PaymentsList from "./dashboard/PaymentsList.js";
+import showTicketDetail from "./showTicketDetail.js";
+
+
 
 const EditProfile = () => {
     const navigate = useNavigate();
@@ -23,7 +26,8 @@ const EditProfile = () => {
     const [caption, setCaption] = useState("");
     const [redirectTo, setRedirectTo] = useState("");
     const [tickets, setTickets] = useState([]);
-
+    const [ticketAnswer, setTicketAnswer] = useState({});
+    const [ticketDetail, setTicketDetail] = useState({});
 
     useEffect(() =>{
         switch (redirectTo) {
@@ -58,6 +62,35 @@ const EditProfile = () => {
             console.error('Error fetching data:', error);
         }
     }
+
+
+    
+    const getTicketAnswer = async (ticket) => {
+        const params = {ticket: ticket.id};
+
+        try {
+            const response = await axios.get("http://127.0.0.1/api/telegram/ticket-answers-list/", ticket, {
+                headers: {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            });
+            if(response.status === 200 || response.status === 201) {
+                setTicketAnswer({text: response.data.text, created: response.data.created});
+                setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
+                <showTicketDetail 
+                title={ticketDetail.title}
+                text={ticketDetail.text}
+                created={ticketDetail.created}
+                ans_text={ticketAnswer.text}
+                ans_created={ticketAnswer.created}
+                closeClick={closeClick()}
+                />;
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
 
     const fetchData = async () => {
         try {
@@ -328,7 +361,7 @@ const EditProfile = () => {
                                                 <h4 className="color-dark-blue margin-less">تیکت&nbsp;{ticket.id}</h4>
                                                 <h6 className="margin-less color-light-gray">{ticket.created}</h6>
                                             </div>
-                                            <button className="color-dark-blue btn"><span class="material-symbols-outlined">mark_email_read</span></button>
+                                            <button className="color-dark-blue btn" onClick={getTicketAnswer(ticket)}><span class="material-symbols-outlined">{ ticket.status === "Open"}mark_email_read</span></button>
                                         </div>
                                     </div>
                                 ))}
