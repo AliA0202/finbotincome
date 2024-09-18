@@ -28,6 +28,11 @@ class TicketAnswersList(generics.ListAPIView):
             return TelegramTicketAnswer.objects.filter(ticket=ticket)
         except:
             return Response(status=404)
+        
+
+    def post(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
     
 
 

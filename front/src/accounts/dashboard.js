@@ -69,11 +69,12 @@ const EditProfile = () => {
         const params = {ticket: ticket.id};
 
         try {
-            const response = await axios.get("http://127.0.0.1/api/telegram/ticket-answers-list/", ticket, {
+            const response = await axios.post("http://127.0.0.1/api/telegram/ticket-answers-list/", params,{
                 headers: {
                     'Authorization': `Token ${localStorage.getItem('token')}`
                 }
             });
+            console.log(response);
             if(response.status === 200 || response.status === 201) {
                 setTicketAnswer({text: response.data.text, created: response.data.created});
                 setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
