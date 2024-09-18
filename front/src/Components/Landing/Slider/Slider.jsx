@@ -1,5 +1,6 @@
 import React from "react";
 import "./Slider.css";
+import { Link } from "react-router-dom";
 
 
 function Slider(){
@@ -19,8 +20,7 @@ function Slider(){
                     </h4>
 
                     <div className="flex flex-row mobile-control">
-                        <a href="#" className="btn-banner-active">شروع استفاده از پکیج ها</a>
-                        <a href="#" className="btn-banner align-center flex">دیدن پکیج ها و خدمات&nbsp; <span className="material-symbols-outlined">arrow_back</span></a>
+                        <Link to="/dashboard" className="btn-banner-active">شروع استفاده از پکیج ها</Link>
                     </div>
                 </div>
 

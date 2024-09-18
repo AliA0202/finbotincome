@@ -6,7 +6,7 @@ import { useEffect, useState, useCallback} from "react";
 import axios from 'axios';
 
 
-function PostList({queryString, boxTitle}){
+function PostList({queryString=null, boxTitle}){
     const [posts, setPosts] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ function PostList({queryString, boxTitle}){
     const fetchPosts = useCallback(async (page = 1) => {
         try {
             let url = `http://127.0.0.1/api/blog/posts/?page=${page}`
-            if(queryString !== ""){
+            if(queryString !== "" || queryString !== null){
                 url = `http://127.0.0.1/api/blog/posts/?${queryString}page=${page}`;
             }
 
