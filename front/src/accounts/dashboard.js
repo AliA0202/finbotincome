@@ -8,7 +8,7 @@ import Footer from "../Components/Footer/Footer.jsx";
 import TicketForm from "./TicketForm.js";
 import SavedPostsList from "./dashboard/SavedPostsList.js";
 import PaymentsList from "./dashboard/PaymentsList.js";
-import showTicketDetail from "./showTicketDetail.js";
+import ShowTicketDetail from "./ShowTicketDetail.js";
 
 
 
@@ -28,6 +28,7 @@ const EditProfile = () => {
     const [tickets, setTickets] = useState([]);
     const [ticketAnswer, setTicketAnswer] = useState({});
     const [ticketDetail, setTicketDetail] = useState({});
+    const [ticketPopUp, setTicketPopUp] = useState(false);
 
     useEffect(() =>{
         switch (redirectTo) {
@@ -76,16 +77,9 @@ const EditProfile = () => {
             });
             console.log(response);
             if(response.status === 200 || response.status === 201) {
-                setTicketAnswer({text: response.data.text, created: response.data.created});
+                setTicketAnswer({text: response.data.results[0].text, created: response.data.results[0].created});
                 setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
-                <showTicketDetail 
-                title={ticketDetail.title}
-                text={ticketDetail.text}
-                created={ticketDetail.created}
-                ans_text={ticketAnswer.text}
-                ans_created={ticketAnswer.created}
-                closeClick={closeClick()}
-                />;
+                setTicketPopUp(true);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -249,8 +243,33 @@ const EditProfile = () => {
         return <h4>loading...</h4>
     }
 
+    function createTicketPop(){
+        if(ticketPopUp === true){
+        return (<ShowTicketDetail 
+                title={ticketDetail.title}
+                text={ticketDetail.text}
+                created={ticketDetail.created}
+                ans_text={ticketAnswer.text}
+                ans_created={ticketAnswer.created}
+                closeClick={closeTicketPopUpClick}
+                />)
+        }
+    }
+
+    function showTicketPop(){
+        if(ticketPopUp === true){
+            document.getElementById("ticket-popUp-overlay").style.display = "flex";
+            document.getElementById("main").style.display = "none";
+            document.getElementById("ticket-btn-menu").style.display = "flex";
+        }
+    }
+
+
+
     return (
         <>
+            {createTicketPop()}
+            {showTicketPop()}
             <div className="overlay" id="overlay">
                 <div className="flex flex-start width-full padding-right-45">
                     <button type="button" className="btn-menu width-full" id="btn-menu" onClick={closeClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
@@ -362,7 +381,7 @@ const EditProfile = () => {
                                                 <h4 className="color-dark-blue margin-less">تیکت&nbsp;{ticket.id}</h4>
                                                 <h6 className="margin-less color-light-gray">{ticket.created}</h6>
                                             </div>
-                                            <button className="color-dark-blue btn" onClick={getTicketAnswer(ticket)}><span class="material-symbols-outlined">{ ticket.status === "Open"}mark_email_read</span></button>
+                                            <button className="color-dark-blue btn" onClick={() => getTicketAnswer(ticket)}><span class="material-symbols-outlined">{ ticket.status === "Open"}mark_email_read</span></button>
                                         </div>
                                     </div>
                                 ))}
@@ -436,6 +455,12 @@ const EditProfile = () => {
 
     function closeClick(){
         document.getElementById("overlay").style.display = "none";
+        document.getElementById("main").style.display = "block";
+    }
+
+    function closeTicketPopUpClick(){
+        document.getElementById("ticket-btn-menu").style.display = "none";
+        setTicketPopUp(false);
         document.getElementById("main").style.display = "block";
     }
 
