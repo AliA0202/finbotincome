@@ -218,6 +218,34 @@ a:hover{
   filter: drop-shadow(0 0 16px #cecece);
 }
 
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  padding: 10px 15px;
+  border: 1px solid #007bff;
+  color: #007bff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.page-link:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.active .page-link {
+  background-color: #007bff;
+  color: white;
+}
 
 @media screen and (max-width: 550px) {
   h4{
