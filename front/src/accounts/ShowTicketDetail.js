@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 
 
@@ -11,6 +11,12 @@ const ShowTicketDetail = ({
     closeClick,
 }) => {
     
+    useEffect(() => {
+        document.getElementById("ticket-popUp-overlay").style.display = "flex";
+        document.getElementById("main").style.display = "none";
+        document.getElementById("ticket-btn-menu").style.display = "flex";
+    }, []);
+
     return (
         <div className="overlay" id="ticket-popUp-overlay">
             <div className="flex flex-start width-full padding-right-45">

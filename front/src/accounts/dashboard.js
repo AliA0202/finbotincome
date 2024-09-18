@@ -256,20 +256,12 @@ const EditProfile = () => {
         }
     }
 
-    function showTicketPop(){
-        if(ticketPopUp === true){
-            document.getElementById("ticket-popUp-overlay").style.display = "flex";
-            document.getElementById("main").style.display = "none";
-            document.getElementById("ticket-btn-menu").style.display = "flex";
-        }
-    }
 
 
 
     return (
         <>
             {createTicketPop()}
-            {showTicketPop()}
             <div className="overlay" id="overlay">
                 <div className="flex flex-start width-full padding-right-45">
                     <button type="button" className="btn-menu width-full" id="btn-menu" onClick={closeClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
