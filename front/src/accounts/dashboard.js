@@ -369,13 +369,13 @@ const EditProfile = () => {
                             <div className="line-horizontal-gold"></div>
                             <div className="control-height">
                                 { tickets.map(ticket => (
-                                    <div className="flex flex-row saved-post-card info-card">
+                                    <div className={`flex flex-row saved-post-card ${ ticket.status === "Closed" && ('info-card')} ${ ticket.status === "Open" && ('unread-card')}`}>
                                         <div className="flex space-between margin-right-15 width-full align-center">
                                             <div>
                                                 <h4 className="color-dark-blue margin-less">تیکت&nbsp;{ticket.id}</h4>
                                                 <h6 className="margin-less color-light-gray">{ticket.created}</h6>
                                             </div>
-                                            <button className="color-dark-blue btn" onClick={() => getTicketAnswer(ticket)}><span class="material-symbols-outlined">{ ticket.status === "Open"}mark_email_read</span></button>
+                                            <button className="color-dark-blue btn" onClick={() => getTicketAnswer(ticket)}>{ ticket.status === "Closed" ? (<span class="material-symbols-outlined">mark_email_read</span>) : (<span class="material-symbols-outlined">mail</span>)}</button>
                                         </div>
                                     </div>
                                 ))}
