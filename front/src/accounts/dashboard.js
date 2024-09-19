@@ -8,8 +8,7 @@ import Footer from "../Components/Footer/Footer.jsx";
 import TicketForm from "./TicketForm.js";
 import SavedPostsList from "./dashboard/SavedPostsList.js";
 import PaymentsList from "./dashboard/PaymentsList.js";
-import ShowTicketDetail from "./ShowTicketDetail.js";
-
+import ShowTicketDetail from "./showTicketDetail.js";
 
 
 const EditProfile = () => {

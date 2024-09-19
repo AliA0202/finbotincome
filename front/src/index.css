@@ -44,6 +44,12 @@ a{
 .text-justify{
   text-align: justify;
 }
+.text-center{
+  text-align: center;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
 a:hover{
   color: #282f3f;
 }
@@ -78,6 +84,7 @@ a:hover{
 .border-dark-blue{
   border: 1px solid #acb4c9;
 }
+
 
 
 .btn{
