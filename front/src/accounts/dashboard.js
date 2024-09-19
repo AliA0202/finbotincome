@@ -82,6 +82,12 @@ const EditProfile = () => {
                     setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
                     setTicketPopUp(true);
                 }
+                else{
+                    setTicketAnswer({text: "تیکت شما در حال بررسی است", created: "به زودی به تیکت شما پاسخ دادخ خواهد شد"});
+                    setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
+                    setTicketPopUp(true);
+                    
+                }
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -453,7 +459,7 @@ const EditProfile = () => {
     }
 
     function closeTicketPopUpClick(){
-        document.getElementById("ticket-btn-menu").style.display = "none";
+        const pop = document.getElementById("ticket-btn-menu").style.display = "none";
         setTicketPopUp(false);
         document.getElementById("main").style.display = "block";
     }
