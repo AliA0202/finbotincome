@@ -3,13 +3,40 @@ import "../PromotedPost/PromotedPost.css";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 function Post({post, key}){
     
     const [savedPosts, setSavePost] = useState([]);
     const [error, setError] = useState(null);
+    const [savedPostsId, setSavedPostsId] = useState([]);
+    const [posts, setPosts] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
+    const [page, setPage] = useState(1);
 
+    let ids = [];
+        
+    function getSavedPostsId(item){
+        ids.push(item.post.id);
+    }
+
+    const fetchPosts = async (page) => { //get the posts saved by the user
+        const response = await axios.get(`http://127.0.0.1/api/blog/saved-posts/?page=${page}`, {
+            headers: {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        });
+        const data = response.data;
+        setPosts((prevPosts) => [...prevPosts, ...data.results]);
+        if(data.next === null) {
+            setHasMore(false);
+        }
+
+        data.results.forEach(getSavedPostsId);
+        setSavedPostsId(ids);
+    };
 
     const savePost = async (key) => {
         try {
@@ -27,7 +54,32 @@ function Post({post, key}){
         } catch (err) {
             setError(err);
         }
+
+        fetchPosts(page);
     };
+    
+    useEffect(() => {
+        fetchPosts(page);
+    }, [page]);
+
+
+    const removeSavedPost = async (key) => {
+        const params = {post : key};
+
+        const response = await axios.post(`http://127.0.0.1/api/blog/saved-posts/delete/`, params, {
+            headers : {
+                'Authorization': `Token ${localStorage.getItem('token')}`
+            }
+        }).then(response => response.status)
+
+        if (response === 200 || response === 204) {
+            setPosts(prevPosts => prevPosts.filter(posts => posts.post.id !== key));
+            document.getElementById(key).innerText = "bookmark";
+          }
+
+        fetchPosts(page);
+    };
+
 
     if (error) return <div>Error: {error.message}</div>;
 
@@ -43,7 +95,11 @@ function Post({post, key}){
                     <h3 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">pages</span>{post.title}</h3>
                     <div className="flex space-between">
                         <h5 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">timer</span>&nbsp;{post.published_at}</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button className="btn padding-less-important" onClick={() => saveClickHandle(post.id)}><span className="material-symbols-outlined" id={post.id}>bookmark</span></button>
+                        {savedPostsId.includes(post.id) ? (
+                            <button className="btn padding-less-important" onClick={() => removeSavedPost(post.id)}><span className="material-symbols-outlined" id={post.id}>bookmark_check</span></button>
+                        ) : (
+                            <button className="btn padding-less-important" onClick={() => saveClickHandle(post.id)}><span className="material-symbols-outlined" id={post.id}>bookmark</span></button>
+                        )}
                     </div>
                 </div>
 
