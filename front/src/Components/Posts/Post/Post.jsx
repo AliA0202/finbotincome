@@ -1,9 +1,36 @@
 import React from "react";
 import "../PromotedPost/PromotedPost.css";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect, useState } from "react";
 
 
 function Post({post, key}){
+    
+    const [savedPosts, setSavePost] = useState([]);
+    const [error, setError] = useState(null);
+
+
+    const savePost = async (key) => {
+        try {
+            const params = {post : key};
+            const response = await axios.post(`http://127.0.0.1/api/blog/saved-posts/create/`, params, {
+                headers : {
+                    'Authorization': `Token ${localStorage.getItem('token')}`
+                }
+            }).then(response => response.status)
+            .catch(err => console.warn(err));
+            console.log(response);
+            if (response === 200 || response === 201){
+                document.getElementById(key).innerText = "bookmark_check";
+            }
+        } catch (err) {
+            setError(err);
+        }
+    };
+
+    if (error) return <div>Error: {error.message}</div>;
+
     return (
         <>  
         <div className={`flex padding-25 margin-top-25 post-list-style`}>
@@ -16,7 +43,7 @@ function Post({post, key}){
                     <h3 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">pages</span>{post.title}</h3>
                     <div className="flex space-between">
                         <h5 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">timer</span>&nbsp;{post.published_at}</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <h5 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">video_file</span>&nbsp;0</h5>
+                        <button className="btn padding-less-important" onClick={() => saveClickHandle(post.id)}><span className="material-symbols-outlined" id={post.id}>bookmark</span></button>
                     </div>
                 </div>
 
@@ -26,6 +53,11 @@ function Post({post, key}){
         </div>
         </>
     );
+
+    
+    function saveClickHandle(key){
+        savePost(key);
+    }
 }
 
 export default Post;
