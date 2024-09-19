@@ -83,7 +83,7 @@ const EditProfile = () => {
                     setTicketPopUp(true);
                 }
                 else{
-                    setTicketAnswer({text: "تیکت شما در حال بررسی است", created: "به زودی به تیکت شما پاسخ دادخ خواهد شد"});
+                    setTicketAnswer({text: "تیکت شما در حال بررسی است", created: "به زودی به تیکت شما پاسخ داده خواهد شد"});
                     setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
                     setTicketPopUp(true);
                     
@@ -238,7 +238,8 @@ const EditProfile = () => {
                 console.log(res);
                 if (res.status === 200){
                     let url = res.data['url'];
-                    setRedirectTo( <Link to={url} />);
+                    console.log("URL: ", url);
+                    window.location.href = url;
                 }
             });
 

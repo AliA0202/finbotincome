@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic import View
 from telegram.models import TelegramProfile, VipAccountAmount, BotConfig
 from .models import Invoice
@@ -102,7 +102,7 @@ class VerifyPayment(APIView):
     def get(self, request):
         try:
             status = request.GET.get('Status')
-
+            print("Status: ", status)
             authority = request.GET.get('Authority')
 
             if status == "OK":
@@ -113,8 +113,7 @@ class VerifyPayment(APIView):
 
 
                 if invoice.status != "Active":
-                    return Response({"error" : "کد نامعتبر"}, status=400)
-
+                    return redirect("/payment-error")
 
                 invoice.status = "Paid"
                 
@@ -132,11 +131,13 @@ class VerifyPayment(APIView):
                 user.save()
                 success_message = "پرداخت شما موفقیت آمیز بود. اکنون میتوانید از تمامی امکانات وبسایت استفاده کنید"
 
-                return Response({"success" : success_message}, status=200)
+                return redirect("/payment-success")
             
-            return Response({"error" : "خطایی رخ داد"}, status=500)
+            return redirect("/payment-error")
         except:
-            return Response({"error" : "خطایی رخ داد" } ,status=500)
+            return redirect("/payment-error")
+
+
 
 class GetAuthority(APIView):
     permissions_classes = [IsAuthenticated]
@@ -151,7 +152,7 @@ class GetAuthority(APIView):
             "merchant_id" : "03418ead-550f-43e3-ae3a-37f4d9d85a2a",
             "amount" : amount,
             "description" : description,
-            "callback_url" : 'http://127.0.0.1/payment/verify/',
+            "callback_url" : 'http://127.0.0.1/api/payment/verify/',
             "metadata" : {
                 "mobile" : mobile,
                 "email" : email,
@@ -168,13 +169,10 @@ class GetAuthority(APIView):
         url = "https://api.zarinpal.com/pg/v4/payment/request.json"
         result = requests.post(url=url, headers=headers, data=data)
 
-        print(result)
 
         if result.status_code == 200:
             result = result.json()
     
-        print(result)
-        #If is request is not valid
         try:
             if result['data']['code'] != 100:
                 return Response({"error" : "مشکلی در ارتباط با درگاه پرداخت بوجود آمد. لطفا دوباره امتحان کنید و درصورت تکرار آن، این موضوع را به پشتیبانی اطلاع دهید"}, status=503)

@@ -21,8 +21,6 @@ function Header(){
                 console.log("Header Token before remove: ", localStorage.getItem('token'));
                 if (localStorage.getItem('token') != null){
                     localStorage.removeItem('token');
-                    console.log("Header Token when reomved: ", localStorage.getItem('token'));
-                    console.log("Href: ", window.location.href);
                     navigate(window.location.href);
                 }
             }
@@ -38,7 +36,7 @@ function Header(){
                 <div className="flex space-around navbar">
                     <Link to="/" className="nav-logo"><img src={process.env.PUBLIC_URL + "/static/images/logo.png"} className="logo-img"></img> <h1 className="logo-text">Finbotincome</h1></Link>
                     <Link to="/blog" className="nav-link"><span className="material-symbols-outlined">sticky_note</span>&nbsp;بلاگ</Link>
-                    <Link href="/aboutus" className="nav-link"><span className="material-symbols-outlined">info</span>&nbsp;درباره ما</Link>
+                    <Link to="/aboutus" className="nav-link"><span className="material-symbols-outlined">info</span>&nbsp;درباره ما</Link>
                     <button className="btn-menu" onClick={menuClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/menu.png"} alt="Menu" width="35" height="35"></img></button>
                 </div>
 

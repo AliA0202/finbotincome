@@ -7,6 +7,8 @@ import Landing from "./Components/Landing/Landing";
 import AboutUs from "./Components/AboutUs/aboutUs";
 import Support from "./Components/Support/Support";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PaymentSuccess from "./Components/Payment/PaymentSuccess";
+import PaymentError from "./Components/Payment/PaymentError";
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/post/:slug" element={<PostView />} />
+        <Route path="/payment/success" component={<PaymentSuccess />} />
+        <Route path="/payment/error" component={<PaymentError />} />
         <Route path="/blog" element={<BLog />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/support" element={<Support />} />
