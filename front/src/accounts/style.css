@@ -1,10 +1,13 @@
 .form-box{
-  padding: 25px; border-radius: 50px; min-width: 600px;
-  box-shadow: 2px 2px 20px 2px #c9bf9e; filter: blur(1);
+  padding: 25px; border-radius: 22px; min-width: 600px;
+  box-shadow: 2px 2px 12px 1px #e4ddc8; filter: blur(1);
   border: 1px solid #000000; background-color: #fff; margin-top: 250px;
 }
 .form-box form{
   display: flex; flex-direction: column; align-items: center;
+}
+.rounded-sm{
+  border-radius: 12px;
 }
 .txt-input{
   padding: 10px 15px 10px 15px; font-weight: bold; border: 3px solid #947510; border-radius: 25px;
@@ -112,7 +115,7 @@
   box-shadow: none; transition: 0.3s;
 }
 .overlay{
-  width: 100%;min-height: 100vh; height: auto; display: none; background-color: #3a525a; overflow: hidden; align-items: center; justify-content: center; flex-direction: column;
+  width: 100%;min-height: 100vh; height: auto; display: none; background-image: linear-gradient(to bottom, #01180a, #032029); overflow: hidden; align-items: center; justify-content: center; flex-direction: column;
 }
 .overlay .form-box{
   margin-top: 0 !important;
@@ -144,9 +147,16 @@
 .danger-card{
   border: 1px solid #d63b43;
 }
+.min-width-400-responsive{
+  min-width: 400px;
+}
+.bg-light-red{
+  background-color: #f8eeee; color: #282f3f;
+}
 .danger-card span{
   color: #d63b43 !important;
 }
+
 .info-card{
   border: 1px solid #969eca;
 }
@@ -174,7 +184,9 @@
 .cursor-less{
   cursor: none !important;
 }
-
+.pos-abs{
+  position: absolute;
+}
 @media screen and (max-width: 550px) {
   .main-content{
     justify-content: center;
@@ -183,7 +195,7 @@
     width: 100%; padding: 15px;
   }
   .form-box {
-    min-width: auto;
+    min-width: 80%; max-width: 80%; margin-bottom: 50px;
   }
   .txt-input{
     min-width: 300px;
@@ -206,16 +218,46 @@
   .mobile-show{
     display: block;
   }
+  .msg-popup{
+    right: 15px; top: 150px;
+  }
   .mobile-end{
     justify-content: flex-end;
   }
   .control-height{
     display: flex; flex-direction: column; align-items: center;
   }
+  .height-100-inmobile{
+    height: 100px;
+  }
   .margin-top-15-mobile{
     margin-top: 15px;
   }
   .space-between-mobile{
     justify-content: space-between !important;
+  }
+  .saved-post-card{
+    min-width: 90%; max-width: 90%;
+  }
+  .infinite-scroll-component {
+    padding: 15px;
+  }
+  .authority{
+    max-width: 180px !important;
+  }
+  .content{
+    padding: none;
+  }
+  .h1{
+    font-size: 30px !important;
+  }
+  .btn{
+    padding: 10px;
+  }
+  nav{
+    margin: 0; left: 0;
+  }
+  .min-width-400-responsive{
+    min-width: 220px;
   }
 }

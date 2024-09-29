@@ -10,26 +10,26 @@ const validateSignUpForm = payload => {
     payload.username.trim().length === 0
   ) {
     isFormValid = false;
-    message = "Please provide a user name.";
+    message = "فیلد نام کاربری نباید خالی باشد";
   }
 
-  if (
-    !payload ||
-    typeof payload.phone !== "string" ||
-    !isValidPhoneNumber(payload.phone)
-  ) {
-    isFormValid = false;
-    message= "Please provide a valid Iranian phone number.";
-  }  
+  //if (
+  //  !payload ||
+  //  typeof payload.phone !== "string" ||
+  //  !isValidPhoneNumber(payload.phone)
+  //) {
+  //  isFormValid = false;
+  //  message= "Please provide a valid Iranian phone number.";
+  //}  
 
-  if (
-    !payload ||
-    typeof payload.email !== "string" ||
-    !validator.isEmail(payload.email)
-  ) {
-    isFormValid = false;
-    message = "Please provide a correct email address.";
-  }
+  //if (
+  //  !payload ||
+  //  typeof payload.email !== "string" ||
+  //  !validator.isEmail(payload.email)
+  //) {
+  //  isFormValid = false;
+  //  message = "Please provide a correct email address.";
+  //}
 
   if (
     !payload ||
@@ -37,12 +37,12 @@ const validateSignUpForm = payload => {
     payload.password.trim().length < 8
   ) {
     isFormValid = false;
-    message = "Password must have at least 8 characters.";
+    message = "گذرواژه باید بیشتر از 8 حرف باشد";
   }
 
   if (!payload || payload.pwconfirm !== payload.password) {
     isFormValid = false;
-    message = "Password confirmation doesn't match.";
+    message = "تکرار گذرواژه با آن همخوانی ندارد";
   }
 
   return {

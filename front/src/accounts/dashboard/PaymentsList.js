@@ -33,7 +33,7 @@ const PaymentsList = () => {
     };
     return (
         <div className="content-bar flex flex-column space-between">
-            <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">bookmark</span>&nbsp;پرداخت ها</h3>
+            <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">paid</span>&nbsp;پرداخت ها</h3>
             <div className="line-horizontal-gold"></div>
             <div className="control-height">
                 <InfiniteScroll
@@ -48,7 +48,7 @@ const PaymentsList = () => {
                                     <div className="flex space-between margin-right-15 width-full align-center">
                                         <div>
                                             <h4 className="color-dark-blue margin-less">{`${payment.amount} ریال`}</h4>
-                                            <h6 className="color-dark-blue margin-less">{`کد: ${payment.authority}`}</h6>
+                                            <h6 className="color-dark-blue margin-less authority">{`کد: ${payment.authority.substr(payment.authority.length - 10)}`}</h6>
                                             <h6 className="color-dark-blue margin-less">{statusOf[payment.status]}</h6>
                                             <h6 className="margin-less color-light-gray">{payment.created_at}</h6>
                                         </div>

@@ -19,7 +19,7 @@ function SignUpContainer() {
   const [pwconfirm, setPwconfirm] = useState("");
   const [score, setScore] = useState("0");
   const [passBtn, setPassBtn] = useState({btnTxt: "نمایش", type: "password"});
-
+  const [errorMsg, setErrorMsg] = useState(null);
 
 
   function handleNameChange(event) {
@@ -42,21 +42,41 @@ function SignUpContainer() {
   }
 
   function submitSignup() {
+    console.log("Signup Called");
     var params = { username: username, password: password};
     axios
       .post("http://127.0.0.1/api/accounts/signup/", params)
       .then(res => {
-        localStorage.token = res.data.token;
-        localStorage.isAuthenticated = true;
-        navigate("/dashboard");
+        let params = { username: username, password: password }
+        axios
+            .post("http://127.0.0.1/api/accounts/login/", params)
+            .then(res => {
+                localStorage.token = res.data.token;
+                localStorage.isAuthenticated = true;
+                return <Navigate to='/dashboard' />
+              })
+            .catch(error => {
+                if (error.response) {
+                  setErrorMsg(error.response.data.non_field_errors);
+                } else if (error.request) {
+                  setErrorMsg(error.request);
+                } else {
+                  setErrorMsg(error.message);
+                }
+                return <Navigate to='/signup' />
+            })
       })
       .catch(error => {
         if (error.response) {
-            alert(error.response.data.non_field_errors);
+            if (error.response.status == 406){
+              setErrorMsg(error.response.data.error);
+            }else{
+              setErrorMsg(error.response.data.non_field_errors);
+            };
         } else if (error.request) {
-            console.log(error.request);
+          setErrorMsg(error.request);
         } else {
-            console.log('Error', error.message);
+          setErrorMsg(error.message);
         }
       });
   }
@@ -69,7 +89,10 @@ function SignUpContainer() {
     } 
     else {
       let error = payload.message;
-      window.alert(error);
+      if (errorMsg === null) {
+        setErrorMsg(error);
+
+      }
     }
   }
 
@@ -81,6 +104,7 @@ function SignUpContainer() {
     );
   }
 
+
   if (localStorage.getItem('token')){
     return <Navigate to='/dashboard' />
   }
@@ -88,7 +112,9 @@ function SignUpContainer() {
   return (
     <>
     <Header></Header>
-    <div className="flex align-center justify-content-center height-100vh">
+    <div className="height-100-inmobile"></div>
+    <div id="control-space"></div>
+    <div className="flex align-center justify-content-center height-100vh" id="form-signup">
       <SignUpForm
         onSubmit={validateForm}
         onUsrChange={handleNameChange}
@@ -99,6 +125,8 @@ function SignUpContainer() {
         username={username}
         password={password}
         passBtn={passBtn}
+        errorMsg={errorMsg}
+        setErrorMsg={setErrorMsg}
       />
     </div>
 

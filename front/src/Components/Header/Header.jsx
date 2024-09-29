@@ -17,8 +17,6 @@ function Header(){
                 });
                 setProfile(`${response.data.first_name} ${response.data.last_name}`);
             } catch (error) {
-                console.error('Error fetching data:', error);
-                console.log("Header Token before remove: ", localStorage.getItem('token'));
                 if (localStorage.getItem('token') != null){
                     localStorage.removeItem('token');
                     navigate(window.location.href);
@@ -41,7 +39,6 @@ function Header(){
                 </div>
 
                 <div className="flex space-around">
-                    {console.log('token in header: ', localStorage.getItem('token'))}
                     { (localStorage.getItem('token') === null) ? (
                         <>
                             <Link to="/login" className="nav-link"><span className="material-symbols-outlined">account_circle</span>&nbsp;

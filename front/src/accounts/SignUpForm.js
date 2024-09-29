@@ -1,6 +1,7 @@
 import React from "react";
 import PasswordStr from "./PasswordStr";
 import "./style.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const SignUpForm = ({
@@ -14,12 +15,26 @@ const SignUpForm = ({
     onPwChange,
     onUsrChange,
     passBtn,
+    errorMsg,
+    setErrorMsg
 }) => {
+
+    const notify = (msg) => {
+        toast(msg);
+        setErrorMsg(null);
+    };
+
     return (
         <div className="flex justity-content-center flex-column align-center form-box">
+            { errorMsg ? <>
+                {notify(errorMsg)}
+                </> : null}
+
             <img src={process.env.PUBLIC_URL + "/static/images/icon/user.png"} alt="user logo" width="200"></img>
             <h1 className="color-dark-blue">عضویت</h1>
-            
+            <Toaster />
+
+           
             <form onSubmit={onSubmit}>
                 
                 <label className="label" htmlFor="pwconfirm">

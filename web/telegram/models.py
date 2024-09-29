@@ -72,6 +72,8 @@ class TelegramTicketAnswer(models.Model):
         except:
             pass
         finally:
+            self.ticket.status = "Closed"
+            self.ticket.save()
             return super().save(*args, **kwargs)
 
 

@@ -369,16 +369,16 @@ const EditProfile = () => {
 
                         <div className="content-bar flex flex-column space-between">
                             <div className="flex space-between">
-                                <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">paid</span>&nbsp;تیکت ها</h3>
+                                <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">inbox</span>&nbsp;تیکت ها</h3>
                                 <button type="button" className="btn flex align-center color-dark-blue margin-top-5 margin-bottom-5" onClick={ticketButton}><span class="material-symbols-outlined">edit_square</span></button>
                             </div>
                             <div className="line-horizontal-gold"></div>
                             <div className="control-height">
                                 { tickets.map(ticket => (
                                     <div className={`flex flex-row saved-post-card ${ ticket.status === "Closed" && ('info-card')} ${ ticket.status === "Open" && ('unread-card')}`}>
-                                        <div className="flex space-between margin-right-15 width-full align-center">
+                                        <div className="flex space-between align-center">
                                             <div>
-                                                <h4 className="color-dark-blue margin-less">تیکت&nbsp;{ticket.id}</h4>
+                                                <h4 className="color-dark-blue margin-less">تیکت&nbsp;{ticket.id}&nbsp;&nbsp;{ticket.status === "Open" ? (<small>وضعیت: در حال انتظار</small>) : (<small>وضعیت: پاسخ داده شده</small>)}</h4>
                                                 <h6 className="margin-less color-light-gray">{ticket.created}</h6>
                                             </div>
                                             <button className="color-dark-blue btn" onClick={() => getTicketAnswer(ticket)}>{ ticket.status === "Closed" ? (<span class="material-symbols-outlined">mark_email_read</span>) : (<span class="material-symbols-outlined">mail</span>)}</button>

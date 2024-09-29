@@ -12,10 +12,19 @@ from accounts.models import User
 def SignupView(request):
     if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            check_exist = User.objects.filter(username=request.data['username']).exists()
+            if check_exist:
+                return Response({"error": "این نام کاربری از قبل رزرو شده است"}, status=406)
+
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response(serializer.errors, status=500)
+
     
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
