@@ -15,7 +15,11 @@ function Header(){
                         'Authorization': `Token ${localStorage.getItem('token')}`
                     }
                 });
-                setProfile(`${response.data.first_name} ${response.data.last_name}`);
+                if (response.data.first_name === ""){
+                    setProfile(response.data.username);
+                }else{
+                    setProfile(`${response.data.first_name} ${response.data.last_name}`);
+                }
             } catch (error) {
                 if (localStorage.getItem('token') != null){
                     localStorage.removeItem('token');

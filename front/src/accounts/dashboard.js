@@ -15,6 +15,7 @@ const EditProfile = () => {
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [username, setUsername] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [userType, setUserType] = useState("");
@@ -110,8 +111,9 @@ const EditProfile = () => {
             setPhone(response.data.phone);
             setEmail(response.data.email);
             setUserType(response.data.user_type);
+            setUsername(response.data.username);
             if (response.data.image) {
-                setImageUrl(response.data.image)
+                setImageUrl(response.data.image);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -311,13 +313,16 @@ const EditProfile = () => {
                     <div className="flex flex-wrap flex-row space-between">
                         <div className="content-bar flex flex-row user-info-box">
                             <div className="flex flex-row align-center space-between-mobile">
+                                {console.log("image url: ", imageUrl)}
+                                {console.log("first name: ", firstName)}
                                 { imageUrl === null ? (
                                     <img src={process.env.PUBLIC_URL + "/static/images/icon/user.png"} className="user-profile-img"></img>
                                 ) : (
                                     <img src={imageUrl} className="user-profile-img"></img>
                                 )}
                                 <div className="flex flex-column margin-right-15">
-                                    <h2 className="color-dark-blue margin-bottom-5 margin-top-5">{firstName} {lastName}</h2>
+                                    <h2 className="color-dark-blue margin-bottom-5 margin-top-5">{firstName === "" ? (username) : (firstName, lastName)}</h2>
+                                    {firstName === "" ? (<p className="color-dark-blue">برای بهبود عملکرد وبسایت لطفا اطلاعات حساب خود را تکمیل کنید</p>) : null}
                                     <div className="flex flex-row mobile-control">
                                         <button type="button" className="flex align-center btn color-light-blue" onClick={editProfileButton}><span class="material-symbols-outlined">edit</span>&nbsp;ویرایش پروفایل</button>
                                         <button className="flex align-center btn color-red" onClick={logoutButton}><span class="material-symbols-outlined">logout</span>&nbsp;خروج از حساب</button>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate, Navigate } from "react-router-dom"
 import Header from "../Components/Header/Header.jsx";
 import Footer from "../Components/Footer/Footer.jsx";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -20,6 +21,14 @@ function SignUpContainer() {
   const [score, setScore] = useState("0");
   const [passBtn, setPassBtn] = useState({btnTxt: "نمایش", type: "password"});
   const [errorMsg, setErrorMsg] = useState(null);
+  const [successMsg, setSuccessMsg] = useState(null);
+
+
+  const notify_success = (msg) => {
+    toast.success(msg);
+    setSuccessMsg(null);
+  };
+
 
 
   function handleNameChange(event) {
@@ -41,8 +50,11 @@ function SignUpContainer() {
     }
   }
 
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+
+
   function submitSignup() {
-    console.log("Signup Called");
     var params = { username: username, password: password};
     axios
       .post("http://127.0.0.1/api/accounts/signup/", params)
@@ -53,6 +65,8 @@ function SignUpContainer() {
             .then(res => {
                 localStorage.token = res.data.token;
                 localStorage.isAuthenticated = true;
+                notify_success("شما با موفقیت عضو شدید");
+                sleep(3000);
                 return <Navigate to='/dashboard' />
               })
             .catch(error => {
@@ -91,7 +105,6 @@ function SignUpContainer() {
       let error = payload.message;
       if (errorMsg === null) {
         setErrorMsg(error);
-
       }
     }
   }
@@ -112,6 +125,9 @@ function SignUpContainer() {
   return (
     <>
     <Header></Header>
+    
+    <Toaster position="top-left" reverseOrder={false} />
+
     <div className="height-100-inmobile"></div>
     <div id="control-space"></div>
     <div className="flex align-center justify-content-center height-100vh" id="form-signup">

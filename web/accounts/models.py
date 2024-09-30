@@ -1,9 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-import datetime
 from django.core.validators import RegexValidator
-from django.conf import settings
-import os
 
 Phone_Validator = RegexValidator(r'^(0|0098|\+98)9(0[1-5]|[1 3]\d|2[0-2]|9[0-4]|98)\d{7}$', 'شماره وارد شده مناسب نمی‌باشد')
 
@@ -25,26 +22,6 @@ class User(AbstractUser):
         return f"{self.username}"
     
 
-
-    def save(self, *args, **kwargs):
-        url = None
-
-        def set_url():
-            if settings.DEBUG:
-                return "https://finbotincome.com/referral/"
-            else:
-                return "http://localhost/referral/"
-
-        try:
-            url = settings.ALLOWED_HOST[0]
-            if (url == "*"):
-                url = set_url()
-        except:
-            url = set_url()
-
-        self.referral_code = f"{url}/{self.id}/"
-        return super().save(*args, **kwargs)
-    
     class Meta:
         verbose_name = 'کاربران'
         verbose_name_plural = 'کاربران'

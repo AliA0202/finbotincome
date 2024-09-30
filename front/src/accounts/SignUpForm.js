@@ -20,7 +20,7 @@ const SignUpForm = ({
 }) => {
 
     const notify = (msg) => {
-        toast(msg);
+        toast.error(msg);
         setErrorMsg(null);
     };
 
@@ -32,7 +32,7 @@ const SignUpForm = ({
 
             <img src={process.env.PUBLIC_URL + "/static/images/icon/user.png"} alt="user logo" width="200"></img>
             <h1 className="color-dark-blue">عضویت</h1>
-            <Toaster />
+            <Toaster position="top-left" reverseOrder={false} />
 
            
             <form onSubmit={onSubmit}>
