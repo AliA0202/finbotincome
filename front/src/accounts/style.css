@@ -80,7 +80,7 @@
   background-color: #41B06E;
 }
 .control-height{
-  max-height: 400px; overflow-y: scroll; min-height: 400px;
+  max-height: 400px; overflow-y: scroll; min-height: 400px; min-width: 300px;
 }
 .control-height::-webkit-scrollbar {
   display: none;
@@ -225,7 +225,7 @@
     justify-content: flex-end;
   }
   .control-height{
-    display: flex; flex-direction: column; align-items: center;
+    display: flex; flex-direction: column; align-items: center;  min-width: auto;
   }
   .height-100-inmobile{
     height: 100px;

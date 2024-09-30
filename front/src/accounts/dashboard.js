@@ -9,6 +9,7 @@ import TicketForm from "./TicketForm.js";
 import SavedPostsList from "./dashboard/SavedPostsList.js";
 import PaymentsList from "./dashboard/PaymentsList.js";
 import ShowTicketDetail from "./showTicketDetail.js";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const EditProfile = () => {
@@ -29,6 +30,23 @@ const EditProfile = () => {
     const [ticketAnswer, setTicketAnswer] = useState({});
     const [ticketDetail, setTicketDetail] = useState({});
     const [ticketPopUp, setTicketPopUp] = useState(false);
+    const [score, setScore] = useState(0);
+    const [referral, setReferral] = useState("");
+    const [errorMsg, setErrorMsg] = useState(null);
+    const [successMsg, setSuccessMsg] = useState(null);
+  
+
+
+    const successNotify = (msg) => {
+        toast.success(msg);
+        setSuccessMsg(null);
+    }
+
+    
+    const errorNotify = (msg) => {
+        toast.success(msg);
+        setErrorMsg(null);
+    }
 
     useEffect(() =>{
         switch (redirectTo) {
@@ -75,7 +93,6 @@ const EditProfile = () => {
                     'Authorization': `Token ${localStorage.getItem('token')}`
                 }
             });
-            console.log(response);
             if(response.status === 200 || response.status === 201) {
                 if(response.data.results.length > 0) {
                     setTicketAnswer({text: response.data.results[0].text, created: response.data.results[0].created});
@@ -112,6 +129,8 @@ const EditProfile = () => {
             setEmail(response.data.email);
             setUserType(response.data.user_type);
             setUsername(response.data.username);
+            setScore(response.data.score);
+            setReferral(response.data.referral_code)
             if (response.data.image) {
                 setImageUrl(response.data.image);
             }
@@ -230,16 +249,15 @@ const EditProfile = () => {
     }
 
     const buyVipAccount = async () => {
+        successNotify("در حال پردازش درخواست شما");
         try{
             await axios.get("http://127.0.0.1/api/payment/authority/", {
                 headers : {
                     "Authorization" : `Token ${localStorage.getItem('token')}`
                 }
             }).then(res => {
-                console.log(res);
                 if (res.status === 200){
                     let url = res.data['url'];
-                    console.log("URL: ", url);
                     window.location.href = url;
                 }
             });
@@ -307,21 +325,23 @@ const EditProfile = () => {
 
             <div id="main">
             <Header></Header>
+            <Toaster position="top-left" reverseOrder={false} />
+
             <div className="flex space-around main-content">
                 <div className="content">
 
                     <div className="flex flex-wrap flex-row space-between">
                         <div className="content-bar flex flex-row user-info-box">
                             <div className="flex flex-row align-center space-between-mobile">
-                                {console.log("image url: ", imageUrl)}
-                                {console.log("first name: ", firstName)}
+                                
+                                
                                 { imageUrl === null ? (
                                     <img src={process.env.PUBLIC_URL + "/static/images/icon/user.png"} className="user-profile-img"></img>
                                 ) : (
                                     <img src={imageUrl} className="user-profile-img"></img>
                                 )}
                                 <div className="flex flex-column margin-right-15">
-                                    <h2 className="color-dark-blue margin-bottom-5 margin-top-5">{firstName === "" ? (username) : (firstName, lastName)}</h2>
+                                    <h2 className="color-dark-blue margin-bottom-5 margin-top-5">{firstName === "" ? (username) : (<span>{firstName} {lastName}</span>)}</h2>
                                     {firstName === "" ? (<p className="color-dark-blue">برای بهبود عملکرد وبسایت لطفا اطلاعات حساب خود را تکمیل کنید</p>) : null}
                                     <div className="flex flex-row mobile-control">
                                         <button type="button" className="flex align-center btn color-light-blue" onClick={editProfileButton}><span class="material-symbols-outlined">edit</span>&nbsp;ویرایش پروفایل</button>
@@ -379,6 +399,7 @@ const EditProfile = () => {
                             </div>
                             <div className="line-horizontal-gold"></div>
                             <div className="control-height">
+                                { tickets.length > 0 ? <>
                                 { tickets.map(ticket => (
                                     <div className={`flex flex-row saved-post-card ${ ticket.status === "Closed" && ('info-card')} ${ ticket.status === "Open" && ('unread-card')}`}>
                                         <div className="flex space-between align-center">
@@ -390,6 +411,8 @@ const EditProfile = () => {
                                         </div>
                                     </div>
                                 ))}
+                                </> : (<p className="flex flex-row align-center padding-15 info-card rounded justify-content-center">
+                                    <img src={process.env.PUBLIC_URL + "/static/images/icon/sad.png"} width="40"/>هیچ تیکتی تاکنون ثبت نشده است</p>)}
                             </div>
                             
                         </div>
@@ -426,11 +449,13 @@ const EditProfile = () => {
                             <h3 className="flex align-center color-white margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">link</span>&nbsp;دعوت از دوستان</h3>
                             <div className="control-height">
                                 <h4 className="color-white text-justify">با دعوت از هر دوست خود، 5 امتیاز کسب کنید. با بالا رفتن امتیاز شما هدایای ارزشمندی تقدیم شما خواهد شد</h4>
-                                <p className="link-box color-dark-blue">https://finbotincome/testlink/?user=123456780</p>
+                                <p className="link-box color-dark-blue">{referral}</p>
 
                                 <div className="height-200 flex flex-row justify-content-center align-center">
-                                    <img src={process.env.PUBLIC_URL + "/static/images/icon/trophy.png"} width="90" height="90"></img>
-                                    <h2 className="color-white">امتیاز شما&nbsp;<span>16</span></h2>
+                                    <img src={process.env.PUBLIC_URL + "/static/images/icon/trophy.png"} width="70" height="70"></img>
+                                    <div className="flex flex-row align-center padding-25">
+                                        <h3 className="color-white margin-less">امتیاز شما</h3>&nbsp;&nbsp;<h1 className="color-white margin-less">{score}</h1>
+                                    </div>
                                 </div>
                             </div>
                             

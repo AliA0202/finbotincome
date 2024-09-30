@@ -82,8 +82,10 @@ function SignUpContainer() {
       })
       .catch(error => {
         if (error.response) {
-            if (error.response.status == 406){
+            if (error.response.status === 406){
               setErrorMsg(error.response.data.error);
+            }else if(error.response.status === 500){
+              setErrorMsg("خطای غیر منتظره ای رخ داد!");
             }else{
               setErrorMsg(error.response.data.non_field_errors);
             };

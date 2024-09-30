@@ -189,7 +189,8 @@ class GetAuthority(APIView):
     
 class InvoiceListView(ListAPIView):
     permission_classes = [IsAuthenticated]
-    queryset = Invoice.objects.all().order_by('created_at')
     serializer_class = InvoiceSerializer
-    lookup_field = 'user'
 
+    def get_queryset(self):
+        user = self.request.user
+        return Invoice.objects.filter(user=user).order_by('-created_at')

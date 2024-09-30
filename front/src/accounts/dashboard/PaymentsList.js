@@ -36,6 +36,7 @@ const PaymentsList = () => {
             <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">paid</span>&nbsp;پرداخت ها</h3>
             <div className="line-horizontal-gold"></div>
             <div className="control-height">
+                { payments.length > 0 ? <>
                 <InfiniteScroll
                 dataLength={payments.length}
                 next={() => setPage((prevPage) => prevPage + 1)}
@@ -68,7 +69,8 @@ const PaymentsList = () => {
                         </div> 
                     ))}
                 </InfiniteScroll>
-                                     
+                </> : (<p className="flex flex-row align-center padding-15 info-card rounded justify-content-center">
+                    <img src={process.env.PUBLIC_URL + "/static/images/icon/sad.png"} width="40" />هیچ پرداختی وجود ندارد</p>)}   
             </div>
         </div>
     );

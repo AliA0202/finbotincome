@@ -45,6 +45,8 @@ const SavedPostsList = () => {
             <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">bookmark</span>&nbsp;پست های ذخیره شده</h3>
             <div className="line-horizontal-gold"></div>
             <div className="control-height">
+
+                {posts.length > 0 ? <>
                 <InfiniteScroll
                 dataLength={posts.length}
                 next={() => setPage((prevPage) => prevPage + 1)}
@@ -64,7 +66,9 @@ const SavedPostsList = () => {
                             </div>
                         </Link>   
                     ))}
-                </InfiniteScroll>                    
+                </InfiniteScroll>    
+                </> : (<p className="flex flex-row align-center  padding-15 info-card rounded justify-content-center">
+                    <img src={process.env.PUBLIC_URL + "/static/images/icon/sad.png"} width="40" />پست ذخیره شده ای وجود ندارد</p>)}                
             </div>
         </div>
     );
