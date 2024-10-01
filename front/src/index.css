@@ -225,9 +225,15 @@ a:hover{
   border-radius: 25px;
 }
 
+.rounded{
+  border-radius: 12px;
+}
 
 .img-responsive{
   max-width: 800px;
+}
+.img-responsive-md{
+  max-width: 400px;
 }
 .img-shadow{
   filter: drop-shadow(0 0 16px #cecece);
@@ -265,5 +271,11 @@ a:hover{
 @media screen and (max-width: 550px) {
   h4{
     font-size: 16px;
+  }
+  .img-responsive-md{
+    max-width: 250px;
+  }
+  h1{
+    font-size: 30px;
   }
 }

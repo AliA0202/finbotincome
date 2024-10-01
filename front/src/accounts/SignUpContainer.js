@@ -14,6 +14,7 @@ const zxcvbn = require("zxcvbn");
 
 
 function SignUpContainer() {
+  console.log("Token: ",localStorage.getItem('token'));
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -50,8 +51,11 @@ function SignUpContainer() {
     }
   }
 
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  const handleSleep = async () => {
+    await sleep(3000);
+  };
 
 
   function submitSignup() {
@@ -66,8 +70,8 @@ function SignUpContainer() {
                 localStorage.token = res.data.token;
                 localStorage.isAuthenticated = true;
                 notify_success("شما با موفقیت عضو شدید");
-                sleep(3000);
-                return <Navigate to='/dashboard' />
+                handleSleep();
+                navigate('/dashboard');
               })
             .catch(error => {
                 if (error.response) {

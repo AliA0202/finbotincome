@@ -7,11 +7,15 @@ const TicketForm = ({
     caption,
     titleChange,
     captionChange,
-    onSubmit
+    onSubmit,
+    ticketCloseClick
 }) => {
     return (
         
-        <div className="flex justity-content-center flex-column align-center form-box">
+        <div className="flex justity-content-center flex-column align-center form-box margin-bottom-150">
+            <div className="flex flex-start width-full padding-right-45">
+                <button type="button" className="btn-menu width-full" id="btn-menu-ticket" onClick={ticketCloseClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
+            </div>
             <h1 className="color-dark-blue">ارسال تیکت</h1>
             <form onSubmit={onSubmit}>
                 <label className="label">

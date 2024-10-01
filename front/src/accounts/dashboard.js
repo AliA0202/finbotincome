@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { Link, useNavigate } from "react-router-dom"
+import { Link, Navigate, Route, Routes, useNavigate , Router} from "react-router-dom"
 import EditForm from "./editProfileForm.js";
 import { ValidateProfile } from "./validate.js";
 import Header from "../Components/Header/Header.jsx";
@@ -44,7 +44,7 @@ const EditProfile = () => {
 
     
     const errorNotify = (msg) => {
-        toast.success(msg);
+        toast.error(msg);
         setErrorMsg(null);
     }
 
@@ -178,12 +178,13 @@ const EditProfile = () => {
         }
     };
 
-    function submitProfile(event) {
+
+    const submitProfile = async (event) => {
         event.preventDefault();
         let payload = ValidateProfile({ email, phone });
         if (payload.success) {
             var params = { last_name: lastName, first_name: firstName, image: image };
-            axios
+            await axios
                 .patch("http://127.0.0.1/api/accounts/edit-profile/", params, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -191,21 +192,21 @@ const EditProfile = () => {
                     }
                 })
                 .then(res => {
-                    setRedirectTo("dashboard");
+                    window.location.reload();
                 })
                 .catch(error => {
                     if (error.response) {
-                        alert(error.response.data.non_field_errors);
+                        errorNotify(error.response.data.non_field_errors);
                     } else if (error.request) {
-                        console.log(error.request);
+                        errorNotify(error.request);
                     } else {
-                        console.log('Error', error.message);
+                        errorNotify(error.message);
                     }
                 });
         }
         else {
             let error = payload.message;
-            window.alert(error);
+            errorNotify(error);
         }
 
     }
@@ -221,15 +222,16 @@ const EditProfile = () => {
                     }
                 })
                 .then(res => {
+                    successNotify("تیکت شما با موفقیت ثبت گردید");
                     setRedirectTo("dashboard");
                 })
                 .catch(error => {
                     if (error.response) {
-                        alert(error.response.data.non_field_errors);
+                        errorNotify(error.response.data.non_field_errors);
                     } else if (error.request) {
-                        console.log(error.request);
+                        errorNotify(error.request);
                     } else {
-                        console.log('Error', error.message);
+                        errorNotify('Error', error.message);
                     }
                 });
     }
@@ -242,9 +244,10 @@ const EditProfile = () => {
                 }
             });
             localStorage.removeItem('token');
-            setRedirectTo("logout")
+            localStorage.removeItem('isAuthenticated');
+            setRedirectTo("landing");
         } catch(error){
-            return error;
+            errorNotify(error);
         }
     }
 
@@ -263,7 +266,7 @@ const EditProfile = () => {
             });
 
         } catch(error) {
-            console.log(error);
+            errorNotify(error);
         }
     }
 
@@ -291,9 +294,7 @@ const EditProfile = () => {
         <>
             {createTicketPop()}
             <div className="overlay" id="overlay">
-                <div className="flex flex-start width-full padding-right-45">
-                    <button type="button" className="btn-menu width-full" id="btn-menu" onClick={closeClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
-                </div>
+                
                 <EditForm
                     firstName={firstName}
                     lastName={lastName}
@@ -307,19 +308,18 @@ const EditProfile = () => {
                     onLNchange={handleLastNameChange}
                     onImageChange={handleImageChange}
                     onSubmit={submitProfile}
+                    closeClick={closeClick}
                 />
             </div>
 
-            <div className="overlay" id="ticket-overlay">
-                <div className="flex flex-start width-full padding-right-45">
-                    <button type="button" className="btn-menu width-full" id="btn-menu-ticket" onClick={ticketCloseClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
-                </div>
+            <div className="overlay padding-margin-less" id="ticket-overlay">
                 <TicketForm
                     title={title}
                     caption={caption}
                     captionChange={handleCaptionChange}
                     titleChange={handleTitleChange}
                     onSubmit={submitTicket}
+                    ticketCloseClick={ticketCloseClick}
                 />
             </div>
 
@@ -332,7 +332,7 @@ const EditProfile = () => {
 
                     <div className="flex flex-wrap flex-row space-between">
                         <div className="content-bar flex flex-row user-info-box">
-                            <div className="flex flex-row align-center space-between-mobile">
+                            <div className="flex flex-row align-center column-mobile-centeralized">
                                 
                                 
                                 { imageUrl === null ? (
@@ -341,9 +341,9 @@ const EditProfile = () => {
                                     <img src={imageUrl} className="user-profile-img"></img>
                                 )}
                                 <div className="flex flex-column margin-right-15">
-                                    <h2 className="color-dark-blue margin-bottom-5 margin-top-5">{firstName === "" ? (username) : (<span>{firstName} {lastName}</span>)}</h2>
-                                    {firstName === "" ? (<p className="color-dark-blue">برای بهبود عملکرد وبسایت لطفا اطلاعات حساب خود را تکمیل کنید</p>) : null}
-                                    <div className="flex flex-row mobile-control">
+                                    <h2 className="color-dark-blue margin-bottom-5 margin-top-5 mobile-center">{firstName === "" ? (username) : (<span>{firstName} {lastName}</span>)}</h2>
+                                    {firstName === "" ? (<p className="color-dark-blue border-right padding-15">برای بهبود عملکرد وبسایت لطفا اطلاعات حساب خود را تکمیل کنید</p>) : null}
+                                    <div className="flex flex-row mobile-control flex-start">
                                         <button type="button" className="flex align-center btn color-light-blue" onClick={editProfileButton}><span class="material-symbols-outlined">edit</span>&nbsp;ویرایش پروفایل</button>
                                         <button className="flex align-center btn color-red" onClick={logoutButton}><span class="material-symbols-outlined">logout</span>&nbsp;خروج از حساب</button>
                                     </div>
@@ -352,16 +352,16 @@ const EditProfile = () => {
 
                             <div className="line-horizontal-gold mobile-show"></div>
 
-                            <div className="flex align-center mobile-end">
-                                <div className="flex flex-column">
+                            <div className="flex align-center mobile-center">
+                                <div className="flex flex-column mobile-center">
                                     {userType === "N" ? (
                                         <>
-                                            <div className="flex flex-row align-center padding-right-25">
+                                            <div className="flex flex-row align-center justify-content-center">
                                                 <img src={process.env.PUBLIC_URL + "/static/images/icon/basic.png"} className="user-type-img"></img> &nbsp;
                                                 <h4 className="color-dark-blue txt-control">عضویت عادی</h4>
                                             </div>
 
-                                            <div className="flex flex-row">
+                                            <div className="flex flex-row justify-content-center">
                                                 <button onClick={buyVipAccount} className="btn btn-buy flex align-center">
                                                     <img src={process.env.PUBLIC_URL + "/static/images/icon/vip.png"} className="user-type-img"></img> &nbsp;
                                                     خرید عضویت ویژه

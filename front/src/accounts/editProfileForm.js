@@ -12,15 +12,19 @@ const EditForm = ({
     onImageChange,
     onEmailchange,
     onPhonechange,
-    onSubmit
+    onSubmit,
+    closeClick
 }) => {
     return (
 
         <div className="flex justity-content-center flex-column align-center form-box margin-bottom-25px">
+            <div className="flex flex-start width-full padding-right-45">
+                    <button type="button" className="btn-menu" id="btn-menu" onClick={closeClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
+            </div>
             <h1 className="color-dark-blue">ویرایش پروفایل</h1>
             { imageUrl ? (
                 <div>
-                <img src={imageUrl} alt="Profile" className="img-responsive rounded" />
+                <img src={imageUrl} alt="Profile" className="img-responsive-md rounded-sm" />
                 </div>
             ) : (
                 <span></span>

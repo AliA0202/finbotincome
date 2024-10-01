@@ -35,6 +35,7 @@ const Login = () => {
                 localStorage.token = res.data.token;
                 localStorage.isAuthenticated = true;
                 setIsLoggedIn(true);
+                navigate('/dashboard');
             })
             .catch(error => {
                 if (error.response) {
