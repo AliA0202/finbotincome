@@ -15,12 +15,12 @@ const LoginForm = ({
             <img src={process.env.PUBLIC_URL + "/static/images/icon/user.png"} alt="user logo" width="200"></img>
             <h1 className="color-dark-blue">ورود</h1>
             <form onSubmit={onSubmit}>
-                <label className="label">
+                <label className="label color-light-blue-sky">
                     نام کاربری:
                 </label>
                 <input type="text" name="username" className="txt-input" value={username} onChange={onUNChange} />
                 
-                <label className="label">
+                <label className="label color-light-blue-sky">
                     گذرواژه:
                 </label>
                 <input type="password" name="password" className="txt-input" value={password} onChange={onPWChange} />

@@ -56,12 +56,10 @@ const SavedPostsList = () => {
                 >
                     {posts.map((posts)=>(
                         <Link to={`/post/${posts.post.slug}`} className="flex flex-row saved-post-card">
-                            <div className="margin-less padding-less height-100">
-                                <img src={posts.post.banner} className="saved-post-img"></img>
-                            </div>
-                            <div className="flex space-between margin-right-15 width-full">
+                            <img src={posts.post.banner} className="saved-post-img" width="65" height="65"></img>
+                            <div className="flex flex-row space-between margin-right-15 width-full align-center">
                                 <h4 className="color-dark-blue margin-less">{posts.post.title}</h4>
-                                <button className="btn padding-less-important" onClick={(event) => {event.preventDefault();
+                                <button className="btn-icon" onClick={(event) => {event.preventDefault();
                                 removeSavedPost(posts.post.id)}}><span class="material-symbols-outlined">bookmark_check</span></button>
                             </div>
                         </Link>   

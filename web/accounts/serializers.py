@@ -1,4 +1,4 @@
-from accounts.models import User
+from accounts.models import User, Referrals
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
@@ -21,3 +21,22 @@ class UserCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'image', 'first_name', 'last_name']
+
+
+class MiniUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'score']
+
+    
+class ReferralsUserSerializer(serializers.ModelSerializer):
+    sub = MiniUserSerializer()
+    class Meta:
+        model = Referrals
+        fields = ['sub']
+        depth = 1
+
+class CreateReferralSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Referrals
+        fields = ['user', 'sub']

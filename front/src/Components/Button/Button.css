@@ -1,5 +1,18 @@
 .btn{
-    border: none; padding: 15px 35px 14px 35px;
+    border: none; padding: 15px 35px 15px 35px;
+}
+.btn-icon{
+    border: none; padding: 5px 25px 5px 25px; background-color: transparent;
+}
+.btn-icon-space-less{
+    border: none; padding: 0; background-color: transparent; margin: 0;
+}
+.btn-icon-space-less:hover{
+    cursor: pointer; filter: drop-shadow(2px 2px 8px #ecececcc);
+}
+
+.btn-icon:hover{
+    filter: drop-shadow(2px 2px 8px #ecececcc); cursor: pointer;
 }
 .btn-cta{
     background-color: #e0720a; color: #ffffff; font-weight: bold; border-radius: 25px 0 0 25px; font-size: 14px; transition: 0.3s;

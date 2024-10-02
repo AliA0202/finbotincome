@@ -18,12 +18,12 @@ const TicketForm = ({
             </div>
             <h1 className="color-dark-blue">ارسال تیکت</h1>
             <form onSubmit={onSubmit}>
-                <label className="label">
+                <label className="label  color-light-blue-sky">
                     عنوان:
                 </label>
                 <input type="text" name="title" className="txt-input" value={title} onChange={titleChange}/>
                 
-                <label className="label">
+                <label className="label  color-light-blue-sky">
                     توضیحات:
                 </label>
                 <textarea name="caption" value={caption} className="txt-input text-area" onChange={captionChange}></textarea>                

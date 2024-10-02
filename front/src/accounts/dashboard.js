@@ -10,6 +10,8 @@ import SavedPostsList from "./dashboard/SavedPostsList.js";
 import PaymentsList from "./dashboard/PaymentsList.js";
 import ShowTicketDetail from "./showTicketDetail.js";
 import toast, { Toaster } from 'react-hot-toast';
+import ReferralsUser from "./dashboard/ReferralsUser.js";
+import TicketList from "./dashboard/TicketList.js";
 
 
 const EditProfile = () => {
@@ -26,7 +28,6 @@ const EditProfile = () => {
     const [title, setTitle] = useState("");
     const [caption, setCaption] = useState("");
     const [redirectTo, setRedirectTo] = useState("");
-    const [tickets, setTickets] = useState([]);
     const [ticketAnswer, setTicketAnswer] = useState({});
     const [ticketDetail, setTicketDetail] = useState({});
     const [ticketPopUp, setTicketPopUp] = useState(false);
@@ -34,7 +35,8 @@ const EditProfile = () => {
     const [referral, setReferral] = useState("");
     const [errorMsg, setErrorMsg] = useState(null);
     const [successMsg, setSuccessMsg] = useState(null);
-  
+    const [tickets, setTickets] = useState([]);
+
 
 
     const successNotify = (msg) => {
@@ -67,49 +69,10 @@ const EditProfile = () => {
         }
     }, [redirectTo, navigate]);
 
-    const ticketsList = async () => {
-        try {
-            const response = await axios.get("http://127.0.0.1/api/telegram/tickets-list/", {
-                headers: {
-                    'Authorization': `Token ${localStorage.getItem('token')}`
-                }
-            });
-            if(response.status === 200 || response.status === 201) {
-                setTickets(response.data.results);
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
+    
 
 
     
-    const getTicketAnswer = async (ticket) => {
-        const params = {ticket: ticket.id};
-
-        try {
-            const response = await axios.post("http://127.0.0.1/api/telegram/ticket-answers-list/", params,{
-                headers: {
-                    'Authorization': `Token ${localStorage.getItem('token')}`
-                }
-            });
-            if(response.status === 200 || response.status === 201) {
-                if(response.data.results.length > 0) {
-                    setTicketAnswer({text: response.data.results[0].text, created: response.data.results[0].created});
-                    setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
-                    setTicketPopUp(true);
-                }
-                else{
-                    setTicketAnswer({text: "تیکت شما در حال بررسی است", created: "به زودی به تیکت شما پاسخ داده خواهد شد"});
-                    setTicketDetail({title : ticket.title, text : ticket.text, created : ticket.created});
-                    setTicketPopUp(true);
-                    
-                }
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
 
 
     const fetchData = async () => {
@@ -143,7 +106,6 @@ const EditProfile = () => {
 
     useEffect(() => {
         fetchData();
-        ticketsList();
     }, []);
 
     function handleFirstNameChange(event) {
@@ -392,54 +354,20 @@ const EditProfile = () => {
                         <PaymentsList/>
 
 
-                        <div className="content-bar flex flex-column space-between">
-                            <div className="flex space-between">
-                                <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">inbox</span>&nbsp;تیکت ها</h3>
-                                <button type="button" className="btn flex align-center color-dark-blue margin-top-5 margin-bottom-5" onClick={ticketButton}><span class="material-symbols-outlined">edit_square</span></button>
-                            </div>
-                            <div className="line-horizontal-gold"></div>
-                            <div className="control-height">
-                                { tickets.length > 0 ? <>
-                                { tickets.map(ticket => (
-                                    <div className={`flex flex-row saved-post-card ${ ticket.status === "Closed" && ('info-card')} ${ ticket.status === "Open" && ('unread-card')}`}>
-                                        <div className="flex space-between align-center">
-                                            <div>
-                                                <h4 className="color-dark-blue margin-less">تیکت&nbsp;{ticket.id}&nbsp;&nbsp;{ticket.status === "Open" ? (<small>وضعیت: در حال انتظار</small>) : (<small>وضعیت: پاسخ داده شده</small>)}</h4>
-                                                <h6 className="margin-less color-light-gray">{ticket.created}</h6>
-                                            </div>
-                                            <button className="color-dark-blue btn" onClick={() => getTicketAnswer(ticket)}>{ ticket.status === "Closed" ? (<span class="material-symbols-outlined">mark_email_read</span>) : (<span class="material-symbols-outlined">mail</span>)}</button>
-                                        </div>
-                                    </div>
-                                ))}
-                                </> : (<p className="flex flex-row align-center padding-15 info-card rounded justify-content-center">
-                                    <img src={process.env.PUBLIC_URL + "/static/images/icon/sad.png"} width="40"/>هیچ تیکتی تاکنون ثبت نشده است</p>)}
-                            </div>
-                            
-                        </div>
+                        <TicketList 
+                        tickets={tickets}
+                        setTicketAnswer={setTicketAnswer}
+                        setTicketDetail={setTicketDetail}
+                        setTicketPopUp={setTicketPopUp}
+                        setTickets={setTickets}
+                        ticketAnswer={ticketAnswer}
+                        ticketDetail={ticketDetail}
+                        ticketPopUp={ticketPopUp} />
                     </div>
 
                     <div className="flex flex-row flex-wrap margin-top-25 space-between">
-                        <div className="content-bar flex flex-column">
-                            <div className="flex space-between">
-                                <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">groups</span>&nbsp;دوستان</h3>
-                            </div>                            
-                            <div className="line-horizontal-gold"></div>
-                            <div className="control-height">
-                                <div className="flex flex-row saved-post-card">
-                                    <div className="flex space-between margin-right-15 width-full align-center">
-                                        <div>
-                                            <div className="flex flex-row align-center">
-                                                <img src={process.env.PUBLIC_URL + "/static/images/p1.jpg"} className="img-friend"></img>
-                                                <h4 className="color-dark-blue margin-less margin-right-5">علیرضا پارسه</h4>
-                                            </div>
-                                            <h6 className="margin-less color-light-gray flex align-center margin-top-5"><span class="material-symbols-outlined color-gold">trophy</span>&nbsp;25</h6>
-                                        </div>
-                                        <a href="#" className="color-dark-blue"><span class="material-symbols-outlined color-red">close</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
+                        
+                        <ReferralsUser />
 
 
 
@@ -477,11 +405,6 @@ const EditProfile = () => {
         document.getElementById("btn-menu").style.display = "flex";
     }
 
-    function ticketButton(){
-        document.getElementById("ticket-overlay").style.display = "flex";
-        document.getElementById("main").style.display = "none";
-        document.getElementById("btn-menu-ticket").style.display = "flex";
-    }
 
     function closeClick(){
         document.getElementById("overlay").style.display = "none";

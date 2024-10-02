@@ -1,12 +1,12 @@
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ReferralsUserSerializer, CreateReferralSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import RetrieveUpdateAPIView
-from accounts.models import User
+from rest_framework.generics import RetrieveUpdateAPIView, ListAPIView
+from accounts.models import User, Referrals
 
 @api_view(['POST'])
 def SignupView(request):
@@ -41,3 +41,33 @@ class EditProfileView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+    
+
+
+class ReferralsUser(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ReferralsUserSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Referrals.objects.filter(user=user)
+
+
+class CreateReferral(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = Token.objects.get(key=request.auth.key).user
+        data = {"user": user.id, "sub": request.data["sub"]}
+
+        serializer = CreateReferralSerializer(data=data)
+
+        if serializer.is_valid():
+            if Referrals.objects.filter(sub=request.data["sub"]).exists():
+                return Response({"error" : "این کاربر قبلا با کد دیگری دعوت شده است"}, status=406)
+
+            serializer.save()
+            user.score += 5
+            user.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

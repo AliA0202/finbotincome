@@ -31,27 +31,27 @@ const EditForm = ({
             )}
 
             <form onSubmit={onSubmit}>
-                <label className="label" htmlFor="first_name">
+                <label className="label  color-light-blue-sky" htmlFor="first_name">
                     نام:
                 </label>
                 <input type="text" name="first_name" id="first_name" className="txt-input" value={firstName} onChange={onFNchange} />
                 
-                <label className="label" htmlFor="last_name">
+                <label className="label  color-light-blue-sky" htmlFor="last_name">
                     نام‌خانوادگی:
                 </label>
                 <input type="text" name="last_name" id="last_name" className="txt-input" value={lastName} onChange={onLNchange} />
                 
-                <label className="label" htmlFor="phone">
+                <label className="label  color-light-blue-sky" htmlFor="phone">
                     شماره تماس:
                 </label>
                 <input type="text" name="phone" id="phone" className="txt-input" value={phone} onChange={onPhonechange} />
                 
-                <label className="label" htmlFor="email">
+                <label className="label  color-light-blue-sky" htmlFor="email">
                     ایمیل:
                 </label>
                 <input type="email" name="email" id="email" className="txt-input" value={email} onChange={onEmailchange} />
                 
-                <label className="label" htmlFor="image">
+                <label className="label  color-light-blue-sky" htmlFor="image">
                     تصویر پروفایل:
                 </label>
                 <input type="file" accept="image/*" name="image" id="image" className="txt-input" onChange={onImageChange}/>

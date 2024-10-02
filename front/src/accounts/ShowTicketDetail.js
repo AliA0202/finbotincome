@@ -18,11 +18,12 @@ const ShowTicketDetail = ({
     }, []);
 
     return (
-        <div className="overlay" id="ticket-popUp-overlay">
-            <div className="flex flex-start width-full padding-right-45">
-                <button type="button" className="btn-menu width-full" id="ticket-btn-menu" onClick={closeClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
-            </div>
-            <div className="flex justity-content-center flex-column align-center form-box padding-50">
+        <div className="overlay padding-margin-less" id="ticket-popUp-overlay">
+            
+            <div className="flex justity-content-center flex-column align-center form-box padding-50 padding-top-0 margin-bottom-150">
+                <div className="flex flex-start width-full margin-25">
+                    <button type="button" className="btn-menu width-full" id="ticket-btn-menu" onClick={closeClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
+                </div>
                 <div className="width-full info-card flex flex-column rounded padding-15">
                     <div className="flex flex-row space-between">
                         <h2 className="color-dark-blue">تیکت شما</h2>

@@ -37,12 +37,12 @@ const SignUpForm = ({
            
             <form onSubmit={onSubmit}>
                 
-                <label className="label" htmlFor="pwconfirm">
+                <label className="label  color-light-blue-sky" htmlFor="pwconfirm">
                     نام کاربری
                 </label>
                 <input type="text" name="username" value={username} onChange={onUsrChange} className="txt-input"/>
                 
-                <label className="label" htmlFor="pwconfirm">
+                <label className="label  color-light-blue-sky" htmlFor="pwconfirm">
                     گذرواژه
                 </label>
                 <input type={passBtn.type} name="password" value={password} onChange={onPwChange}  className="txt-input"/>
@@ -62,7 +62,7 @@ const SignUpForm = ({
                 </div>
 
 
-                <label className="label" htmlFor="pwconfirm">
+                <label className="label  color-light-blue-sky" htmlFor="pwconfirm">
                     تکرار گذرواژه
                 </label>
                 <input type={type} name="pwconfirm" id="pwconfirm" value={pwconfirm} onChange={onPwChange}  className="txt-input"/>
