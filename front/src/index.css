@@ -267,6 +267,9 @@ a:hover{
     background-color: #007bff;
     color: white;
 }
+.img-responsive-sm{
+  width: 350px; max-width: 350px;
+}
 
 @media screen and (max-width: 550px) {
   h4{
@@ -279,6 +282,9 @@ a:hover{
     font-size: 30px;
   }
   h2{
-    font-size: 25px;
+    font-size: 22px;
+  }
+  .img-responsive-sm{
+    width: 220px; max-width: 220px;
   }
 }

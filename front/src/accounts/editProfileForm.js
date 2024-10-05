@@ -17,7 +17,7 @@ const EditForm = ({
 }) => {
     return (
 
-        <div className="flex justity-content-center flex-column align-center form-box margin-bottom-25px">
+        <div className="flex justity-content-center flex-column align-center form-box margin-bottom-25px margin-top-50-imp">
             <div className="flex flex-start width-full padding-right-45">
                     <button type="button" className="btn-menu" id="btn-menu" onClick={closeClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
             </div>

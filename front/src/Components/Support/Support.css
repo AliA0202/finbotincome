@@ -7,8 +7,8 @@
     background-color: #fff; transition: 0.3s; color: #000;
 }
 .support-capsule{
-    border-radius: 25px; padding: 25px; color: #343b52; min-width: 400px; border: 1px solid #b6b6b6;
-    background-image: linear-gradient(to bottom, #e7e7e7, #c7c7c7); box-shadow: 2px 2px 16px 1px #cacaca;
+    border-radius: 12px; padding: 25px; color: #343b52; min-width: 400px; border: 1px solid #b6b6b6;
+    background-color: #0000000e; box-shadow: 2px 2px 18px 1px #dddddd; filter: blur(0.7);
 }
 
 

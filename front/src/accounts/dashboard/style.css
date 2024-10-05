@@ -1,0 +1,7 @@
+.btn-space-less{
+    background-color: transparent; border: none; padding: 0; margin: 0; filter: drop-shadow( 1px 1px 8px #d3d6e4);
+}
+.btn-space-less:hover{
+    cursor: pointer; filter: drop-shadow( 1px 1px 4px #e0e3ee);
+}
+  

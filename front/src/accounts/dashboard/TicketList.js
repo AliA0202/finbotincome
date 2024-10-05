@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
+import "./style.css";
 
 const TicketList = ({
     tickets,
@@ -74,7 +74,7 @@ const TicketList = ({
         <div className="content-bar flex flex-column space-between">
             <div className="flex space-between">
                 <h3 className="flex align-center color-dark-blue margin-top-5 margin-bottom-5"><span className="material-symbols-outlined">inbox</span>&nbsp;تیکت ها</h3>
-                <button type="button" className="ّbtn-icon-space-less flex align-center color-dark-blue margin-top-5 margin-bottom-5" onClick={ticketButton}><span class="material-symbols-outlined">edit_square</span></button>
+                <button type="button" className="btn-space-less color-dark-blue margin-top-5 margin-bottom-5" onClick={ticketButton}><span class="material-symbols-outlined">edit_square</span></button>
             </div>
             <div className="line-horizontal-gold"></div>
             <div className="control-height">

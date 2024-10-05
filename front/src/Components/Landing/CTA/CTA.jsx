@@ -1,8 +1,12 @@
 import React from "react";
 import './CTA.css';
 import Button from '../../Button/Button';
+import axios from "axios";
 
-function CTA(){
+function CTA({
+    onSubmit,
+    phoneCTA,
+    handlePhoneChange}){
     return(
         <>
             <div className="flex flex-row space-around mobile-control padding-25 cta">
@@ -11,12 +15,12 @@ function CTA(){
                 </div>
 
                 <div className="cta-content flex flex-column align-center justify-content-center padding-25">
-                    <form className="cta-form">
+                    <form className="cta-form mobile-center" onSubmit={onSubmit}>
                         <h1 className="color-dark-blue text-control mobile-control mobile-center">دریافت مشاوره رایگان</h1>
                         <h4 className="cta-text color-light-gray txt-18">شماره تماس خود را وارد کنید تا همکاران ما در کوتاه ترین مدت با شما تماس بگیرند و شما را راهنمایی کنند.</h4>
                         
                         <div className="mobile-inline">
-                            <input type="phone" id="phone-cta" name="phone-cta" placeholder="0901..." className="cta-txt-box"></input>
+                            <input type="phone" id="phone-cta" name="phone" placeholder="0901..." className="cta-txt-box" onChange={handlePhoneChange} value={phoneCTA}></input>
                             <Button Type="submit" buttonType="btn-cta" buttonText="ثبت"></Button>
                         </div>
                     </form>

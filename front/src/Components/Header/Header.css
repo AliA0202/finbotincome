@@ -37,6 +37,10 @@ nav{
     .nav-link{
         display: none;
     }
+    nav{
+        right: 0; left: 0;
+    }
+    
     .btn-menu{
         display: block; background-color: transparent; border: none; cursor: pointer;
     }

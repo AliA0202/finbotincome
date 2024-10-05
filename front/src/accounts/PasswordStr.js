@@ -31,7 +31,7 @@ const PasswordStr = props => {
   var style = { backgroundColor: strColor, height: '5px', width: strWidth, transition: 'all 300ms ease-in-out' }
 
   return (
-  <div>
+  <div id='pass-str'>
     <p className="pwStrWeak">قوی</p>
     <p className="pwStrStrong">ضعیف</p>
     <div style={style} />

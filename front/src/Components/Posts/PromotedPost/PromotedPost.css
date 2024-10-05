@@ -17,20 +17,20 @@
 scrollbar-width: none;  /* Firefox */
 }
 .post-vertical .post-content-box{
-    background-color: #ffffff; border-radius: 0 0 50px 50px; border-bottom: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
+    background-color: #ffffff; border-radius: 0 0 12px 12px; border-bottom: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
     padding: 25px;
 }
 .post-vertical .post-img-box{
-    background-color: #ffffff; border-radius: 50px 50px 0 0; border-top: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
+    background-color: #ffffff; border-radius: 12px 12px 0 0; border-top: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
 }
 .post-vertical .post-content-box{
-    background-color: #ffffff; border-radius: 0 0 50px 50px; border-bottom: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
+    background-color: #ffffff; border-radius: 0 0 12px 12px; border-bottom: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
 }
 .post-vertical .post-img-box{
-    background-color: #ffffff; border-radius: 50px 50px 0 0; border-top: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
+    background-color: #ffffff; border-radius: 12px 12px 0 0; border-top: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
 }
 .post-vertical .post-btn{
-    border-radius: 8px 8px 25px 25px; background-color:#282f3f; padding: 10px; color: #ffffff; font-weight: bold;  transition: 0.3s;
+    border-radius: 8px 8px 12px 12px; background-color:#282f3f; padding: 10px; color: #ffffff; font-weight: bold;  transition: 0.3s;
 }
 .post-vertical .post-btn:hover{
     transition: 0.3s; border-radius: 25px;
@@ -61,20 +61,20 @@ scrollbar-width: none;  /* Firefox */
 scrollbar-width: none;  /* Firefox */
 }
 .post-list-style .post-content-box{
-    background-color: #ffffff; border-radius: 0 0 20px 20px; border-bottom: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
+    background-color: #ffffff; border-radius: 0 0 12px 12px; border-bottom: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
     padding: 0 25px 25px 25px; justify-content: flex-start !important;
 }
 .post-list-style .post-img-box{
-    background-color: #ffffff; border-radius: 20px 20px 0 0; border-top: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
+    background-color: #ffffff; border-radius: 12px 12px 0 0; border-top: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
 }
 .post-list-style .post-content-box{
-    background-color: #ffffff; border-radius: 0 0 20px 20px; border-bottom: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
+    background-color: #ffffff; border-radius: 0 0 12px 12px; border-bottom: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
 }
 .post-list-style .post-img-box{
-    background-color: #ffffff; border-radius: 20px 20px 0 0; border-top: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
+    background-color: #ffffff; border-radius: 12px 12px 0 0; border-top: 1px solid #e4ddce; border-right: 1px solid #e4ddce; border-left: 1px solid #e4ddce;
 }
 .post-list-style .post-btn{
-    border-radius: 8px; background-color:#282f3f; padding: 10px; color: #ffffff; font-weight: bold;  transition: 0.3s;
+    border-radius: 12px; background-color:#282f3f; padding: 10px; color: #ffffff; font-weight: bold;  transition: 0.3s;
 }
 .post-list-style .post-btn:hover{
     transition: 0.3s; box-shadow: 1px 1px 10px 1px #80a597;
@@ -100,7 +100,7 @@ scrollbar-width: none;  /* Firefox */
     flex-direction: row;  margin-top: 50px;
 }
 .post-horizontal .post-img{
-    border-radius: 35px; background-position: center; max-width: 800px; min-width: 800px; max-height: 400px; max-height: 400px; object-fit: cover;
+    border-radius: 12px; background-position: center; max-width: 800px; min-width: 800px; max-height: 400px; max-height: 400px; object-fit: cover;
     animation-name: postimage; animation-duration: 4s; animation-iteration-count: infinite;
 }
 .post-horizontal .post-caption{
@@ -124,12 +124,23 @@ scrollbar-width: none;  /* Firefox */
 }
 
 @media screen and (max-width: 550px) {
+    .post-vertical{
+        max-width: 90%;
+    
+    }
+    .post-horizontal{
+        max-width: 90%;
+    }
     .post-horizontal .post-img{
-        max-width: 350px; width: 350px !important;
-        min-width: 350px;
+        max-width: 280px; width: 280px !important;
+        min-width: 280px;
     }
     .post-horizontal .post-img-box{
         max-height: 300px; min-height: 300px; height: 300px; justify-content: center; display: flex;
+        max-width: 90%; border-radius: 35%;
+    }
+    .post-list-style{
+        max-width: 90%; min-width: 90%;
     }
     .mobile-control{
         flex-wrap: wrap; align-items: center; flex-direction: column; justify-content: center;
@@ -138,15 +149,16 @@ scrollbar-width: none;  /* Firefox */
         padding: 25px;
     }
     .post-vertical .post-img{
-        border-radius: 25px 25px 8px 8px;
+        border-radius: 12px 12px 8px 8px;
+        max-height: 250px; max-width: 100%;
     }
     .post-vertical{
         flex-direction: row !important;
     }
     .post-vertical .post-img-box{
-        border-radius: 25px 25px 0 0;
+        border-radius: 12px 12px 0 0;
     }
     .post-vertical .post-content-box{
-        border-radius: 0 0 25px 25px;
+        border-radius: 0 0 12px 12px;
     }
 }

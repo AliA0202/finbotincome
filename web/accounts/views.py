@@ -57,17 +57,25 @@ class CreateReferral(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        user = Token.objects.get(key=request.auth.key).user
-        data = {"user": user.id, "sub": request.data["sub"]}
+        sub = Token.objects.get(key=request.auth.key).user
+        referral = ""
+        
+        try:
+            referral = request.data['referral_code']
+            user = User.objects.get(referral_code=referral)
+        except:
+            return Response({"error" : "کد رفرال نامعتبر"}, status=404)
 
+        data = {"user": user.id, "sub": sub.id}
         serializer = CreateReferralSerializer(data=data)
 
         if serializer.is_valid():
-            if Referrals.objects.filter(sub=request.data["sub"]).exists():
+            if Referrals.objects.filter(sub=sub).exists():
                 return Response({"error" : "این کاربر قبلا با کد دیگری دعوت شده است"}, status=406)
-
+            
             serializer.save()
             user.score += 5
             user.save()
+
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)

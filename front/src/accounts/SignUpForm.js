@@ -54,6 +54,7 @@ const SignUpForm = ({
                             <button
                                 className="pwShowHideBtn"
                                 onClick={pwMask}
+                                id="pass-str-btn"
                                 style={{ position: 'relative', left: '50%', transform: 'translateX(-50%)' }}>
                                 {passBtn.btnTxt}
                             </button>

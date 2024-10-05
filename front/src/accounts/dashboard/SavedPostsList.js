@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 
-const SavedPostsList = () => {
+const SavedPostsList = ({successNotify}) => {
     const [posts, setPosts] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
@@ -33,10 +33,13 @@ const SavedPostsList = () => {
             headers : {
                 'Authorization': `Token ${localStorage.getItem('token')}`
             }
-        }).then(response => response.status)
+        }).then(response => 
+            response.status
+        )
 
         if (response === 200 || response === 204) {
             setPosts(prevPosts => prevPosts.filter(posts => posts.post.id !== key));
+            successNotify("پست مورد نظر از لیست ذخیره شده ها حذف گردید");
           }
     };
 

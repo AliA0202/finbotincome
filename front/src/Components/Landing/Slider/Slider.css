@@ -58,7 +58,13 @@
 
 @media screen and (max-width: 550px) {
     .img-responsive{
-        max-width: 300px !important; min-width: 300px !important;
+        max-width: 280px !important; min-width: 280px !important;
+    }
+    .header-text-banner{
+        font-size: 40px;
+    }
+    .text-banner{
+        font-size: 20px; max-width: 90%;
     }
     .slider-box{
         flex-direction: column;

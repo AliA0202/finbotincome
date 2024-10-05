@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { Link, Navigate, Route, Routes, useNavigate , Router} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import EditForm from "./editProfileForm.js";
 import { ValidateProfile } from "./validate.js";
 import Header from "../Components/Header/Header.jsx";
@@ -37,6 +37,10 @@ const EditProfile = () => {
     const [successMsg, setSuccessMsg] = useState(null);
     const [tickets, setTickets] = useState([]);
 
+
+    const sleeped = (ms) => {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    };
 
 
     const successNotify = (msg) => {
@@ -153,7 +157,9 @@ const EditProfile = () => {
                         'Authorization': `Token ${localStorage.getItem('token')}`
                     }
                 })
-                .then(res => {
+                .then(async res => {
+                    successNotify("پروفایل شما بروزرسانی شد.");
+                    //await sleeped(2000);
                     window.location.reload();
                 })
                 .catch(error => {
@@ -183,8 +189,9 @@ const EditProfile = () => {
                         'Authorization': `Token ${localStorage.getItem('token')}`
                     }
                 })
-                .then(res => {
+                .then(async res => {
                     successNotify("تیکت شما با موفقیت ثبت گردید");
+                    //await sleeped(2000);
                     setRedirectTo("dashboard");
                 })
                 .catch(error => {
@@ -255,8 +262,9 @@ const EditProfile = () => {
     return (
         <>
             {createTicketPop()}
+
             <div className="overlay" id="overlay">
-                
+                <Toaster position="top-left" reverseOrder={false} />
                 <EditForm
                     firstName={firstName}
                     lastName={lastName}
@@ -275,6 +283,9 @@ const EditProfile = () => {
             </div>
 
             <div className="overlay padding-margin-less" id="ticket-overlay">
+
+                <Toaster position="top-left" reverseOrder={false} />
+
                 <TicketForm
                     title={title}
                     caption={caption}
@@ -287,11 +298,10 @@ const EditProfile = () => {
 
             <div id="main">
             <Header></Header>
-            <Toaster position="top-left" reverseOrder={false} />
+                <Toaster position="top-left" reverseOrder={false} />
 
             <div className="flex space-around main-content">
                 <div className="content">
-
                     <div className="flex flex-wrap flex-row space-between">
                         <div className="content-bar flex flex-row user-info-box">
                             <div className="flex flex-row align-center column-mobile-centeralized">
@@ -349,7 +359,7 @@ const EditProfile = () => {
                        
                     <div className="flex flex-row flex-wrap margin-top-25 space-between">
 
-                        <SavedPostsList/>
+                        <SavedPostsList successNotify={successNotify}/>
 
                         <PaymentsList/>
 

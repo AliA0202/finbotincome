@@ -8,7 +8,7 @@ function Categories({ Header, categoryList, onFilter }) {
     return (
 
         <>
-            <div className="container">
+            <div className="container padding-less">
                 <div className="flex justify-content-center">
                     <h1 className="flex align-center color-dark-blue text-control">
                         <span className="material-symbols-outlined color-gold icon-lg">full_stacked_bar_chart</span>&nbsp;

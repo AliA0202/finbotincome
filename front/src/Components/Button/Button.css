@@ -23,3 +23,18 @@
 .btn-cta:hover{
     background-color: #e03c0a; transition: 0.3s;
 }
+
+.btn-success{
+    background-color: #1baa7a; border-radius: 12px; font-weight: bold; font-size: 16px; box-shadow: 2px 2px 8px 1px #25914e57; color: #fff; margin: 10px 25px 10px 25px;
+    min-width: 200px; box-shadow: 2px 2px 16px 1px #1baa7a94;
+}
+.btn-skip{
+    background-color: transparent; border-radius: 12px; font-weight: bold; font-size: 16px; color: #1a1a1a; border: 3px solid #1a1a1a; margin: 10px 25px 10px 25px;
+    min-width: 200px; box-shadow: 2px 2px 16px 1px #1a1a1a46;
+}
+.btn-skip:hover{
+    background-color: #1a1a1a; transition: 0.3s; color: #fff; box-shadow: 1px 1px 6px 1px #1a1a1a3f;
+}
+.btn-success:hover{
+    background-color: #1baaa3; box-shadow: 1px 1px 6px 1px #1baaa3a2;
+}

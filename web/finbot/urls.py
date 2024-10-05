@@ -9,6 +9,7 @@ urlpatterns = [
     path('api/blog/', include('blog.urls')),
     path('api/payment/', include('payment.urls')),
     path('api/telegram/', include('telegram.urls')),
+    path('api/main/', include('main.urls')),
     path('admin/filebrowser/', site.urls),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
