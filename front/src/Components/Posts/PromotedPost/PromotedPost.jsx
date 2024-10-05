@@ -84,22 +84,23 @@ function PromotedPost({post, key, counter}){
 
     return (
         <>
-            <div className={`flex padding-25 margin-top-25 ${counter <= 1 && "post-horizontal"} ${counter > 1 && "post-vertical"} space-between mobile-control`}>
-                <div className="post-img-box padding-25">
+            <div className={`${counter <= 1 && "post-horizontal"} ${counter > 1 && "post-vertical"}`}>
+                <div className="post-img-box">
                     <img src={post.banner} alt={post.title} className="post-img"></img>
                 </div>
 
-                <div className="post-content-box flex flex-column mobile-control space-between">
+                <div className="post-content-box">
                     <div className="flex flex-row space-between">
-                        <h3 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">pages</span>{post.title}</h3>
+                        <h4 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">pages</span>{post.title}</h4>
 
                         <div className="flex space-between">
                             <h5 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">timer</span>&nbsp;{post.published_at}</h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             {savedPostsId.includes(post.id) ? (
-                                <button className="btn padding-less-important" onClick={() => removeSavedPost(post.id)}><span className="material-symbols-outlined" id={post.id}>bookmark_check</span></button>
+                                <button className="btn padding-less-important margin-less" onClick={() => removeSavedPost(post.id)}><span className="material-symbols-outlined" id={post.id}>bookmark_check</span></button>
                             ) : (
-                                <button className="btn padding-less-important" onClick={() => saveClickHandle(post.id)}><span className="material-symbols-outlined" id={post.id}>bookmark</span></button>
-                            )}                        </div>
+                                <button className="btn padding-less-important margin-less" onClick={() => saveClickHandle(post.id)}><span className="material-symbols-outlined" id={post.id}>bookmark</span></button>
+                            )}
+                        </div>
                     </div>
 
                     <p className="post-caption color-light-gray">{post.caption}</p>

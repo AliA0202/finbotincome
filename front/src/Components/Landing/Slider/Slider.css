@@ -61,10 +61,10 @@
         max-width: 280px !important; min-width: 280px !important;
     }
     .header-text-banner{
-        font-size: 40px;
+        font-size: 30px;
     }
     .text-banner{
-        font-size: 20px; max-width: 90%;
+        font-size: 18px; max-width: 90%;
     }
     .slider-box{
         flex-direction: column;
@@ -74,7 +74,7 @@
     }
     
     .just-slider h4{
-        font-size: 22px;
+        font-size: 18px;
     }
     .text-justify-mobile{
         text-align: justify; display: flex; justify-content: center;
@@ -92,6 +92,6 @@
         height: 30px;
     }
     .social-box{
-        left: 0; top: 75%;
+        left: 0; top: 82%;
     }
 }

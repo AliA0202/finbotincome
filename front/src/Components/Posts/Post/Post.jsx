@@ -85,12 +85,12 @@ function Post({post, key}){
 
     return (
         <>  
-        <div className={`flex padding-25 margin-top-25 post-list-style`}>
-            <div className="post-img-box padding-25">
+        <div className={`post-list-style`}>
+            <div className="post-img-box">
                 <img src={post.banner} alt={post.title} className="post-img"></img>
             </div>
 
-            <div className="post-content-box flex flex-column mobile-control space-between">
+            <div className="post-content-box">
                 <div className="flex flex-row space-between">
                     <h3 className="flex align-center color-dark-blue margin-less"><span className="material-symbols-outlined color-gold">pages</span>{post.title}</h3>
                     <div className="flex space-between">

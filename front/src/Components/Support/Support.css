@@ -14,7 +14,7 @@
 
 @media screen and (max-width: 550px) {
     .support-capsule{
-        width: 80%; margin: 25px; min-width: auto;
+        width: 80%; margin: 0; min-width: auto; margin-top: 25px;
     }
     .support-capsule-box{
         flex-direction: column; align-items: center; justify-content: center; padding: 0;

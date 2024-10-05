@@ -43,7 +43,7 @@
 
 @media screen and (max-width: 550px) {
     .text-control{
-        font-size: 26px !important;
+        font-size: 22px !important;
     }
     .title-line{
         max-width: 300px; min-width: 300px; margin: 15px;
