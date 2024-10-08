@@ -68,7 +68,22 @@ function Header(){
                     </div>
                     <Link to="/blog" className="nav-link-popup"><span className="material-symbols-outlined">sticky_note</span>&nbsp;بلاگ</Link>
                     <Link to="/aboutus" className="nav-link-popup"><span className="material-symbols-outlined">info</span>&nbsp;درباره ما</Link>
-                    <Link to="/login" className="nav-link-popup"><span className="material-symbols-outlined">account_circle</span>&nbsp;حساب کاربری</Link>
+                    { (localStorage.getItem('token') === null) ? (
+                        <>
+                            <Link to="/login" className="nav-link-popup"><span className="material-symbols-outlined">account_circle</span>&nbsp;
+                                <span>حساب کاربری</span> 
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/dashboard" className="nav-link-popup"><span className="material-symbols-outlined">account_circle</span>&nbsp;
+                                <span>
+                                {profile}
+                                </span>
+                            </Link>
+                        </>
+                    )
+                    }
                     <Link to="/support" className="nav-link-popup"><span className="material-symbols-outlined">support_agent</span>&nbsp;پشتیبانی</Link>
                 </div>
             </nav>

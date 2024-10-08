@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
 import "./style.css";
+import toast, { Toaster } from 'react-hot-toast';
+
+
+
 
 const Comments = (slug) => {
     const [comments, setComments] = useState([]);
@@ -31,7 +35,7 @@ const Comments = (slug) => {
         event.preventDefault();
         const params = { post: slug.slug, caption: caption };
         if(! localStorage.getItem('token')){
-            alert("برای گذاشتن نظر ابتدا ثبت نام کرده یا به اکانت خود وارد شوید");
+            errorNotify("برای گذاشتن نظر ابتدا ثبت نام کرده یا به اکانت خود وارد شوید");
             return;
         }
         axios.post(`http://127.0.0.1/api/blog/comments/create/`, params, {
@@ -46,26 +50,36 @@ const Comments = (slug) => {
                 }
                 setComments((prevComments) => [newComment, ...prevComments]);
                 setCaption("");
-                alert("نظر شما با موفقیت ثبت شد");
-            }
+                successNotify("نظر شما با موفقیت ثبت گردید!");            }
         })
             .catch(error => {
                 if (error.response) {
-                    alert(error.response.data.non_field_errors);
+                    errorNotify(error.response.data.non_field_errors);
                 } else if (error.request) {
-                    console.log(error.request);
+                    errorNotify(error.request);
                 } else {
-                    console.log('Error', error.message);
+                    errorNotify('Error', error.message);
                 }
             })
 
     }
 
+    const successNotify = (msg) => {
+        toast.success(msg);
+    }
+
+    
+    const errorNotify = (msg) => {
+        toast.error(msg);
+    }
+
     return (
         <>
-            <div className="margin-top-75">
-                <form onSubmit={submitComment} className="flex flex-column mobile-control bg-white rounded border-dark-blue">
-                    <div className="padding-25 flex justify-content-center flex-column align-center">
+            <Toaster position="top-left" reverseOrder={false} />
+
+            <div className="margin-top-25 padding-25 width-100-mobile">
+                <form onSubmit={submitComment} className="flex flex-column mobile-control bg-white rounded create-comment-box">
+                    <div className="padding-25 flex justify-content-center flex-column align-center width-100-mobile">
                         <h2 className="color-dark-blue">افزودن نظر</h2>
                         <textarea className="textarea" placeholder="توضیحات خود را اضافه کنید تا پس از بررسی منتشر گردد..." onChange={captionChange} name="caption" value={caption}></textarea>
                         <div className="full-width flex flex-end mobile-center">
@@ -97,14 +111,14 @@ const Comments = (slug) => {
                                     <p className='font-bold margin-right-15'>{`${comment.user.first_name} ${comment.user.last_name}`}</p>
                                 </div>
 
-                                <div className='flex width-full flex-end'>
+                                <div className='flex flex-end margin-right-5'>
                                     <small className='font-bold bg-dark-blue color-white rounded padding-side'>{comment.written_at}</small>
                                 </div>
                             </div>
 
                         </div>
                         <hr></hr>
-                        <div className='flex flex-row width-full bg-gray rounded-xs align-center flex-start padding-15'>
+                        <div className='flex flex-row comment-card-caption align-center flex-start'>
                             <p className='text-justify flex flex-start width-full'>{comment.caption}</p>
                         </div>
                     </div>

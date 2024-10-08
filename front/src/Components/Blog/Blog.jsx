@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import Posts from "../Posts/Posts";
 import { useLocation } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function Blog(){
@@ -21,6 +22,17 @@ function Blog(){
     const location = useLocation();
     const { cat, catID } = location.state || {};
 
+
+    
+    const successNotify = (msg) => {
+        toast.success(msg);
+    }
+
+
+    const errorNotify = (msg) => {
+        toast.error(msg);
+    }
+    
     useEffect(() => {
         fetchCategories();
         if (cat && catID){
@@ -78,6 +90,8 @@ function Blog(){
     return (
         <>
             <Header></Header>
+            <Toaster position="top-left" reverseOrder={false} />
+
             <div className="height-200"></div>
 
             <Categories Header="بر اساس دسته بندی" categoryList={categories} onFilter={categoryChange} >
@@ -88,7 +102,7 @@ function Blog(){
                     <div className="flex space-between padding-25 search-bar mobile-control">
                         <h1 className="color-white flex align-center text-control"><img src={process.env.PUBLIC_URL + "/static/images/icon/eduction.png"}></img>&nbsp;بلاگ آموزشی</h1>
                         <div className="flex align-center">
-                            <input type="text" id="search-blog" name="search-blog" placeholder="جستجو کنید..." onChange={handleQueryChange} value={query || ''} className="cta-txt-box"></input>
+                            <input type="text" id="search-blog" name="search-blog" placeholder="جستجو کنید..." onChange={handleQueryChange} value={query || ''} className="search-txt-box" />
                         </div>
                     </div>
                 </form>

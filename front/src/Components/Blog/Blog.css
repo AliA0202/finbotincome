@@ -1,3 +1,12 @@
 .search-bar{
-    background-color: #282f3f; border-radius: 25px;
+    background-image: linear-gradient(to right, #15264e, #253968) ; border-radius: 12px;
+}
+.search-txt-box{
+    border: 3px solid #11c077; padding: 10px 15px 10px 15px; border-radius: 35px; width: 400px;
+}
+
+@media screen and (max-width: 550px) {
+    .search-txt-box{
+        width: 200px;
+    }
 }

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import InfiniteScroll from 'react-infinite-scroll-component';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function Post({post, key}){
@@ -15,6 +16,15 @@ function Post({post, key}){
     const [posts, setPosts] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
+
+    const successNotify = (msg) => {
+        toast.success(msg);
+      }
+    
+    
+    const errorNotify = (msg) => {
+        toast.error(msg);
+    }
 
     let ids = [];
         
@@ -47,10 +57,13 @@ function Post({post, key}){
                 }
             }).then(response => response.status)
             .catch(err => console.warn(err));
-            console.log(response);
             if (response === 200 || response === 201){
                 document.getElementById(key).innerText = "bookmark_check";
+                successNotify("پست موردنظر ذخیره گردید!");
+            }else{
+                errorNotify("خطایی رخ داد");
             }
+
         } catch (err) {
             setError(err);
         }
@@ -75,7 +88,11 @@ function Post({post, key}){
         if (response === 200 || response === 204) {
             setPosts(prevPosts => prevPosts.filter(posts => posts.post.id !== key));
             document.getElementById(key).innerText = "bookmark";
-          }
+            successNotify("پست از لیست ذخیره شده ها حذف گردید!");
+        }else{
+            errorNotify("خطایی رخ داد");
+        }
+        console.log("Post: ", response);
 
         fetchPosts(page);
     };

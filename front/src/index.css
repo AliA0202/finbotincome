@@ -252,19 +252,19 @@ a:hover{
 
 .page-link {
     padding: 10px 15px;
-    border: 1px solid #007bff;
-    color: #007bff;
+    border: 1px solid #bd610c;
+    color: #bd610c;
     text-decoration: none;
     border-radius: 5px;
 }
 
 .page-link:hover {
-    background-color: #007bff;
-    color: white;
+    background-color: #bd610c;
+    color: white; cursor: pointer;
 }
 
 .active .page-link {
-    background-color: #007bff;
+    background-color: #bd610c;
     color: white;
 }
 .img-responsive-sm{
