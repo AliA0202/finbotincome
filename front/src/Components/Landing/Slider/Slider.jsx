@@ -8,7 +8,7 @@ function Slider(){
         <>
             <div className="flex flex-row slider-box align-center space-around just-slider">
                 <div className="flex padding-15">
-                    <img src={process.env.PUBLIC_URL + "/static/images/banner.png"} alt="Banner" className="banner-img img-responsive"></img>
+                    <img src={process.env.PUBLIC_URL + "/static/images/banner/vangogh.webp"} alt="Banner" className="banner-img img-responsive rounded-xs"></img>
                 </div>
 
                 <div className="flex flex-column">

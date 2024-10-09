@@ -2,7 +2,7 @@
     height: 100vh;
 }
 .banner-img{
-    max-width: 700px; filter: drop-shadow(0 0 12px #e49607);
+    max-width: 700px; box-shadow: 3px 3px 12px 3px #0000007a;
     animation-name: banner; position: relative;
     animation-duration: 4s; animation-iteration-count: infinite;
 }

@@ -20,6 +20,7 @@ function Categories({ Header, categoryList, onFilter }) {
 
                     <div className="card" onClick={() => onFilter(-1)}>
                         <div className="card-link">
+                            <img src={process.env.PUBLIC_URL + "/static/images/category.jpg"} alt="همه دسته بندی ها" className="cat-img"></img>
                             <div className="cat-overlay"></div>
                             <h1 className="color-dark-blue cat-text">همه دسته‌بندی ها</h1>
                         </div>
