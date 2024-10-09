@@ -89,7 +89,6 @@ const Comments = (slug) => {
                 </form>
             </div>
 
-            <h2 className="color-dark-blue">نظرات کاربران</h2>
             <InfiniteScroll
                 dataLength={comments.length}
                 next={() => setPage((prevPage) => prevPage + 1)}
@@ -97,6 +96,7 @@ const Comments = (slug) => {
                 loader={<h4>در حال بارگذاری</h4>}
                 endMessage={<p>نظر بیشتری برای نمایش وجود ندارد...</p>}
             >
+                <div className='flex flex-row flex-wrap justify-content-center mobile-control overflow-x-scroll'>
                 {comments.map((comment) => (
                     <div className="flex comment-card flex-column align-center justify-content-center padding-25" key={comment.id}>
                         <div className='flex flex-row align-center comment-title'>
@@ -123,6 +123,7 @@ const Comments = (slug) => {
                         </div>
                     </div>
                 ))}
+                </div>
             </InfiniteScroll>
         </>
     );

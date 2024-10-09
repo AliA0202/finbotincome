@@ -7,8 +7,15 @@ nav{
     min-width: 120px; text-align: center; display: flex; align-items: center; justify-content: center; border-radius: 0;
 }
 .nav-link:hover{
-    transition: 0.3s; color: #967b4a;
+    transition: 0.3s; color: #000; background-color: #fff; border-radius: 35px;
 }
+.nav-link:hover .nav-icon-white{
+    color: #000; background-color: #fff;
+}
+.nav-icon-white{
+    color: #fff; font-size: 22px;
+}
+
 .nav-link-popup:hover{
     transition: 0.3s; color: #967b4a;
 }
@@ -17,7 +24,7 @@ nav{
     border-radius: 8px; padding: 8px 15px 8px 15px;
 }
 .nav-logo:hover .logo-text{
-    color: #967b4a; transition: 0.3s;
+    color: #cf5300; transition: 0.3s;
 }
 
 .logo-img{

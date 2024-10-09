@@ -2,6 +2,13 @@ import React, {useEffect,useState} from "react";
 import './Header.css';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom"
+import { FaBloggerB } from "react-icons/fa";
+import { MdOutlineContactSupport, MdSupport } from "react-icons/md";
+import { FcAbout } from "react-icons/fc";
+import { IoBusiness } from "react-icons/io5";
+import { RiAccountCircleFill } from "react-icons/ri";
+
+
 
 function Header(){
     const [profile, setProfile] = useState("");
@@ -37,21 +44,21 @@ function Header(){
             <nav className="flex space-between">
                 <div className="flex space-around navbar">
                     <Link to="/" className="nav-logo"><img src={process.env.PUBLIC_URL + "/static/images/logo.png"} className="logo-img"></img> <h1 className="logo-text">Finbotincome</h1></Link>
-                    <Link to="/blog" className="nav-link"><span className="material-symbols-outlined">sticky_note</span>&nbsp;بلاگ</Link>
-                    <Link to="/aboutus" className="nav-link"><span className="material-symbols-outlined">info</span>&nbsp;درباره ما</Link>
+                    <Link to="/blog" className="nav-link"><FaBloggerB className="nav-icon-white"/>&nbsp;بلاگ</Link>
+                    <Link to="/aboutus" className="nav-link"><IoBusiness className="nav-icon-white" />&nbsp;درباره ما</Link>
                     <button className="btn-menu" onClick={menuClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/menu.png"} alt="Menu" width="35" height="35"></img></button>
                 </div>
 
                 <div className="flex space-around">
                     { (localStorage.getItem('token') === null) ? (
                         <>
-                            <Link to="/login" className="nav-link"><span className="material-symbols-outlined">account_circle</span>&nbsp;
+                            <Link to="/login" className="nav-link"><RiAccountCircleFill className="nav-icon-white" />&nbsp;
                                 <span>حساب کاربری</span> 
                             </Link>
                         </>
                     ) : (
                         <>
-                            <Link to="/dashboard" className="nav-link"><span className="material-symbols-outlined">account_circle</span>&nbsp;
+                            <Link to="/dashboard" className="nav-link"><RiAccountCircleFill className="nav-icon-white" />&nbsp;
                                 <span>
                                 {profile}
                                 </span>
@@ -59,24 +66,24 @@ function Header(){
                         </>
                     )
                     }
-                    <Link to="/support" className="nav-link"><span className="material-symbols-outlined">support_agent</span>&nbsp;پشتیبانی</Link>
+                    <Link to="/support" className="nav-link"><MdSupport className="nav-icon-white" />&nbsp;پشتیبانی</Link>
                 </div>
 
                 <div className="popupMenu flex flex-column" id="popupMenu">
                     <div className="flex flex-end padding-left-45">
                         <button className="btn-menu" onClick={closeClick}><img src={process.env.PUBLIC_URL + "/static/images/icon/close.png"} alt="Menu" width="40" height="40"></img></button>
                     </div>
-                    <Link to="/blog" className="nav-link-popup"><span className="material-symbols-outlined">sticky_note</span>&nbsp;بلاگ</Link>
-                    <Link to="/aboutus" className="nav-link-popup"><span className="material-symbols-outlined">info</span>&nbsp;درباره ما</Link>
+                    <Link to="/blog" className="nav-link-popup"><FaBloggerB className="nav-icon-white"/>&nbsp;بلاگ</Link>
+                    <Link to="/aboutus" className="nav-link-popup"><IoBusiness className="nav-icon-white" />&nbsp;درباره ما</Link>
                     { (localStorage.getItem('token') === null) ? (
                         <>
-                            <Link to="/login" className="nav-link-popup"><span className="material-symbols-outlined">account_circle</span>&nbsp;
+                            <Link to="/login" className="nav-link-popup"><RiAccountCircleFill className="nav-icon-white" />&nbsp;
                                 <span>حساب کاربری</span> 
                             </Link>
                         </>
                     ) : (
                         <>
-                            <Link to="/dashboard" className="nav-link-popup"><span className="material-symbols-outlined">account_circle</span>&nbsp;
+                            <Link to="/dashboard" className="nav-link-popup"><RiAccountCircleFill className="nav-icon-white" />&nbsp;
                                 <span>
                                 {profile}
                                 </span>
@@ -84,7 +91,7 @@ function Header(){
                         </>
                     )
                     }
-                    <Link to="/support" className="nav-link-popup"><span className="material-symbols-outlined">support_agent</span>&nbsp;پشتیبانی</Link>
+                    <Link to="/support" className="nav-link-popup"><MdSupport className="nav-icon-white" />&nbsp;پشتیبانی</Link>
                 </div>
             </nav>
         </>

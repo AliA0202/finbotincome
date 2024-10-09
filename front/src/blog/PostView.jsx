@@ -91,7 +91,8 @@ function PostView() {
                         <div style={{ direction: 'rtl' }} className="post-content mobile-control padding-15 justify-content-center flex flex-column" id="post-content" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }} />
                     </>}
 
-                    <div className="flex flex-column margin-top-75 align-center bg-white padding-15 margin-top-75 border-dark-blue comment-box">
+                    <h2 className="color-dark-blue">نظرات کاربران</h2>
+                    <div className="flex flex-row flex-wrap mobile-center margin-top-75 align-center bg-white padding-15 margin-top-75 border-dark-blue comment-box">
                         <Comments slug={post.slug} />
                     </div>
                 </div>

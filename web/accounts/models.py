@@ -11,12 +11,12 @@ class User(AbstractUser):
         ('N', 'عادی'),
     )
 
-    phone = models.CharField(max_length=11, blank=True, null=True, validators=[Phone_Validator])
-    image = models.ImageField(upload_to="accounts/UserProfile/", blank=True, null=True)
-    user_type = models.CharField(max_length=1, choices=USER_TYPE_CHOICES, default="N")
-    email = models.EmailField(blank=True, null=True)
-    referral_code = models.CharField(max_length=55, blank=True, null=True)
-    score = models.IntegerField(default=0, blank=True, null=True)
+    phone = models.CharField(max_length=11, blank=True, null=True, validators=[Phone_Validator], verbose_name="تلفن")
+    image = models.ImageField(upload_to="accounts/UserProfile/", blank=True, null=True, verbose_name="تصویر پروفایل")
+    user_type = models.CharField(max_length=1, choices=USER_TYPE_CHOICES, default="N", verbose_name="نوع کاربر")
+    email = models.EmailField(blank=True, null=True, verbose_name="ایمیل")
+    referral_code = models.CharField(max_length=55, blank=True, null=True, verbose_name="کد رفرال کاربر")
+    score = models.IntegerField(default=0, blank=True, null=True, verbose_name="امتیاز")
 
     def __str__(self) -> str:
         return f"{self.username}"
